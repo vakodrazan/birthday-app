@@ -1,0 +1,49 @@
+img {
+    width: 50px;
+    max-width: 100%;
+    max-height: 100px;
+}
+
+.popupForm {
+	background: hsla(234, 100%, 22%, 0.733);
+    position: fixed;
+    height: 500px;
+	max-height: 100%;
+	width: 500px;
+	transition: all 0.25s;
+	top: 10%;
+	left: 30%;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+	--opacity: 0;
+	opacity: var(--opacity);
+	color: rgb(255, 255, 255);
+	padding: 2rem 0;
+	border-radius: 5px;
+}
+
+.popupForm fieldset {
+	border-radius: 5px;
+	transition: all 0.2s;
+	--scale: 0.3;
+	transform: scale(var(--scale));
+	display: flex;
+	flex-direction: column;
+	padding-block-end: 5px;
+}
+
+.popupForm.open {
+	--opacity: 1;
+	pointer-events: all;
+}
+
+.popupForm.open fieldset {
+	--scale: 1;
+}
+input {
+	width: 300px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
