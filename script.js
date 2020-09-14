@@ -100,6 +100,10 @@ const editPersonPopup = async idToEdit => {
 
         window.addEventListener('click', e => {
             destroyPopup(popupForm);
+        });
+        popupForm.addEventListener('submit', e => {
+            e.preventDefault();
+            console.log(e.target);
         })
     });
 }
