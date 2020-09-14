@@ -48,7 +48,7 @@ function wait(ms = 0) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function editPopup(popup) {
+async function destroyPopup(popup) {
     popup.classList.remove('open'); 
     await wait(500);
     popup.remove();
@@ -97,6 +97,10 @@ const editPersonPopup = async idToEdit => {
         document.body.appendChild(popupForm);
         await wait(50);
         popupForm.classList.add('open')
+
+        window.addEventListener('click', e => {
+            destroyPopup(popupForm);
+        })
     });
 }
 
