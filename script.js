@@ -80,8 +80,12 @@ const editPersonPopup = async idToEdit => {
 				<input type="url" name="picture" value="${people.picture}">
 			</fieldset>
 			<fieldset>
-				<label>Name</label>
-				<input type="text" name="name" value="${people.lastName} ${people.firstName}">
+				<label>lastName</label>
+				<input type="text" name="lastName" value="${people.lastName}">
+            </fieldset>
+            <fieldset>
+				<label>firstName</label>
+				<input type="text" name="firstName" value="${people.firstName}">
 			</fieldset>
 			<fieldset>
 				<label>Birth day</label>
@@ -99,12 +103,22 @@ const editPersonPopup = async idToEdit => {
         popupForm.classList.add('open')
 
         window.addEventListener('click', e => {
-            destroyPopup(popupForm);
+            if (e.target.closest('button.cancel')) {
+                destroyPopup(popupForm);
+            }
         });
         popupForm.addEventListener('submit', e => {
             e.preventDefault();
-            console.log(e.target);
-        })
+            people.picture = popupForm.picture.value;
+            people.lastName = popupForm.lastName.value;
+            people.firstName = popupForm.firstName.value;
+            people.birthday = popupForm.birthday.value;
+
+            displayList();
+			resolve(e.currentTarget.remove());
+            destroyPopup(popupForm);
+            console.log(people.firstName);
+        }, { once: true})
     });
 }
 
