@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Inter:400|Poppins:400');
+
+body {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
 img {
     width: 50px;
     max-width: 100%;
