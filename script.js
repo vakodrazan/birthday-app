@@ -76,15 +76,15 @@ const editPersonPopup = async idToEdit => {
         popupForm.classList.add('popupForm');
 		popupForm.insertAdjacentHTML('afterbegin', `
 			<fieldset>
-				<label>LastName</label>
-				<input type="text" name="picture" value="${people.picture}">
+				<label>Avantar</label>
+				<input type="url" name="picture" value="${people.picture}">
 			</fieldset>
 			<fieldset>
-				<label>FirstName</label>
+				<label>Name</label>
 				<input type="text" name="name" value="${people.lastName} ${people.firstName}">
 			</fieldset>
 			<fieldset>
-				<label>JobTitle</label>
+				<label>Birth day</label>
 				<input type="text" name="birthday" value="${people.birthday}">
 			</fieldset>
 			<div class="form-btn">
