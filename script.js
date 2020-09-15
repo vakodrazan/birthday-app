@@ -121,9 +121,9 @@ const editPersonPopup = async idToEdit => {
             people.firstName = popupForm.firstName.value;
             people.birthday = popupForm.birthday.value;
 
-            // displayList();
+            displayList();
             resolve(e.currentTarget.remove());
-            // destroyPopup(popupForm);
+            destroyPopup(popupForm);
             console.log(people.firstName);
         }, { once: true});
     });
@@ -170,7 +170,7 @@ const deletePersonPopup = async idToDelete => {
                 const deletePerson = peopleList.filter(person => person.id !== idToDelete);
                 peopleList = deletePerson;
                 displayList(deletePerson);
-                divButton.classList.remove('open');
+                destroyPopup(divButton);
             }
         });
 
