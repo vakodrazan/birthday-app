@@ -19,7 +19,7 @@ async function displayList() {
             person => `
                 <tr data-id="${person.id}">
                     <td>
-                        <img class="rounded-circle" src="${person.picture}" alt="">
+                        <img class="rounded-circle" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
                     </td>
                     <td>${person.lastName} ${person.firstName}</td>
                     <td>${person.birthday}</td>
@@ -56,7 +56,6 @@ async function destroyPopup(popup) {
 }
 
 const editPeson = e => {
-    console.log(e.target);
     // Set all the result here
     if (e.target.closest('button.edit')) {
         const tableRowEdit = e.target.closest('tr');
@@ -72,7 +71,6 @@ const editPersonPopup = async idToEdit => {
 
     return new Promise( async function(resolve) {
         const popupForm = document.createElement('form');
-        console.log(popupForm);
         popupForm.classList.add('popupForm');
 		popupForm.insertAdjacentHTML('afterbegin', `
 			<fieldset>
@@ -80,11 +78,11 @@ const editPersonPopup = async idToEdit => {
 				<input type="url" name="picture" value="${people.picture}">
 			</fieldset>
 			<fieldset>
-				<label>lastName</label>
+				<label>LastName</label>
 				<input type="text" name="lastName" value="${people.lastName}">
             </fieldset>
             <fieldset>
-				<label>firstName</label>
+				<label>FirstName</label>
 				<input type="text" name="firstName" value="${people.firstName}">
 			</fieldset>
 			<fieldset>
@@ -115,11 +113,46 @@ const editPersonPopup = async idToEdit => {
             people.birthday = popupForm.birthday.value;
 
             displayList();
-			resolve(e.currentTarget.remove());
+            resolve(e.currentTarget.remove());
             destroyPopup(popupForm);
-            console.log(people.firstName);
-        }, { once: true})
+            console.log(e.currentTarget);
+        }, { once: true});
     });
 }
 
+
+// Remove the person from the list
+
+const deletePerson = e => {
+    // call the function here
+    if (e.target.closest('button.delete')) {
+        const tableRow = e.target.closest('tr');
+        const id = tableRow.dataset.id;
+        deletePersonPopup(id);
+    }
+}
+
+const deletePersonPopup = async idToDelete => {
+    const peopleList = await fetchPeople();
+    console.log(peopleList.lastName);
+    const deletePerson = peopleList.filter(person => person.id !== idToDelete);
+    return new Promise( async function(resolve) {
+        const divButton = document.createElement('div');
+        divButton.classList.add('wrapper');
+        divButton.insertAdjacentHTML('afterbegin', `
+            <p>Are you sure you want to delete this person</strong>?</p>
+            <div class="d-flex flex-row justify-content-around">
+                <button class="cancel">Cancel</button>
+                <button class="remove">Delete</button>
+            </div>
+        `);
+
+        document.body.appendChild(divButton);
+        await wait(50)
+        divButton.classList.add("open");
+        console.log(divButton);
+    }, { once: true });
+}
+
 tbody.addEventListener('click', editPeson);
+tbody.addEventListener('click', deletePerson);
