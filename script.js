@@ -134,7 +134,6 @@ const deletePerson = e => {
 
 const deletePersonPopup = async idToDelete => {
     const peopleList = await fetchPeople();
-    console.log(peopleList.lastName);
     const deletePerson = peopleList.filter(person => person.id !== idToDelete);
     return new Promise( async function(resolve) {
         const divButton = document.createElement('div');
@@ -150,7 +149,13 @@ const deletePersonPopup = async idToDelete => {
         document.body.appendChild(divButton);
         await wait(50)
         divButton.classList.add("open");
-        console.log(divButton);
+
+        window.addEventListener('click', e => {
+            if (e.target.closest('button.cancel')) {
+                destroyPopup(divButton);
+            }
+        });
+
     }, { once: true });
 }
 
