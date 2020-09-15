@@ -14,28 +14,36 @@ async function fetchPeople() {
 // display the list of people
 async function displayList() {
     const people = await fetchPeople();
+    
     tbody.innerHTML = people
         .map(
-            person => `
-                <tr data-id="${person.id}">
-                    <td>
-                        <img class="rounded-circle" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
-                    </td>
-                    <td>${person.lastName} ${person.firstName}</td>
-                    <td>${person.birthday}</td>
-                    <td>
-                        <button class="edit" data-id="${person.id}">
-                            <img class="class="w-50 p-3" src="./assets/edit-icon.jpg" alt="">
-                        </button>
-                    </td>
-                    <td>
-                        <button class="delete" data-id="${person.id}">
-                            <img class="class="w-50 p-3" src="./assets/trash-icon.jpg" alt="">
-                        </button>
-                    </td>
-                </tr>
-            `
-        )
+            person => {
+                const date = new Date(person.birthday);
+                const day = date.getDate();
+                const month = date.getMonth();
+                const year = date.getFullYear();
+                const fullDate = `${day} / ${month} / ${year}`
+                // console.log( - );
+                return `
+                    <tr data-id="${person.id}">
+                        <td>
+                            <img class="rounded-circle" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
+                        </td>
+                        <td>${person.lastName} ${person.firstName}</td>
+                        <td>${fullDate}</td>
+                        <td>
+                            <button class="edit" data-id="${person.id}">
+                                <img class="class="w-50 p-3" src="./assets/edit-icon.jpg" alt="">
+                            </button>
+                        </td>
+                        <td>
+                            <button class="delete" data-id="${person.id}">
+                                <img class="class="w-50 p-3" src="./assets/trash-icon.jpg" alt="">
+                            </button>
+                        </td>
+                    </tr>
+                `
+            })
         .join('');
 }
 
@@ -112,10 +120,10 @@ const editPersonPopup = async idToEdit => {
             people.firstName = popupForm.firstName.value;
             people.birthday = popupForm.birthday.value;
 
-            displayList();
+            // displayList();
             resolve(e.currentTarget.remove());
-            destroyPopup(popupForm);
-            console.log(e.currentTarget);
+            // destroyPopup(popupForm);
+            console.log(people.firstName);
         }, { once: true});
     });
 }
@@ -135,6 +143,7 @@ const deletePerson = e => {
 const deletePersonPopup = async idToDelete => {
     const peopleList = await fetchPeople();
     const deletePerson = peopleList.filter(person => person.id !== idToDelete);
+
     return new Promise( async function(resolve) {
         const divButton = document.createElement('div');
         divButton.classList.add('wrapper');
@@ -155,7 +164,6 @@ const deletePersonPopup = async idToDelete => {
                 destroyPopup(divButton);
             }
         });
-
     }, { once: true });
 }
 
