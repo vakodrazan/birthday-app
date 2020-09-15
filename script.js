@@ -164,6 +164,13 @@ const deletePersonPopup = async idToDelete => {
                 destroyPopup(divButton);
             }
         });
+
+        window.addEventListener('click', e => {
+            if (e.target.closest('button.remove')) {
+                console.log('Delete me')
+            }
+        });
+
     }, { once: true });
 }
 
