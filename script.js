@@ -1,4 +1,5 @@
-// import { formatRelative } from 'date-fns/formatRelative';
+// import { format } from 'date-fns'
+
 const tbody = document.querySelector('tbody');
 
 // Get the data
@@ -22,7 +23,7 @@ async function displayList() {
                 const day = date.getDate();
                 const month = date.getMonth();
                 const year = date.getFullYear();
-                const fullDate = `${day} / ${month} / ${year}`
+                const fullDate = `${day} / ${month} / ${year}`;
                 // console.log( - );
                 return `
                     <tr data-id="${person.id}">
@@ -141,8 +142,7 @@ const deletePerson = e => {
 }
 
 const deletePersonPopup = async idToDelete => {
-    const peopleList = await fetchPeople();
-    const deletePerson = peopleList.filter(person => person.id !== idToDelete);
+    let peopleList = await fetchPeople();
 
     return new Promise( async function(resolve) {
         const divButton = document.createElement('div');
@@ -151,7 +151,7 @@ const deletePersonPopup = async idToDelete => {
             <p>Are you sure you want to delete this person</strong>?</p>
             <div class="d-flex flex-row justify-content-around">
                 <button class="cancel">Cancel</button>
-                <button class="remove">Delete</button>
+                <button class="remove">Ok</button>
             </div>
         `);
 
@@ -167,7 +167,10 @@ const deletePersonPopup = async idToDelete => {
 
         window.addEventListener('click', e => {
             if (e.target.closest('button.remove')) {
-                console.log('Delete me')
+                const deletePerson = peopleList.filter(person => person.id !== idToDelete);
+                peopleList = deletePerson;
+                displayList(deletePerson);
+                divButton.classList.remove('open');
             }
         });
 
