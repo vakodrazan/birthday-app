@@ -53,3 +53,28 @@ input {
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
+.wrapper {
+	background: hsla(234, 100%, 22%, 0.733);
+	padding: 1rem;
+    position: fixed;
+    height: 300px;
+	max-height: 100%;
+	width: 400px;
+	transition: all 0.25s;
+	top: 10%;
+	left: 30%;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+	--opacity: 0;
+	opacity: var(--opacity);
+	color: rgb(255, 255, 255);
+	padding: 2rem 0;
+	border-radius: 5px;
+}
+
+.wrapper.open {
+	--opacity: 1;
+	pointer-events: all;
+}
