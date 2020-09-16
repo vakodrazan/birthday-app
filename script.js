@@ -75,8 +75,7 @@ async function fetchPeople() {
     }
 
     const editPersonPopup = async idToEdit => {
-        let people = persons.find(person => person.id === idToEdit);
-        
+        const people = persons.find(person => person.id === idToEdit);
         return new Promise( async function(resolve) {
             const popupForm = document.createElement('form');
             popupForm.classList.add('popupForm');
@@ -123,6 +122,7 @@ async function fetchPeople() {
                 displayList(people);
                 resolve(e.currentTarget.remove());
                 destroyPopup(popupForm);
+                tbody.dispatchEvent(new CustomEvent('updatePeopleLs'));
             }, { once: true });
 
         });
@@ -168,14 +168,34 @@ async function fetchPeople() {
                     persons = person;
                     displayList(person);
                     destroyPopup(divButton);
+                    tbody.dispatchEvent(new CustomEvent('updatePeopleLs'));
                 }
             });
         });
     }
 
+    const initLocalStorage = () => {
+        const personLs = JSON.parse(localStorage.getItem('persons'));
+        
+        if (personLs) {
+            persons = personLs;
+            displayList();
+        }
+        tbody.dispatchEvent(new CustomEvent('updatePeopleLs'));
+        
+    };
+    
+    const updateLocalStorage = () => {
+        localStorage.setItem('persons', JSON.stringify(persons));
+    };
+    
+
 
     tbody.addEventListener('click', editPeson);
     tbody.addEventListener('click', deletePerson);
+    tbody.addEventListener('updatePeopleLs', updateLocalStorage);
+
+    initLocalStorage();
 }
 
 fetchPeople();
