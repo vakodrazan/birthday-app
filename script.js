@@ -13,7 +13,9 @@ async function fetchPeople() {
     // return data;
 
     function generatePeopleList(people) {
-        return people.map(
+        return people
+            .sort((a, b) => b.birthday - a.birthday)
+            .map(
                 person => {
                     const date = new Date();
                     const currentDate = new Date(person.birthday);
@@ -27,8 +29,22 @@ async function fetchPeople() {
                             <td>
                                 <img class="rounded-circle" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
                             </td>
-                            <td>${person.lastName} ${person.firstName}</td>
-                            <td>${fullDate}</td>
+                            <td>
+                                <span>${person.lastName} ${person.firstName}</span>
+                                <p>
+                                    Turns ${personAge} on
+                                    ${new Date(person.birthday)
+                                        .toLocaleString("en-US", 
+                                        { day: "numeric" })}th of 
+                                    ${new Date(person.birthday)
+                                        .toLocaleString("en-US", 
+                                        { month: "long" })}
+                                </p>
+                            </td>
+                            <td>${new Date(person.birthday)
+                                .toLocaleString("en-US", 
+                                {day: "numeric"},  "yyy, mm, dd")} days
+                            </td>
                             <td>
                                 <button class="edit" data-id="${person.id}">
                                     <img class="class="w-50 p-3" src="./assets/edit-icon.jpg" alt="">
@@ -94,7 +110,7 @@ async function fetchPeople() {
                 </fieldset>
                 <fieldset>
                     <label>Birth day</label>
-                    <input type="text" name="birthday" value="${people.birthday}">
+                    <input type="date" name="birthday" value="${people.birthday}">
                 </fieldset>
                 <div class="form-btn">
                     <button type="button" class="cancel">Cancel</button>
