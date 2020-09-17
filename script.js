@@ -1,6 +1,10 @@
 // import { format } from 'date-fns'
 
 const tbody = document.querySelector('tbody');
+const addListBtn = document.querySelector('button.addList');
+const outerModal = document.querySelector('.outerModal');
+const innerModal = document.querySelector('innerModal');
+
 
 // Get the data
 const endpoint = './people.json';
@@ -10,6 +14,7 @@ async function fetchPeople() {
     const response = await fetch(endpoint);
     const data = await response.json();
     let persons = data;
+    
     // return data;
 
     function generatePeopleList(people) {
@@ -204,14 +209,22 @@ async function fetchPeople() {
     const updateLocalStorage = () => {
         localStorage.setItem('persons', JSON.stringify(persons));
     };
+
+    // ************* Modal ************* //
+
     
 
 
     tbody.addEventListener('click', editPeson);
     tbody.addEventListener('click', deletePerson);
+    
     tbody.addEventListener('updatePeopleLs', updateLocalStorage);
 
     initLocalStorage();
 }
 
+const handleAddListBtn = e => {
+    console.log("Open Modal");
+}
+addListBtn.addEventListener('click', handleAddListBtn);
 fetchPeople();
