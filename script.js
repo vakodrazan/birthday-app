@@ -3,7 +3,7 @@
 const tbody = document.querySelector('tbody');
 const addListBtn = document.querySelector('button.addList');
 const outerModal = document.querySelector('.outerModal');
-const innerModal = document.querySelector('innerModal');
+const innerModal = document.querySelector('.innerModal');
 
 
 // Get the data
@@ -124,7 +124,7 @@ async function fetchPeople() {
             `);
             document.body.appendChild(popupForm);
             await wait(50);
-            popupForm.classList.add('open')
+            popupForm.classList.add('open');
 
             // Cancel the Changes
             window.addEventListener('click', e => {
@@ -212,9 +212,65 @@ async function fetchPeople() {
 
     // ************* Modal ************* //
 
+    const handleAddBtn = e => {
+        if (e.target.closest('button.addList')) {
+            handleAddListBtn();
+        }
+    }
     
+    const handleAddListBtn = id => {
+        return new Promise( async function(resolve) {
+            const popupAddForm = document.createElement('form');
+            popupAddForm.classList.add('popupForm');
+            popupAddForm.insertAdjacentHTML('afterbegin',  `
+                <form class="modalForm">
+                    <fieldset>
+                        <label>What is your Avantar?</label>
+                        <input type="url" name="pic" value="https://bit.ly/35LplYa">
+                    </fieldset>
+                    <fieldset>
+                        <label>What is your LastName?</label>
+                        <input type="text" name="lastname" value="Marie">
+                    </fieldset>
+                    <fieldset>
+                        <label>What is your FirstName?</label>
+                        <input type="text" name="firstname" value="Noeline">
+                    </fieldset>
+                    <fieldset>
+                        <label>What is your Birth? day</label>
+                        <input type="date" name="birthDay" value="12/08/2002">
+                    </fieldset>
+                    <div class="form-btn">
+                        <button type="button" class="cancel">Cancel</button>
+                        <button type="submit" class="submit">Submit</button>
+                    </div>
+                </form>
+            `);
+            document.body.appendChild(popupAddForm);
+            popupAddForm.classList.add('open');
+            
+            popupAddForm.addEventListener('submit', e => {
+                e.preventDefault();
+                const form = e.currentTarget;
+    
+                const newPerso = {
+                    picture: form.pic.value,
+                    lastName: form.lastname.value,
+                    firstName: form.firstname.value,
+                    birthday: form.birthDay.value,
+                    id: Date.now()
+                }
+                console.log(newPerso);
+    
+                persons.push(newPerso);
+                displayList(persons);
+                destroyPopup(popupAddForm);
+                tbody.dispatchEvent(new CustomEvent('updatePeopleLs'));
+            })
+    })
+    }
 
-
+    addListBtn.addEventListener('click', handleAddBtn);
     tbody.addEventListener('click', editPeson);
     tbody.addEventListener('click', deletePerson);
     
@@ -222,9 +278,4 @@ async function fetchPeople() {
 
     initLocalStorage();
 }
-
-const handleAddListBtn = e => {
-    console.log("Open Modal");
-}
-addListBtn.addEventListener('click', handleAddListBtn);
 fetchPeople();
