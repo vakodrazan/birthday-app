@@ -78,3 +78,41 @@ input {
 	--opacity: 1;
 	pointer-events: all;
 }
+
+.addList {
+	position: fixed;
+	top: 10%;
+	left: 1rem;
+}
+
+
+/* =========== Modal style =========== */
+
+.outerModal {
+	display: grid;
+	place-items: center center;
+	background-color: hsla(0, 0%, 0%, 0.7);
+
+	/* modal specific */
+	pointer-events: none;
+	opacity: 0;
+	position: fixed;
+
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+}
+
+.outerModal.open {
+	opacity: 1;
+	pointer-events: all;
+}
+
+.innerModal {
+	background-color: white;
+	border-radius: 10px;
+	width: 230px;
+	padding: 0.3rem 1.3rem 1.3rem;
+	display: grid;
+}
