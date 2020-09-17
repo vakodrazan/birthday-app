@@ -1,5 +1,3 @@
-// import { format } from 'date-fns'
-
 const tbody = document.querySelector('tbody');
 const addListBtn = document.querySelector('button.addList');
 const outerModal = document.querySelector('.outerModal');
@@ -36,7 +34,7 @@ async function fetchPeople() {
                     const currentDay = currentDate.getDate();
                     const month = currentDate.getMonth() + 1;
                     const year = currentDate.getFullYear();
-                    const fullDate = `${currentDay} / ${month} / ${year}`;
+                    const fullDate = `${currentDay}${nthDate(currentDay)} / ${month} / ${year}`;
                     const personAge = date.getFullYear() - year;
 
 
@@ -48,15 +46,16 @@ async function fetchPeople() {
                             <td>
                                 <span>${person.lastName} ${person.firstName}</span>
                                 <p>
-                                    Turns ${personAge} on
-                                    ${new Date(person.birthday)
-                                        .toLocaleString("en-US", 
-                                        { day: "numeric" })} <sup>${nthDate(currentDay)}</sup> of 
+                                    Turns ${personAge} years old on the 
                                     ${new Date(person.birthday)
                                         .toLocaleString("en-US", 
                                         { month: "long" })}
+                                    ${new Date(person.birthday)
+                                        .toLocaleString("en-US", 
+                                        { day: "numeric" })}<sup>${nthDate(currentDay)}</sup> 
                                 </p>
                             </td>
+                            <td>${fullDate}</td>
                             <td>${new Date(person.birthday)
                                 .toLocaleString("en-US", 
                                 {day: "numeric"},  "yyy, mm, dd")} days
@@ -208,7 +207,6 @@ async function fetchPeople() {
 
     const initLocalStorage = () => {
         const personLs = JSON.parse(localStorage.getItem('persons'));
-        
         if (personLs) {
             persons = personLs;
             displayList();
@@ -277,8 +275,6 @@ async function fetchPeople() {
                     birthday: form.birthDay.value,
                     id: Date.now()
                 }
-                console.log(newPerso);
-    
                 persons.push(newPerso);
                 displayList(persons);
                 destroyPopup(popupAddForm);
