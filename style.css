@@ -81,8 +81,8 @@ input {
 
 .addList {
 	position: fixed;
-	top: 10%;
-	left: 1rem;
+	top: 5%;
+	left: 80%;
 }
 
 
@@ -110,9 +110,25 @@ input {
 }
 
 .innerModal {
-	background-color: white;
 	border-radius: 10px;
-	width: 230px;
-	padding: 0.3rem 1.3rem 1.3rem;
+	width: 500px;
 	display: grid;
+	color: #fff;
+	background-color: rgb(89, 247, 247);
+	padding: 1rem 2rem;
+}
+
+.modalForm {
+	background-color: rgb(6, 9, 240);
+	padding: 1rem;
+	 border-radius: 10px;
+}
+
+.modalForm fieldset {
+	border-radius: 5px;
+	transition: all 0.2s;
+	transform: scale(var(--scale));
+	display: flex;
+	flex-direction: column;
+	padding-block-end: 5px;
 }
