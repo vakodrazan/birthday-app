@@ -38,6 +38,7 @@ async function fetchPeople() {
                     const personAge = date.getFullYear() - year;
                     const futureAge = personAge + 1;
 
+
                     return `
                         <tr data-id="${person.id}">
                             <td>
@@ -56,9 +57,7 @@ async function fetchPeople() {
                                 </p>
                             </td>
                             <td>${fullDate}</td>
-                            <td>${new Date(person.birthday)
-                                .toLocaleString("en-US", 
-                                {day: "numeric"},  "yyy, mm, dd")} days
+                            <td>${currentDay} days
                             </td>
                             <td>
                                 <button class="edit" data-id="${person.id}">
