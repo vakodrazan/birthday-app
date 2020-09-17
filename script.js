@@ -96,7 +96,7 @@ async function fetchPeople() {
     }
 
     const editPersonPopup = async idToEdit => {
-        const people = persons.find(person => person.id === idToEdit);
+        const people = persons.find(person => person.id == idToEdit);
         return new Promise( async function(resolve) {
             const popupForm = document.createElement('form');
             popupForm.classList.add('popupForm');
@@ -185,7 +185,7 @@ async function fetchPeople() {
 
             window.addEventListener('click', e => {
                 if (e.target.closest('button.remove')) {
-                    let person = persons.filter(person => person.id !== idToDelete);
+                    let person = persons.filter(person => person.id != idToDelete);
                     persons = person;
                     displayList(person);
                     destroyPopup(divButton);
@@ -241,14 +241,20 @@ async function fetchPeople() {
                         <input type="date" name="birthDay" value="12/08/2002">
                     </fieldset>
                     <div class="form-btn">
-                        <button type="button" class="cancel">Cancel</button>
+                        <button type="button" class="cancelCond">Cancel</button>
                         <button type="submit" class="submit">Submit</button>
                     </div>
                 </form>
             `);
             document.body.appendChild(popupAddForm);
             popupAddForm.classList.add('open');
-            
+
+            window.addEventListener('click', e => {
+                if (e.target.closest('button.cancelCond')) {
+                    destroyPopup(popupAddForm);
+                }
+            })
+
             popupAddForm.addEventListener('submit', e => {
                 e.preventDefault();
                 const form = e.currentTarget;
@@ -266,8 +272,8 @@ async function fetchPeople() {
                 displayList(persons);
                 destroyPopup(popupAddForm);
                 tbody.dispatchEvent(new CustomEvent('updatePeopleLs'));
-            })
-    })
+            });
+    });
     }
 
     addListBtn.addEventListener('click', handleAddBtn);
