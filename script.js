@@ -29,14 +29,27 @@ async function fetchPeople() {
                             default: return "th"; 
                         }
                     }
-                    const date = new Date();
+                    const today = new Date();
                     const currentDate = new Date(person.birthday);
                     const currentDay = currentDate.getDate();
-                    const month = currentDate.getMonth() + 1;
+                    const month = currentDate.getMonth();
                     const year = currentDate.getFullYear();
-                    const fullDate = `${currentDay}${nthDate(currentDay)} / ${month} / ${year}`;
-                    const personAge = date.getFullYear() - year;
+                    const fullDate = `${currentDay}${nthDate(currentDay)}/ ${month + 1}/ ${year}`;
+                    const personAge = today.getFullYear() - year;
                     const futureAge = personAge + 1;
+
+                    const momentYear = today.getFullYear();
+                    const birthDayDate = new Date(momentYear, month, currentDay );
+                    console.log(birthDayDate);
+                    let oneDay=1000*60*60*24;
+                    const dayLeft = Math.ceil((birthDayDate.getTime()-today.getTime())/(oneDay))
+                    console.log(dayLeft);
+
+                    // if (dayLeft > 0) {
+                    //     return `${dayLeft}`;
+                    // } else {
+                    //     return `${dayLeft} ago`;
+                    // }
 
 
                     return `
@@ -57,7 +70,7 @@ async function fetchPeople() {
                                 </p>
                             </td>
                             <td>${fullDate}</td>
-                            <td>${currentDay} days
+                            <td>${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" : dayLeft + " days"}
                             </td>
                             <td>
                                 <button class="edit" data-id="${person.id}">
@@ -291,3 +304,10 @@ async function fetchPeople() {
     initLocalStorage();
 }
 fetchPeople();
+
+
+// let today=new Date();
+// var cmas=new Date(today.getFullYear(), 11, 25);
+// var one_day=1000*60*60*24;
+// console.log(Math.ceil((cmas.getTime()-today.getTime())/(one_day))+
+// " days left until Christmas!");
