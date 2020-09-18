@@ -17,7 +17,9 @@ async function fetchPeople() {
 
     function generatePeopleList(people) {
         return people
-            .sort((a, b) => b.birthday - a.birthday)
+            .sort( function(a, b) {
+                return new Date (a.birthday).getMonth() - new Date (b.birthday).getMonth();
+            })
             .map(
                 person => {
                     function nthDate(day) {
@@ -57,12 +59,14 @@ async function fetchPeople() {
                                     ${new Date(person.birthday)
                                         .toLocaleString("en-US", 
                                         { month: "long" })}
-                                    ${new Date(person.birthday)
-                                        .toLocaleString("en-US", 
-                                        { day: "numeric" })}<sup>${nthDate(currentDay)}</sup> 
+                                        <time datetime="${fullDate}">
+                                            ${new Date(person.birthday)
+                                                .toLocaleString("en-US", 
+                                                { day: "numeric" })}<sup>${nthDate(currentDay)}</sup>
+                                        </time> 
                                 </p>
                             </td>
-                            <td>${fullDate}</td>
+                            <td><time datetime="${fullDate}">${fullDate}</time></td>
                             <td>${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" : dayLeft + " days"}
                             </td>
                             <td>
