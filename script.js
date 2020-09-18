@@ -1,8 +1,8 @@
+// Call the existing element from html file
 const tbody = document.querySelector('tbody');
 const addListBtn = document.querySelector('button.addList');
 const outerModal = document.querySelector('.outerModal');
 const innerModal = document.querySelector('.innerModal');
-
 
 // Get the data
 const endpoint = './people.json';
@@ -12,16 +12,16 @@ async function fetchPeople() {
     const response = await fetch(endpoint);
     const data = await response.json();
     let persons = data;
-    
-    // return data;
 
     function generatePeopleList(people) {
         return people
             .sort( function(a, b) {
+                // Sort it by Month
                 return new Date (a.birthday).getMonth() - new Date (b.birthday).getMonth();
             })
             .map(
                 person => {
+                    // Get the prefix for the date 
                     function nthDate(day) {
                         if (day > 3 && day < 21) return "th";
                         switch (day % 10) {
@@ -31,6 +31,7 @@ async function fetchPeople() {
                             default: return "th"; 
                         }
                     }
+                    // Get the birthday date
                     const today = new Date();
                     const currentDate = new Date(person.birthday);
                     const currentDay = currentDate.getDate();
@@ -40,6 +41,7 @@ async function fetchPeople() {
                     const personAge = today.getFullYear() - year;
                     const futureAge = personAge;
 
+                    // ********** Counting date ******** \\
                     // Counting how many days left untill the person's birthday
                     const momentYear = today.getFullYear();
                     const birthDayDate = new Date(momentYear, month, currentDay );
@@ -105,8 +107,9 @@ async function fetchPeople() {
         popup = null;
     }
 
+    // ****** Edit ******* \\
     const editPeson = e => {
-        // Set all the result here
+        // Set all the result of the edit here
         if (e.target.closest('button.edit')) {
             const tableRowEdit = e.target.closest('tr');
             const id = tableRowEdit.dataset.id;
@@ -115,6 +118,7 @@ async function fetchPeople() {
     }
 
     const editPersonPopup = async idToEdit => {
+        // Do all the code about the edit function here
         const people = persons.find(person => person.id == idToEdit);
         return new Promise( async function(resolve) {
             const popupForm = document.createElement('form');
@@ -145,13 +149,14 @@ async function fetchPeople() {
             await wait(50);
             popupForm.classList.add('open');
 
-            // Cancel the Changes
+            // Reject the Changes
             window.addEventListener('click', e => {
                 if (e.target.closest('button.cancel')) {
                     destroyPopup(popupForm);
                 }
             });
 
+            // Submit the change
             popupForm.addEventListener('submit', e => {
                 e.preventDefault();
                 people.picture = popupForm.picture.value;
@@ -168,9 +173,8 @@ async function fetchPeople() {
         });
     }
 
-    
+    // ****** Delete ****** \\
     // Remove the person from the list
-
     const deletePerson = e => {
         // call the function here
         if (e.target.closest('button.delete')) {
@@ -181,6 +185,7 @@ async function fetchPeople() {
     }
 
     const deletePersonPopup = async idToDelete => {
+        // Code all thecondition about the delete list here
         return new Promise( async function(resolve) {
             const divButton = document.createElement('div');
             divButton.classList.add('wrapper');
@@ -195,13 +200,14 @@ async function fetchPeople() {
             await wait(50)
             divButton.classList.add("open");
 
+            // Reject it
             window.addEventListener('click', e => {
                 if (e.target.closest('button.cancelDel')) {
                     destroyPopup(divButton);
                 }
             });
 
-
+            // Remove the person
             window.addEventListener('click', e => {
                 if (e.target.closest('button.remove')) {
                     let person = persons.filter(person => person.id != idToDelete);
@@ -229,7 +235,7 @@ async function fetchPeople() {
         localStorage.setItem('persons', JSON.stringify(persons));
     };
 
-    // ************* Modal ************* \\
+    // ************* Add Person in the list ************* \\
 
     const handleAddBtn = e => {
         if (e.target.closest('button.addList')) {
@@ -256,12 +262,12 @@ async function fetchPeople() {
                         <input type="text" name="firstname" value="Noeline">
                     </fieldset>
                     <fieldset>
-                        <label>What is your Birth? day</label>
+                        <label>What is your Birthday date?</label>
                         <input type="date" name="birthDay" value="12/08/2002">
                     </fieldset>
                     <div class="form-btn">
-                        <button type="button" class="cancelCond">Cancel</button>
-                        <button type="submit" class="submit">Submit</button>
+                        <button type="button" class="cancelCond btn btn-warning">Cancel</button>
+                        <button type="submit" class="submit btn btn-warning">Submit</button>
                     </div>
                 </form>
             `);
@@ -293,10 +299,11 @@ async function fetchPeople() {
     });
     }
 
+    // ******** Listeners ******* \\
     addListBtn.addEventListener('click', handleAddBtn);
     tbody.addEventListener('click', editPeson);
     tbody.addEventListener('click', deletePerson);
-    
+    // Custom event
     tbody.addEventListener('updatePeopleLs', updateLocalStorage);
 
     initLocalStorage();
