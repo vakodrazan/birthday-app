@@ -187,8 +187,8 @@ async function fetchPeople() {
             divButton.insertAdjacentHTML('afterbegin', `
                 <p>Are you sure you want to delete this person</strong>?</p>
                 <div class="d-flex flex-row justify-content-around">
-                    <button class="cancelDel">Cancel</button>
-                    <button class="remove">Ok</button>
+                    <button class="cancelDel btn btn-danger">Cancel</button>
+                    <button class="remove btn btn-danger">Ok</button>
                 </div>
             `); 
             document.body.appendChild(divButton);
