@@ -36,20 +36,13 @@ async function fetchPeople() {
                     const year = currentDate.getFullYear();
                     const fullDate = `${currentDay}${nthDate(currentDay)}/ ${month + 1}/ ${year}`;
                     const personAge = today.getFullYear() - year;
-                    const futureAge = personAge + 1;
+                    const futureAge = personAge;
 
+                    // Counting how many days left untill the person's birthday
                     const momentYear = today.getFullYear();
                     const birthDayDate = new Date(momentYear, month, currentDay );
-                    console.log(birthDayDate);
                     let oneDay=1000*60*60*24;
-                    const dayLeft = Math.ceil((birthDayDate.getTime()-today.getTime())/(oneDay))
-                    console.log(dayLeft);
-
-                    // if (dayLeft > 0) {
-                    //     return `${dayLeft}`;
-                    // } else {
-                    //     return `${dayLeft} ago`;
-                    // }
+                    const dayLeft = Math.ceil((birthDayDate.getTime()-today.getTime())/(oneDay));
 
 
                     return `
@@ -140,8 +133,8 @@ async function fetchPeople() {
                     <input type="date" name="birthday" value="${people.birthday}">
                 </fieldset>
                 <div class="form-btn">
-                    <button type="button" class="cancel">Cancel</button>
-                    <button type="submit" class="submit">Save</button>
+                    <button type="button" class="cancel btn btn-warning">Cancel</button>
+                    <button type="submit" class="submit btn btn-warning">Save</button>
                 </div>
             `);
             document.body.appendChild(popupForm);
@@ -217,6 +210,7 @@ async function fetchPeople() {
         });
     }
 
+    // ************ Local storage ************* \\
     const initLocalStorage = () => {
         const personLs = JSON.parse(localStorage.getItem('persons'));
         if (personLs) {
@@ -231,7 +225,7 @@ async function fetchPeople() {
         localStorage.setItem('persons', JSON.stringify(persons));
     };
 
-    // ************* Modal ************* //
+    // ************* Modal ************* \\
 
     const handleAddBtn = e => {
         if (e.target.closest('button.addList')) {
@@ -304,10 +298,3 @@ async function fetchPeople() {
     initLocalStorage();
 }
 fetchPeople();
-
-
-// let today=new Date();
-// var cmas=new Date(today.getFullYear(), 11, 25);
-// var one_day=1000*60*60*24;
-// console.log(Math.ceil((cmas.getTime()-today.getTime())/(one_day))+
-// " days left until Christmas!");
