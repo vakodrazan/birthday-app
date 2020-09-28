@@ -161,7 +161,8 @@ async function fetchPeople() {
             popupAddForm.addEventListener('submit', e => {
                 e.preventDefault();
                 const form = e.currentTarget;
-    
+
+                // Create a new object for the new 
                 const newPerso = {
                     picture: form.pic.value,
                     lastName: form.lastname.value,
@@ -187,6 +188,16 @@ async function fetchPeople() {
         tbody.innerHTML = myHTML;
     }
 
+    const filterPersonMonth = e => {
+        const select = searchByMonth.value;
+        const filterPerson = persons.filter(person => {
+            // const dateMonth = new Date(person.birthday);
+            const getMonthOfBirth = new Date(person.birthday).toLocaleString("en-US", { month: "long" });
+            getMonthOfBirth.toLowerCase().includes(select.toLowerCase());
+        });
+        const myHTML = generatePeopleList(filterPerson);
+        tbody.innerHTML = myHTML;
+    }
 
     // ******** Listeners ******* \\
     addListBtn.addEventListener('click', handleAddBtn);
@@ -194,7 +205,8 @@ async function fetchPeople() {
     tbody.addEventListener('click', deletePerson);
     // Custom event
     tbody.addEventListener('updatePeopleLs', updateLocalStorage);
-    searchByName.addEventListener('input', filterPersonByName)
+    searchByName.addEventListener('input', filterPersonByName);
+    searchByMonth.addEventListener('input', filterPersonMonth)
 
     initLocalStorage();
 }
