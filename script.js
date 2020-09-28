@@ -1,9 +1,4 @@
-// Call the existing element from html file
-const tbody = document.querySelector('tbody');
-const addListBtn = document.querySelector('button.addList');
-const outerModal = document.querySelector('.outerModal');
-const innerModal = document.querySelector('.innerModal');
-
+import {tbody, addListBtn} from './libs/elements.js';
 // Get the data
 const endpoint = './people.json';
 
@@ -21,7 +16,7 @@ async function fetchPeople() {
             })
             .map(
                 person => {
-                    // Get the prefix for the date 
+                    // Get the suffix for the date 
                     function nthDate(day) {
                         if (day > 3 && day < 21) return "th";
                         switch (day % 10) {
@@ -37,7 +32,7 @@ async function fetchPeople() {
                     const currentDay = currentDate.getDate();
                     const month = currentDate.getMonth();
                     const year = currentDate.getFullYear();
-                    const fullDate = `${currentDay}${nthDate(currentDay)}/ ${month + 1}/ ${year}`;
+                    const fullDate = `${currentDay}${nthDate(currentDay)} / ${month + 1}/ ${year}`;
                     const personAge = today.getFullYear() - year;
                     const futureAge = personAge;
 
@@ -46,7 +41,8 @@ async function fetchPeople() {
                     const momentYear = today.getFullYear();
                     const birthDayDate = new Date(momentYear, month, currentDay );
                     let oneDay=1000*60*60*24;
-                    const dayLeft = Math.ceil((birthDayDate.getTime()-today.getTime())/(oneDay));
+                    const getTheDate = birthDayDate.getTime() - today.getTime();
+                    const dayLeft = Math.ceil(getTheDate / (oneDay));
 
 
                     return `
@@ -60,12 +56,13 @@ async function fetchPeople() {
                                     Turns ${futureAge} years old on the 
                                     ${new Date(person.birthday)
                                         .toLocaleString("en-US", 
-                                        { month: "long" })}
-                                        <time datetime="${fullDate}">
-                                            ${new Date(person.birthday)
-                                                .toLocaleString("en-US", 
-                                                { day: "numeric" })}<sup>${nthDate(currentDay)}</sup>
-                                        </time> 
+                                    { month: "long" })}
+                                    <time datetime="${fullDate}">
+                                        ${new Date(person.birthday)
+                                            .toLocaleString("en-US", 
+                                            { day: "numeric" })}
+                                            <sup>${nthDate(currentDay)}</sup>
+                                    </time> 
                                 </p>
                             </td>
                             <td><time datetime="${fullDate}">${fullDate}</time></td>
