@@ -191,9 +191,11 @@ async function fetchPeople() {
     const filterPersonMonth = e => {
         const select = searchByMonth.value;
         const filterPerson = persons.filter(person => {
-            // const dateMonth = new Date(person.birthday);
-            const getMonthOfBirth = new Date(person.birthday).toLocaleString("en-US", { month: "long" });
-            getMonthOfBirth.toLowerCase().includes(select.toLowerCase());
+            const getMonthOfBirth = new Date(person.birthday)
+            .toLocaleString("en-US", 
+            { month: "long" });
+
+            return getMonthOfBirth.toLowerCase().includes(select.toLowerCase());
         });
         const myHTML = generatePeopleList(filterPerson);
         tbody.innerHTML = myHTML;
