@@ -1,5 +1,6 @@
 import { tbody, addListBtn } from './libs/elements.js';
 import { generatePeopleList } from './libs/generate.js';
+import { wait, destroyPopup } from './libs/timing.js';
 // Get the data
 const endpoint = './people.json';
 
@@ -16,18 +17,6 @@ async function fetchPeople() {
     }
 
     displayList();
-
-    // Here are something to do with the popup
-
-    function wait(ms = 0) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-    async function destroyPopup(popup) {
-        popup.classList.remove('open'); 
-        await wait(500);
-        popup.remove();
-        popup = null;
-    }
 
     // ****** Edit ******* \\
     const editPeson = e => {
