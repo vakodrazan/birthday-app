@@ -181,10 +181,10 @@ async function fetchPeople() {
 
     // Filter the person from the list by searching their name
     const filterPersonByName = () => {
-        // console.log(displayList(persons));
         const input = searchByName.value;
         const searchPerson = persons.filter(person => person.lastName.toLowerCase().includes(input.toLowerCase()) || person.firstName.toLowerCase().includes(input.toLowerCase()));
-        console.log(searchPerson);
+        const myHTML = generatePeopleList(searchPerson);
+        tbody.innerHTML = myHTML;
     }
 
 
