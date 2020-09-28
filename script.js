@@ -103,7 +103,6 @@ async function fetchPeople() {
     const deletePersonPopup = async idToDelete => {
         // Code all thecondition about the delete list here
         return new Promise( async function(resolve) {
-            document.body.appendChild(divButton);
             await wait(50)
             divButton.classList.add("open");
 
@@ -148,10 +147,9 @@ async function fetchPeople() {
             handleAddListBtn();
         }
     }
-    
+
     const handleAddListBtn = id => {
         return new Promise( async function(resolve) {
-            document.body.appendChild(popupAddForm);
             popupAddForm.classList.add('open');
 
             window.addEventListener('click', e => {

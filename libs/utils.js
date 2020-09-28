@@ -25,6 +25,7 @@ popupAddForm.insertAdjacentHTML('afterbegin',  `
         </div>
     </form>
 `);
+document.body.appendChild(popupAddForm);
 
 // Create a div element that contains the two button for the delete,
 // Cancel the deletion or accept it 
@@ -37,3 +38,4 @@ divButton.insertAdjacentHTML('afterbegin', `
         <button class="remove btn btn-danger">Ok</button>
     </div>
 `);
+document.body.appendChild(divButton);
