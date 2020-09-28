@@ -1,7 +1,7 @@
 // ******* Importing ********* \\
 
 // Import all the export functions or elements that store in other files
-import { tbody, addListBtn } from './libs/elements.js';
+import { tbody, addListBtn, searchByName, searchByMonth } from './libs/elements.js';
 import { generatePeopleList } from './libs/generate.js';
 import { wait, destroyPopup } from './libs/timing.js';
 import { popupAddForm, divButton } from './libs/utils.js';
@@ -177,12 +177,24 @@ async function fetchPeople() {
         });
     }
 
+    // *********** Filter ********* \\
+
+    // Filter the person from the list by searching their name
+    const filterPersonByName = () => {
+        // console.log(displayList(persons));
+        const input = searchByName.value;
+        const searchPerson = persons.filter(person => person.lastName.toLowerCase().includes(input.toLowerCase()) || person.firstName.toLowerCase().includes(input.toLowerCase()));
+        console.log(searchPerson);
+    }
+
+
     // ******** Listeners ******* \\
     addListBtn.addEventListener('click', handleAddBtn);
     tbody.addEventListener('click', editPeson);
     tbody.addEventListener('click', deletePerson);
     // Custom event
     tbody.addEventListener('updatePeopleLs', updateLocalStorage);
+    searchByName.addEventListener('input', filterPersonByName)
 
     initLocalStorage();
 }
