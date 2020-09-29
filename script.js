@@ -233,7 +233,8 @@ async function fetchPeople() {
     }
     const resteInputSearch = e => {
         console.log(e.target);
-    }
+        displayList();
+    }   
 
     // ******** Listeners ******* \\
     addListBtn.addEventListener('click', handleAddBtn);
