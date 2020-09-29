@@ -1,7 +1,7 @@
 // ******* Importing ********* \\
 
 // Import all the export functions or elements that store in other files
-import { tbody, addListBtn, searchByName, searchByMonth } from './libs/elements.js';
+import { tbody, addListBtn, searchByName, searchByMonth, resetSearch } from './libs/elements.js';
 import { generatePeopleList } from './libs/generate.js';
 import { wait, destroyPopup } from './libs/timing.js';
 import { divButton } from './libs/utils.js';
@@ -231,6 +231,9 @@ async function fetchPeople() {
         const myHTML = generatePeopleList(filterPerson);
         tbody.innerHTML = myHTML;
     }
+    const resteInputSearch = e => {
+        console.log(e.target);
+    }
 
     // ******** Listeners ******* \\
     addListBtn.addEventListener('click', handleAddBtn);
@@ -239,7 +242,8 @@ async function fetchPeople() {
     // Custom event
     tbody.addEventListener('updatePeopleLs', updateLocalStorage);
     searchByName.addEventListener('input', filterPersonByName);
-    searchByMonth.addEventListener('input', filterPersonMonth)
+    searchByMonth.addEventListener('input', filterPersonMonth);
+    resetSearch.addEventListener('click', resteInputSearch);
 
     initLocalStorage();
 }
