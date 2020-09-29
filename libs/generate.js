@@ -22,17 +22,16 @@ export function generatePeopleList(people) {
                 const currentDay = currentDate.getDate();
                 const month = currentDate.getMonth();
                 const year = currentDate.getFullYear();
-                const fullDate = `${currentDay}${nthDate(currentDay)} / ${month + 1}/ ${year}`;
-                const personAge = today.getFullYear() - year;
-                const futureAge = personAge;
+                const fullDate = `${currentDay}${nthDate(currentDay)} / ${month + 1} / ${year}`;
+                const futureAge = today.getFullYear() - year;
 
                 // ********** Counting date ******** \\
                 // Counting how many days left untill the person's birthday
                 const momentYear = today.getFullYear();
                 const birthDayDate = new Date(momentYear, month, currentDay );
-                let oneDay=1000*60*60*24;
+                let oneDay = 1000 * 60 * 60 * 24;
                 const getTheDate = birthDayDate.getTime() - today.getTime();
-                const dayLeft = Math.ceil(getTheDate / (oneDay));
+                const dayLeft = Math.ceil(getTheDate / oneDay);
 
 
                 return `
@@ -50,8 +49,7 @@ export function generatePeopleList(people) {
                                 <time datetime="${fullDate}">
                                     ${new Date(person.birthday)
                                         .toLocaleString("en-US", 
-                                        { day: "numeric" })}
-                                        <sup>${nthDate(currentDay)}</sup>
+                                        { day: "numeric" })}<sup>${nthDate(currentDay)}</sup>
                                 </time> 
                             </p>
                         </td>
