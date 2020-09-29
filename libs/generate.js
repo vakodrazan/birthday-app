@@ -42,7 +42,7 @@ export function generatePeopleList(people) {
                         <td>
                             <span class="persoName">${person.lastName} ${person.firstName}</span>
                             <p>
-                                Turns ${futureAge} years old on the 
+                                Turns ${futureAge <= 1 ? futureAge + " " + "year" : futureAge + " " + "years"} old on the 
                                 ${new Date(person.birthday)
                                     .toLocaleString("en-US", 
                                 { month: "long" })}
