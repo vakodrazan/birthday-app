@@ -4,7 +4,7 @@
 import { tbody, addListBtn, searchByName, searchByMonth } from './libs/elements.js';
 import { generatePeopleList } from './libs/generate.js';
 import { wait, destroyPopup } from './libs/timing.js';
-import { popupAddForm, divButton } from './libs/utils.js';
+import { divButton } from './libs/utils.js';
 
 // Get the data
 const endpoint = './people.json';
@@ -103,7 +103,8 @@ async function fetchPeople() {
     const deletePersonPopup = async idToDelete => {
         // Code all thecondition about the delete list here
         return new Promise( async function(resolve) {
-            await wait(50)
+            await wait(50);
+            document.body.appendChild(divButton);
             divButton.classList.add("open");
 
             // Reject it
@@ -150,7 +151,37 @@ async function fetchPeople() {
 
     const handleAddListBtn = id => {
         return new Promise( async function(resolve) {
+            // Create a popup form when clicking the add button
+            const popupAddForm = document.createElement('form');
+            popupAddForm.classList.add('popupForm');
+            popupAddForm.insertAdjacentHTML('afterbegin',  `
+                <form class="modalForm">
+                    <fieldset>
+                        <label>What is your Avantar?</label>
+                        <input type="url" name="pic" value="https://bit.ly/35LplYa">
+                    </fieldset>
+                    <fieldset>
+                        <label>What is your LastName?</label>
+                        <input type="text" name="lastname" value="Marie">
+                    </fieldset>
+                    <fieldset>
+                        <label>What is your FirstName?</label>
+                        <input type="text" name="firstname" value="Noeline">
+                    </fieldset>
+                    <fieldset>
+                        <label>What is your Birthday date?</label>
+                        <input type="date" name="birthDay" value="12/08/2002">
+                    </fieldset>
+                    <div class="form-btn">
+                        <button type="button" class="cancelCond btn btn-warning">Cancel</button>
+                        <button type="submit" class="submit btn btn-warning">Submit</button>
+                    </div>
+                </form>
+            `);
+
+            document.body.appendChild(popupAddForm);
             popupAddForm.classList.add('open');
+            
 
             window.addEventListener('click', e => {
                 if (e.target.closest('button.cancelCond')) {
