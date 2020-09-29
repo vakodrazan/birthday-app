@@ -218,7 +218,8 @@ async function fetchPeople() {
         const input = searchByName.value;
         const inputSearch = input.toLowerCase();
         // Filter the list by the firstname or lastname
-        const searchPerson = persons.filter(person => person.lastName.toLowerCase().includes(inputSearch));
+        const searchPerson = persons.filter(person => person.lastName.toLowerCase().includes(inputSearch) || 
+            person.firstName.toLowerCase().includes(inputSearch));
         const myHTML = generatePeopleList(searchPerson);
         tbody.innerHTML = myHTML;
     }
@@ -236,7 +237,6 @@ async function fetchPeople() {
             // Filter the list by the month of birth
             return getMonthOfBirth.toLowerCase().includes(select.toLowerCase());
         });
-
         const myHTML = generatePeopleList(filterPerson);
         tbody.innerHTML = myHTML;
     }
