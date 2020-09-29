@@ -9,6 +9,9 @@ img {
     max-width: 100%;
     max-height: 100px;
 }
+.persoName {
+	text-transform: capitalize;
+}
 
 .popupForm {
 	background: hsla(234, 100%, 22%, 0.733);
