@@ -40,7 +40,7 @@ export function generatePeopleList(people) {
                             <img class="rounded-circle" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
                         </td>
                         <td>
-                            <span>${person.lastName} ${person.firstName}</span>
+                            <span class="persoName">${person.lastName} ${person.firstName}</span>
                             <p>
                                 Turns ${futureAge} years old on the 
                                 ${new Date(person.birthday)
@@ -54,7 +54,9 @@ export function generatePeopleList(people) {
                             </p>
                         </td>
                         <td><time datetime="${fullDate}">${fullDate}</time></td>
-                        <td>${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" : dayLeft + " days"}
+                        <td>${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" :
+                            dayLeft <= 1 ? dayLeft + " " + "day" :
+                            dayLeft + 'days'}
                         </td>
                         <td>
                             <button class="edit" data-id="${person.id}">
