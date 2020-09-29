@@ -1,7 +1,7 @@
 // ******* Importing ********* \\
 
 // Import all the export functions or elements that store in other files
-import { tbody, addListBtn, searchByName, searchByMonth, resetSearch } from './libs/elements.js';
+import { tbody, addListBtn, searchByName, searchByMonth, resetSearch, formSearch } from './libs/elements.js';
 import { generatePeopleList } from './libs/generate.js';
 import { wait, destroyPopup } from './libs/timing.js';
 import { divButton } from './libs/utils.js';
@@ -189,6 +189,7 @@ async function fetchPeople() {
                 }
             })
 
+            // Listen to the submit event
             popupAddForm.addEventListener('submit', e => {
                 e.preventDefault();
                 const form = e.currentTarget;
@@ -213,28 +214,38 @@ async function fetchPeople() {
 
     // Filter the person from the list by searching their name
     const filterPersonByName = () => {
+        // Get the value of the input
         const input = searchByName.value;
-        const searchPerson = persons.filter(person => person.lastName.toLowerCase().includes(input.toLowerCase()) || person.firstName.toLowerCase().includes(input.toLowerCase()));
+        const inputSearch = input.toLowerCase();
+        // Filter the list by the firstname or lastname
+        const searchPerson = persons.filter(person => person.lastName.toLowerCase().includes(inputSearch));
         const myHTML = generatePeopleList(searchPerson);
         tbody.innerHTML = myHTML;
     }
 
+    // Filter by month
     const filterPersonMonth = e => {
+        // Get the value of the select input
         const select = searchByMonth.value;
         const filterPerson = persons.filter(person => {
+            // Change the month of birth into string
             const getMonthOfBirth = new Date(person.birthday)
             .toLocaleString("en-US", 
-            { month: "long" });
+            { month: "long" }); 
 
+            // Filter the list by the month of birth
             return getMonthOfBirth.toLowerCase().includes(select.toLowerCase());
         });
+
         const myHTML = generatePeopleList(filterPerson);
         tbody.innerHTML = myHTML;
     }
+
+    // Reset the list
     const resteInputSearch = e => {
-        console.log(e.target);
+        formSearch.reset();
         displayList();
-    }   
+    }
 
     // ******** Listeners ******* \\
     addListBtn.addEventListener('click', handleAddBtn);
@@ -242,6 +253,7 @@ async function fetchPeople() {
     tbody.addEventListener('click', deletePerson);
     // Custom event
     tbody.addEventListener('updatePeopleLs', updateLocalStorage);
+    // Filter event
     searchByName.addEventListener('input', filterPersonByName);
     searchByMonth.addEventListener('input', filterPersonMonth);
     resetSearch.addEventListener('click', resteInputSearch);
