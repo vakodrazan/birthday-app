@@ -60,20 +60,21 @@ Good Luck
  This project was tough, even to get it set up. I was feeling confindent to work with local storage.
 
  - If I had more time, I woul do the sorting list which is from the soonest birthday date.
- - Then, I'll try to work on the filter, which need to select the birthday month. 
- - Then I would try another technic so that I can refactor it into smaller code.
+ 
+ - Then I would try another strategy so that I can refactor it as possible as it can be.
 
  ### Lessons learned: 
 
 I can strongly say that I have learned many thing in this project. I'm getting used to with local storage and edit, delete from the list
 
  - First of all, I knew that we cannot use parcel to run the program when fetching the data from a local json file. I have to open it with live server instead, here the problem came because I could not import the date from date-fns, so I have to use another strategy.
- - I also learn that we can change the date into string by using `toLocaleString()` we take which language to use and we can choose whether to use `numeric` or text by using `long`.
+ - I also learn that we can change the date into string by using `toLocaleString()` we take which language to use and we can choose whether to use `numeric` or text by using `long` keywords.
  - Getting more knowledge about refactoring the code by importing files.
- ### Biggest challeng: 
+ - I create a file that store the html that does nothing with the data. Then I noticed that when I submit with the form that I just add, it doubled the one I have submit before.
+
+ ### Biggest challenge: 
  - My first problem was to get date set up which I could not import date-fns. I have to find another way to get the date set up.
  - Then I wanted to sort the list by the soonest date untill the person's birthday come. I couldn't take the get it works. 
- - Then I started to work on the filter but I get stuck with the filter from the month of birth. When I filter it, but then nothing shows in the list.
 
  ### More explanation: 
  - I would like to have more explanation about, when to use parcel and live server.
