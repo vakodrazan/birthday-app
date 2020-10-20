@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css?family=Inter:400|Poppins:400');
+
+body {
+	font-family: 'Roboto', Arial, Helvetica, sans-serif;
+	background-color: #f8f5ee;
+}
+
+tbody {
+	background-color: #fffffe;
+}
+
+
+body > header {
+	background-color: #c3f0ca;
+}
+
+button:hover {
+	-webkit-box-shadow: 0px 10px 13px -7px #020826, 5px 5px 15px 5px rgba(0,0,0,0); 
+	box-shadow: 0px 10px 13px -7px #020826, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+
+
+h2 {
+	color: #ff8ba7;
+	text-shadow: 4px 3px 0 #ffc6c7;
+}
+
+main header p {
+	color: #594a4e;
+}
+
+h1 {
+	color: #ff8ba7;
+	text-shadow: 2px 2px 0 #bcbcbc, 4px 4px 0 #9c9c9c;
+}
+
+img {
+    width: 50px;
+    max-width: 100%;
+    max-height: 100px;
+}
+svg {
+	width: 30px;
+	max-width: 100%;
+}
+tr button {
+	border: none;
+	max-height: 100%;
+}
+.persoName {
+	text-transform: capitalize;
+}
+
+.popupForm {
+	background: hsla(234, 100%, 22%, 0.733);
+    position: fixed;
+    height: 500px;
+	max-height: 100%;
+	width: 500px;
+	transition: all 0.25s;
+	top: 10%;
+	left: 30%;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+	--opacity: 0;
+	opacity: var(--opacity);
+	color: rgb(255, 255, 255);
+	padding: 2rem 0;
+	border-radius: 5px;
+}
+
+.popupForm fieldset {
+	border-radius: 5px;
+	transition: all 0.2s;
+	--scale: 0.3;
+	transform: scale(var(--scale));
+	display: flex;
+	flex-direction: column;
+	padding-block-end: 5px;
+}
+
+.popupForm.open {
+	--opacity: 1;
+	pointer-events: all;
+}
+
+.popupForm.open fieldset {
+	--scale: 1;
+}
+input {
+	width: 300px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.wrapper {
+	background: hsla(234, 100%, 22%, 0.733);
+	padding: 1rem;
+    position: fixed;
+    height: 300px;
+	max-height: 100%;
+	width: 400px;
+	transition: all 0.25s;
+	top: 10%;
+	left: 30%;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+	--opacity: 0;
+	opacity: var(--opacity);
+	color: rgb(255, 255, 255);
+	padding: 2rem 0;
+	border-radius: 5px;
+}
+
+.wrapper.open {
+	--opacity: 1;
+	pointer-events: all;
+}
+
+.addList {
+	position: fixed;
+	top: 5%;
+	left: 80%;
+}
+
+
+/*# sourceMappingURL=/style.e308ff8e.css.map */
