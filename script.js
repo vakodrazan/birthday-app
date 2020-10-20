@@ -6,14 +6,15 @@ import { generatePeopleList } from './libs/generate.js';
 import { wait, destroyPopup } from './libs/timing.js';
 import { divButton } from './libs/utils.js';
 
+import peopleData from './people.json';
+
 // Get the data
 const endpoint = './people.json';
 
 // fetch data from the json file
 async function fetchPeople() {
-    const response = await fetch(endpoint);
-    const data = await response.json();
-    let persons = data;
+
+    let persons = peopleData;
 
     // display the list of people
     const displayList = () => {
