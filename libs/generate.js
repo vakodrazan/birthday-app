@@ -70,6 +70,7 @@ export function generatePeopleList(people) {
                         </td>
                     </tr>
                 `
-            })
+            }
+        )
         .join('');
 }

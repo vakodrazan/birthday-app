@@ -6,10 +6,9 @@ import { generatePeopleList } from './libs/generate.js';
 import { wait, destroyPopup } from './libs/timing.js';
 import { divButton } from './libs/utils.js';
 
+// Import the local file that contains the data
 import peopleData from './people.json';
 
-// Get the data
-const endpoint = './people.json';
 
 // fetch data from the json file
 async function fetchPeople() {
