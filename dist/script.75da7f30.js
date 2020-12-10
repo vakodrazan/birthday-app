@@ -123,10 +123,10 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.formSearch = exports.resetSearch = exports.searchByMonth = exports.searchByName = exports.addListBtn = exports.tbody = void 0;
+exports.formSearch = exports.resetSearch = exports.searchByMonth = exports.searchByName = exports.addListBtn = exports.article = void 0;
 // Call the existing element from html file
-const tbody = document.querySelector('tbody');
-exports.tbody = tbody;
+const article = document.querySelector('article.article-app');
+exports.article = article;
 const addListBtn = document.querySelector('button.addList');
 exports.addListBtn = addListBtn;
 const searchByName = document.querySelector('input.searchName');
@@ -185,11 +185,11 @@ function generatePeopleList(people) {
     const getTheDate = birthDayDate.getTime() - today.getTime();
     const dayLeft = Math.ceil(getTheDate / oneDay);
     return `
-                    <tr data-id="${person.id}"> 
-                        <td>
-                            <img class="rounded-circle" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
-                        </td>
-                        <td>
+                    <section data-id="${person.id}" class="d-flex align-items-center justify-content-between"> 
+                        <div>
+                            <img class="rounded" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
+                        </div>
+                        <div>
                             <span class="persoName">${person.lastName} ${person.firstName}</span>
                             <p>
                                 Turns ${futureAge <= 1 ? futureAge + " " + "year" : futureAge + " " + "years"} old on the 
@@ -202,21 +202,21 @@ function generatePeopleList(people) {
     })}<sup>${nthDate(currentDay)}</sup>
                                 </time> 
                             </p>
-                        </td>
-                        <td><time datetime="${fullDate}">${fullDate}</time></td>
-                        <td>${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" : dayLeft <= 1 ? dayLeft + " " + "day" : dayLeft + 'days'}
-                        </td>
-                        <td>
-                            <button class="edit" data-id="${person.id}">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                            </button>
-                        </td>
-                        <td>
-                            <button class="delete" data-id="${person.id}">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </td>
-                    </tr>
+                        </div>
+                        <div class="wrapper-actions">
+                            <span>
+                                ${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" : dayLeft <= 1 ? dayLeft + " " + "day" : dayLeft + 'days'}
+                            </span>
+                            <div class="actions">
+                                <button class="edit" data-id="${person.id}">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                </button>
+                                <button class="delete" data-id="${person.id}">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
                 `;
   }).join('');
 }
@@ -885,7 +885,7 @@ async function fetchPeople() {
 
   const displayList = () => {
     const html = (0, _generate.generatePeopleList)(persons);
-    _elements.tbody.innerHTML = html;
+    _elements.article.innerHTML = html;
   };
 
   displayList(); // ****** Edit ******* \\
@@ -893,7 +893,7 @@ async function fetchPeople() {
   const editPeson = e => {
     // Set all the result of the edit here
     if (e.target.closest('button.edit')) {
-      const tableRowEdit = e.target.closest('tr');
+      const tableRowEdit = e.target.closest('section');
       const id = tableRowEdit.dataset.id;
       editPersonPopup(id);
     }
@@ -947,7 +947,7 @@ async function fetchPeople() {
         resolve(e.currentTarget.remove());
         (0, _timing.destroyPopup)(popupForm);
 
-        _elements.tbody.dispatchEvent(new CustomEvent('updatePeopleLs'));
+        _elements.article.dispatchEvent(new CustomEvent('updatePeopleLs'));
       }, {
         once: true
       });
@@ -959,7 +959,7 @@ async function fetchPeople() {
   const deletePerson = e => {
     // call the function here
     if (e.target.closest('button.delete')) {
-      const tableRow = e.target.closest('tr');
+      const tableRow = e.target.closest('section');
       const id = tableRow.dataset.id;
       deletePersonPopup(id);
     }
@@ -987,7 +987,7 @@ async function fetchPeople() {
           displayList(person);
           (0, _timing.destroyPopup)(_utils.divButton);
 
-          _elements.tbody.dispatchEvent(new CustomEvent('updatePeopleLs'));
+          _elements.article.dispatchEvent(new CustomEvent('updatePeopleLs'));
         }
       });
     });
@@ -1002,7 +1002,7 @@ async function fetchPeople() {
       displayList();
     }
 
-    _elements.tbody.dispatchEvent(new CustomEvent('updatePeopleLs'));
+    _elements.article.dispatchEvent(new CustomEvent('updatePeopleLs'));
   };
 
   const updateLocalStorage = () => {
@@ -1025,19 +1025,19 @@ async function fetchPeople() {
                 <form class="modalForm">
                     <fieldset>
                         <label>What is your Avantar?</label>
-                        <input type="url" name="pic" value="https://bit.ly/35LplYa">
+                        <input type="url" name="pic" placeholder="Pictue url">
                     </fieldset>
                     <fieldset>
                         <label>What is your LastName?</label>
-                        <input type="text" name="lastname" value="Marie">
+                        <input type="text" name="lastname" placeholder="Type your lastname here">
                     </fieldset>
                     <fieldset>
                         <label>What is your FirstName?</label>
-                        <input type="text" name="firstname" value="Noeline">
+                        <input type="text" name="firstname" placeholder="Type your firstname here">
                     </fieldset>
                     <fieldset>
                         <label>What is your Birthday date?</label>
-                        <input type="date" name="birthDay" value="12/08/2002">
+                        <input type="date" name="birthDay" placeholder="Find your birth date">
                     </fieldset>
                     <div class="form-btn">
                         <button type="button" class="cancelCond btn btn-warning">Cancel</button>
@@ -1068,7 +1068,7 @@ async function fetchPeople() {
         displayList(persons);
         (0, _timing.destroyPopup)(popupAddForm);
 
-        _elements.tbody.dispatchEvent(new CustomEvent('updatePeopleLs'));
+        _elements.article.dispatchEvent(new CustomEvent('updatePeopleLs'));
       });
     });
   }; // *********** Filter ********* \\
@@ -1082,7 +1082,7 @@ async function fetchPeople() {
 
     const searchPerson = persons.filter(person => person.lastName.toLowerCase().includes(inputSearch) || person.firstName.toLowerCase().includes(inputSearch));
     const myHTML = (0, _generate.generatePeopleList)(searchPerson);
-    _elements.tbody.innerHTML = myHTML;
+    _elements.article.innerHTML = myHTML;
   }; // Filter by month
 
 
@@ -1098,7 +1098,7 @@ async function fetchPeople() {
       return getMonthOfBirth.toLowerCase().includes(select.toLowerCase());
     });
     const myHTML = (0, _generate.generatePeopleList)(filterPerson);
-    _elements.tbody.innerHTML = myHTML;
+    _elements.article.innerHTML = myHTML;
   }; // Reset the list
 
 
@@ -1111,12 +1111,12 @@ async function fetchPeople() {
 
   _elements.addListBtn.addEventListener('click', handleAddBtn);
 
-  _elements.tbody.addEventListener('click', editPeson);
+  _elements.article.addEventListener('click', editPeson);
 
-  _elements.tbody.addEventListener('click', deletePerson); // Custom event
+  _elements.article.addEventListener('click', deletePerson); // Custom event
 
 
-  _elements.tbody.addEventListener('updatePeopleLs', updateLocalStorage); // Filter event
+  _elements.article.addEventListener('updatePeopleLs', updateLocalStorage); // Filter event
 
 
   _elements.searchByName.addEventListener('input', filterPersonByName);
@@ -1157,7 +1157,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64157" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51712" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

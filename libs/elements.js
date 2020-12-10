@@ -1,5 +1,5 @@
 // Call the existing element from html file
-export const tbody = document.querySelector('tbody');
+export const article = document.querySelector('article.article-app');
 export const addListBtn = document.querySelector('button.addList');
 export const searchByName = document.querySelector('input.searchName');
 export const searchByMonth = document.querySelector('select.searchMonth');

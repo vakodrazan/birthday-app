@@ -35,11 +35,11 @@ export function generatePeopleList(people) {
 
 
                 return `
-                    <tr data-id="${person.id}"> 
-                        <td>
-                            <img class="rounded-circle" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
-                        </td>
-                        <td>
+                    <section data-id="${person.id}" class="d-flex align-items-center justify-content-between"> 
+                        <div>
+                            <img class="rounded" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
+                        </div>
+                        <div>
                             <span class="persoName">${person.lastName} ${person.firstName}</span>
                             <p>
                                 Turns ${futureAge <= 1 ? futureAge + " " + "year" : futureAge + " " + "years"} old on the 
@@ -52,23 +52,23 @@ export function generatePeopleList(people) {
                                         { day: "numeric" })}<sup>${nthDate(currentDay)}</sup>
                                 </time> 
                             </p>
-                        </td>
-                        <td><time datetime="${fullDate}">${fullDate}</time></td>
-                        <td>${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" :
-                            dayLeft <= 1 ? dayLeft + " " + "day" :
-                            dayLeft + 'days'}
-                        </td>
-                        <td>
-                            <button class="edit" data-id="${person.id}">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                            </button>
-                        </td>
-                        <td>
-                            <button class="delete" data-id="${person.id}">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
-                        </td>
-                    </tr>
+                        </div>
+                        <div class="wrapper-actions">
+                            <span>
+                                ${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" :
+                                dayLeft <= 1 ? dayLeft + " " + "day" :
+                                dayLeft + 'days'}
+                            </span>
+                            <div class="actions">
+                                <button class="edit" data-id="${person.id}">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                </button>
+                                <button class="delete" data-id="${person.id}">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
                 `
             }
         )

@@ -1,7 +1,7 @@
 // ******* Importing ********* \\
 
 // Import all the export functions or elements that store in other files
-import { tbody, addListBtn, searchByName, searchByMonth, resetSearch, formSearch } from './libs/elements.js';
+import { article, addListBtn, searchByName, searchByMonth, resetSearch, formSearch } from './libs/elements.js';
 import { generatePeopleList } from './libs/generate.js';
 import { wait, destroyPopup } from './libs/timing.js';
 import { divButton } from './libs/utils.js';
@@ -18,7 +18,7 @@ async function fetchPeople() {
     // display the list of people
     const displayList = () => {
         const html = generatePeopleList(persons);
-        tbody.innerHTML = html;
+        article.innerHTML = html;
     }
 
     displayList();
@@ -27,7 +27,7 @@ async function fetchPeople() {
     const editPeson = e => {
         // Set all the result of the edit here
         if (e.target.closest('button.edit')) {
-            const tableRowEdit = e.target.closest('tr');
+            const tableRowEdit = e.target.closest('section');
             const id = tableRowEdit.dataset.id;
             editPersonPopup(id);
         }
@@ -83,7 +83,7 @@ async function fetchPeople() {
                 displayList(people);
                 resolve(e.currentTarget.remove());
                 destroyPopup(popupForm);
-                tbody.dispatchEvent(new CustomEvent('updatePeopleLs'));
+                article.dispatchEvent(new CustomEvent('updatePeopleLs'));
             }, { once: true });
 
         });
@@ -94,7 +94,7 @@ async function fetchPeople() {
     const deletePerson = e => {
         // call the function here
         if (e.target.closest('button.delete')) {
-            const tableRow = e.target.closest('tr');
+            const tableRow = e.target.closest('section');
             const id = tableRow.dataset.id;
             deletePersonPopup(id);
         }
@@ -121,7 +121,7 @@ async function fetchPeople() {
                     persons = person;
                     displayList(person);
                     destroyPopup(divButton);
-                    tbody.dispatchEvent(new CustomEvent('updatePeopleLs'));
+                    article.dispatchEvent(new CustomEvent('updatePeopleLs'));
                 }
             });
         });
@@ -134,7 +134,7 @@ async function fetchPeople() {
             persons = personLs;
             displayList();
         }
-        tbody.dispatchEvent(new CustomEvent('updatePeopleLs'));
+        article.dispatchEvent(new CustomEvent('updatePeopleLs'));
     };
     
     const updateLocalStorage = () => {
@@ -158,19 +158,19 @@ async function fetchPeople() {
                 <form class="modalForm">
                     <fieldset>
                         <label>What is your Avantar?</label>
-                        <input type="url" name="pic" value="https://bit.ly/35LplYa">
+                        <input type="url" name="pic" placeholder="Pictue url">
                     </fieldset>
                     <fieldset>
                         <label>What is your LastName?</label>
-                        <input type="text" name="lastname" value="Marie">
+                        <input type="text" name="lastname" placeholder="Type your lastname here">
                     </fieldset>
                     <fieldset>
                         <label>What is your FirstName?</label>
-                        <input type="text" name="firstname" value="Noeline">
+                        <input type="text" name="firstname" placeholder="Type your firstname here">
                     </fieldset>
                     <fieldset>
                         <label>What is your Birthday date?</label>
-                        <input type="date" name="birthDay" value="12/08/2002">
+                        <input type="date" name="birthDay" placeholder="Find your birth date">
                     </fieldset>
                     <div class="form-btn">
                         <button type="button" class="cancelCond btn btn-warning">Cancel</button>
@@ -205,7 +205,7 @@ async function fetchPeople() {
                 persons.push(newPerso);
                 displayList(persons);
                 destroyPopup(popupAddForm);
-                tbody.dispatchEvent(new CustomEvent('updatePeopleLs'));
+                article.dispatchEvent(new CustomEvent('updatePeopleLs'));
             });
         });
     }
@@ -221,7 +221,7 @@ async function fetchPeople() {
         const searchPerson = persons.filter(person => person.lastName.toLowerCase().includes(inputSearch) || 
             person.firstName.toLowerCase().includes(inputSearch));
         const myHTML = generatePeopleList(searchPerson);
-        tbody.innerHTML = myHTML;
+        article.innerHTML = myHTML;
     }
 
     // Filter by month
@@ -238,7 +238,7 @@ async function fetchPeople() {
             return getMonthOfBirth.toLowerCase().includes(select.toLowerCase());
         });
         const myHTML = generatePeopleList(filterPerson);
-        tbody.innerHTML = myHTML;
+        article.innerHTML = myHTML;
     }
 
     // Reset the list
@@ -249,10 +249,10 @@ async function fetchPeople() {
 
     // ******** Listeners ******* \\
     addListBtn.addEventListener('click', handleAddBtn);
-    tbody.addEventListener('click', editPeson);
-    tbody.addEventListener('click', deletePerson);
+    article.addEventListener('click', editPeson);
+    article.addEventListener('click', deletePerson);
     // Custom event
-    tbody.addEventListener('updatePeopleLs', updateLocalStorage);
+    article.addEventListener('updatePeopleLs', updateLocalStorage);
     // Filter event
     searchByName.addEventListener('input', filterPersonByName);
     searchByMonth.addEventListener('input', filterPersonMonth);

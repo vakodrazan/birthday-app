@@ -25,6 +25,10 @@ h2 {
 	text-shadow: 4px 3px 0 #ffc6c7;
 }
 
+a {
+	text-decoration: none;
+}
+
 main header p {
 	color: #594a4e;
 }
@@ -34,19 +38,64 @@ h1 {
 	text-shadow: 2px 2px 0 #bcbcbc, 4px 4px 0 #9c9c9c;
 }
 
+.article-app {
+	display: grid;
+	gap: 20px;
+}
+
+section {
+	background-color: white;
+	padding: 10px;
+	gap: 5px;
+	border-radius: 10px;
+}
+
+.wrapper-actions,
+.actions {
+	display: grid;
+	gap: 10px;
+}
+
+.actions button {
+	background-color: white;
+	border: none;
+}
+
+.edit {
+	color: blue;
+}
+
+.delete {
+	color: red;
+}
+
+@media (min-width: 1140px) {
+	.actions {
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
+}
+
 img {
-    width: 50px;
-    max-width: 100%;
-    max-height: 100px;
+	max-width: 100%;
+	width: 100px;
 }
 svg {
 	width: 30px;
 	max-width: 100%;
 }
-tr button {
-	border: none;
-	max-height: 100%;
+
+footer {
+	text-align: center;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	color: #B9BDCF;
 }
+
+footer a {
+	color: rgb(104, 104, 212);
+}
+
 .persoName {
 	text-transform: capitalize;
 }
