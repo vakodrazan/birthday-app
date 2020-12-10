@@ -16,6 +16,7 @@ In this project, all I need is that showing a list of people sorted by the soone
  -  Also, you can search for people by typing their name (Firstname or lastname) and month of birth. But you can reset that search.
 
  - ***You can find the live app***: https://list-of-birthday-app.netlify.app/
+ - Design ![ScreenShoot](https://iili.io/KxZnwB.png)
 
  ## Author: 
  It is build by **Noeline Marie** front end developer At [Onja.org](https://onja.org)
