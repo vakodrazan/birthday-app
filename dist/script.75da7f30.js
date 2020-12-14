@@ -185,7 +185,7 @@ function generatePeopleList(people) {
     const getTheDate = birthDayDate.getTime() - today.getTime();
     const dayLeft = Math.ceil(getTheDate / oneDay);
     return `
-                    <section data-id="${person.id}" class="d-flex align-items-center justify-content-between"> 
+                    <section data-id="${person.id}" class="person-list"> 
                         <div>
                             <img class="rounded" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
                         </div>
@@ -1157,7 +1157,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51712" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53635" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

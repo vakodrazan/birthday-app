@@ -35,7 +35,7 @@ export function generatePeopleList(people) {
 
 
                 return `
-                    <section data-id="${person.id}" class="d-flex align-items-center justify-content-between"> 
+                    <section data-id="${person.id}" class="person-list"> 
                         <div>
                             <img class="rounded" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
                         </div>

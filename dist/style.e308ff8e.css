@@ -97,6 +97,12 @@ footer a {
 	color: rgb(104, 104, 212);
 }
 
+
+.person-list {
+	display: grid;
+	grid-template-columns: 1fr 2fr auto;
+}
+
 .persoName {
 	text-transform: capitalize;
 }
@@ -109,7 +115,7 @@ footer a {
 	width: 500px;
 	transition: all 0.25s;
 	top: 10%;
-	left: 30%;
+	left: 5%;
 	display: grid;
 	justify-content: center;
 	align-items: center;
@@ -153,7 +159,7 @@ input {
 	width: 400px;
 	transition: all 0.25s;
 	top: 10%;
-	left: 30%;
+	left: 5%;
 	display: grid;
 	justify-content: center;
 	align-items: center;
@@ -163,6 +169,16 @@ input {
 	color: rgb(255, 255, 255);
 	padding: 2rem 0;
 	border-radius: 5px;
+}
+
+@media (min-width: 650px) {
+	.popupForm {
+		left: 30%;
+	}
+
+	.wrapper {
+		left: 30%;
+	}
 }
 
 .wrapper.open {
