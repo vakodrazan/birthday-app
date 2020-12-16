@@ -108,21 +108,21 @@ footer a {
 }
 
 .popupForm {
-	background: hsla(234, 100%, 22%, 0.733);
+	background: #fff;
     position: fixed;
     height: 500px;
 	max-height: 100%;
-	width: 500px;
+	width: 90%;
 	transition: all 0.25s;
 	top: 10%;
-	left: 5%;
+	left: 0;
 	display: grid;
 	justify-content: center;
 	align-items: center;
 	pointer-events: none;
 	--opacity: 0;
 	opacity: var(--opacity);
-	color: rgb(255, 255, 255);
+	color: #000;
 	padding: 2rem 0;
 	border-radius: 5px;
 }
@@ -135,6 +135,7 @@ footer a {
 	display: flex;
 	flex-direction: column;
 	padding-block-end: 5px;
+	width: 100%;
 }
 
 .popupForm.open {
@@ -145,11 +146,21 @@ footer a {
 .popupForm.open fieldset {
 	--scale: 1;
 }
+
+
+
 input {
-	width: 300px;
+	width: 100%;
 	padding-top: 5px;
 	padding-bottom: 5px;
+	border-radius: 5px;
 }
+
+.popupForm input {
+	border: none;
+	background-color: #D8EEFE;
+}
+
 .wrapper {
 	background: hsla(234, 100%, 22%, 0.733);
 	padding: 1rem;
@@ -173,11 +184,11 @@ input {
 
 @media (min-width: 650px) {
 	.popupForm {
-		left: 30%;
+		left: 5%;
 	}
 
 	.wrapper {
-		left: 30%;
+		left: 2%;
 	}
 }
 

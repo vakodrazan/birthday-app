@@ -920,7 +920,7 @@ async function fetchPeople() {
                 </fieldset>
                 <fieldset>
                     <label>Birth day</label>
-                    <input type="date" name="birthday" value="${people.birthday}">
+                    <input type="text name="birthday" value="${new Date(people.birthday).toLocaleDateString()}">
                 </fieldset>
                 <div class="form-btn">
                     <button type="button" class="cancel btn btn-warning">Cancel</button>
