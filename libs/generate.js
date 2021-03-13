@@ -33,7 +33,6 @@ export function generatePeopleList(people) {
                 const getTheDate = birthDayDate.getTime() - today.getTime();
                 const dayLeft = Math.ceil(getTheDate / oneDay);
 
-
                 return `
                     <section data-id="${person.id}" class="person-list"> 
                         <div>
@@ -42,7 +41,7 @@ export function generatePeopleList(people) {
                         <div>
                             <span class="persoName">${person.lastName} ${person.firstName}</span>
                             <p>
-                                Turns ${futureAge <= 1 ? futureAge + " " + "year" : futureAge + " " + "years"} old on the 
+                                ${dayLeft < 0 ? "Turned" : "Turns"} ${futureAge} on 
                                 ${new Date(person.birthday)
                                     .toLocaleString("en-US", 
                                 { month: "long" })}

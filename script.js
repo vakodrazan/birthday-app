@@ -35,26 +35,27 @@ async function fetchPeople() {
 
     const editPersonPopup = async idToEdit => {
         // Do all the code about the edit function here
-        const people = persons.find(person => person.id == idToEdit);
+        const person = persons.find(person => person.id == idToEdit);
         return new Promise( async function(resolve) {
             const popupForm = document.createElement('form');
             popupForm.classList.add('popupForm');
+            const newDate = new Date(person.birthday).toLocaleDateString();
             popupForm.insertAdjacentHTML('afterbegin', `
                 <fieldset>
                     <label>Avantar</label>
-                    <input type="url" name="picture" value="${people.picture}">
+                    <input type="url" name="picture" value="${person.picture}">
                 </fieldset>
                 <fieldset>
                     <label>LastName</label>
-                    <input type="text" name="lastName" value="${people.lastName}">
+                    <input type="text" name="lastName" value="${person.lastName}">
                 </fieldset>
                 <fieldset>
                     <label>FirstName</label>
-                    <input type="text" name="firstName" value="${people.firstName}">
+                    <input type="text" name="firstName" value="${person.firstName}">
                 </fieldset>
                 <fieldset>
                     <label>Birth day</label>
-                    <input type="text name="birthday" value="${new Date(people.birthday).toLocaleDateString()}">
+                    <input type="text" name="birthday" value="${newDate}">
                 </fieldset>
                 <div class="form-btn">
                     <button type="button" class="cancel btn btn-warning">Cancel</button>
@@ -75,13 +76,13 @@ async function fetchPeople() {
             // Submit the change
             popupForm.addEventListener('submit', e => {
                 e.preventDefault();
-                people.picture = popupForm.picture.value;
-                people.lastName = popupForm.lastName.value;
-                people.firstName = popupForm.firstName.value;
-                people.birthday = popupForm.birthday.value;
+                person.picture = popupForm.picture.value;
+                person.lastName = popupForm.lastName.value;
+                person.firstName = popupForm.firstName.value;
+                person.birthday = popupForm.birthday.value;
 
-                displayList(people);
-                resolve(e.currentTarget.remove());
+                displayList(persons);
+                // resolve(e.currentTarget.remove());
                 destroyPopup(popupForm);
                 article.dispatchEvent(new CustomEvent('updatePeopleLs'));
             }, { once: true });
