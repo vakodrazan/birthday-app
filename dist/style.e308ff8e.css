@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Inter:400|Poppins:400');
-
 body {
-	font-family: 'Roboto', Arial, Helvetica, sans-serif;
-	background-color: #f8f5ee;
+	font-family: 'Rubik', sans-serif;
+	background-color: #D8EEFE;
+	color: #094067;
 }
 
 tbody {
@@ -105,6 +104,22 @@ footer a {
 
 .persoName {
 	text-transform: capitalize;
+	font-weight: 500;
+	font-size: 24px;
+}
+
+.personAge {
+	color: #5F6C7B;
+	font-weight: 500;
+}
+
+.age {
+	color: #EF4565;
+}
+
+.date {
+	color: #5F6C7B;
+	font-weight: 500;
 }
 
 .popupForm {
@@ -189,6 +204,18 @@ input {
 
 	.wrapper {
 		left: 42%;
+	}
+
+	.personAge {
+		font-size: 24px;
+	}
+
+	.persoName {
+		font-size: 36px;
+	}
+
+	.date {
+		font-size: 24px;
 	}
 }
 

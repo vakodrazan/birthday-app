@@ -40,8 +40,8 @@ export function generatePeopleList(people) {
                         </div>
                         <div>
                             <span class="persoName">${person.lastName} ${person.firstName}</span>
-                            <p>
-                                ${dayLeft < 0 ? "Turned" : "Turns"} ${futureAge} on 
+                            <p class="personAge">
+                                ${dayLeft < 0 ? "Turned" : "Turns"} <span class="age">${futureAge}</span> on 
                                 ${new Date(person.birthday)
                                     .toLocaleString("en-US", 
                                 { month: "long" })}
@@ -53,17 +53,24 @@ export function generatePeopleList(people) {
                             </p>
                         </div>
                         <div class="wrapper-actions">
-                            <span>
+                            <span class="date">
                                 ${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" :
                                 dayLeft <= 1 ? dayLeft + " " + "day" :
                                 dayLeft + 'days'}
                             </span>
                             <div class="actions">
                                 <button class="edit" data-id="${person.id}">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13.75 5H5C4.33696 5 3.70107 5.26339 3.23223 5.73223C2.76339 6.20107 2.5 6.83696 2.5 7.5V25C2.5 25.663 2.76339 26.2989 3.23223 26.7678C3.70107 27.2366 4.33696 27.5 5 27.5H22.5C23.163 27.5 23.7989 27.2366 24.2678 26.7678C24.7366 26.2989 25 25.663 25 25V16.25" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M23.125 3.125C23.6223 2.62772 24.2967 2.34835 25 2.34835C25.7033 2.34835 26.3777 2.62772 26.875 3.125C27.3723 3.62228 27.6517 4.29674 27.6517 5C27.6517 5.70326 27.3723 6.37772 26.875 6.875L15 18.75L10 20L11.25 15L23.125 3.125Z" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
                                 </button>
                                 <button class="delete" data-id="${person.id}">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    <svg width="30" height="22" viewBox="0 0 30 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M26.25 1H10L1.25 11L10 21H26.25C26.913 21 27.5489 20.7366 28.0178 20.2678C28.4866 19.7989 28.75 19.163 28.75 18.5V3.5C28.75 2.83696 28.4866 2.20107 28.0178 1.73223C27.5489 1.26339 26.913 1 26.25 1V1Z" stroke="#EF4565" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M22.5 7.25L15 14.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M15 7.25L22.5 14.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
                                 </button>
                             </div>
                         </div>
