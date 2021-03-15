@@ -39,7 +39,7 @@ export function generatePeopleList(people) {
                             <img class="rounded" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
                         </div>
                         <div>
-                            <span class="persoName">${person.lastName} ${person.firstName}</span>
+                            <span class="personName">${person.lastName} ${person.firstName}</span>
                             <p class="personAge">
                                 ${dayLeft < 0 ? "Turned" : "Turns"} <span class="age">${futureAge}</span> on 
                                 ${new Date(person.birthday)

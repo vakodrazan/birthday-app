@@ -190,7 +190,7 @@ function generatePeopleList(people) {
                             <img class="rounded" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
                         </div>
                         <div>
-                            <span class="persoName">${person.lastName} ${person.firstName}</span>
+                            <span class="personName">${person.lastName} ${person.firstName}</span>
                             <p class="personAge">
                                 ${dayLeft < 0 ? "Turned" : "Turns"} <span class="age">${futureAge}</span> on 
                                 ${new Date(person.birthday).toLocaleString("en-US", {
@@ -931,8 +931,8 @@ async function fetchPeople() {
                     <input type="text" name="birthday" value="${newDate}">
                 </fieldset>
                 <div class="form-btn">
-                    <button type="button" class="cancel btn btn-warning">Cancel</button>
-                    <button type="submit" class="submit btn btn-warning">Save</button>
+                <button type="submit" class="submit btn saveButton">Save changes</button>
+                <button type="button" class="cancel btn cancelButton">Cancel</button>
                 </div>
             `);
       document.body.appendChild(popupForm);
@@ -1107,13 +1107,6 @@ async function fetchPeople() {
     });
     const myHTML = (0, _generate.generatePeopleList)(filterPerson);
     _elements.article.innerHTML = myHTML;
-  }; // Reset the list
-
-
-  const resteInputSearch = e => {
-    _elements.formSearch.reset();
-
-    displayList();
   }; // ******** Listeners ******* \\
 
 
@@ -1130,8 +1123,6 @@ async function fetchPeople() {
   _elements.searchByName.addEventListener('input', filterPersonByName);
 
   _elements.searchByMonth.addEventListener('input', filterPersonMonth);
-
-  _elements.resetSearch.addEventListener('click', resteInputSearch);
 
   initLocalStorage();
 }
@@ -1165,7 +1156,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60622" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55045" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

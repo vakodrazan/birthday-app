@@ -1,7 +1,7 @@
 // ******* Importing ********* \\
 
 // Import all the export functions or elements that store in other files
-import { article, addListBtn, searchByName, searchByMonth, resetSearch, formSearch } from './libs/elements.js';
+import { article, addListBtn, searchByName, searchByMonth } from './libs/elements.js';
 import { generatePeopleList } from './libs/generate.js';
 import { wait, destroyPopup } from './libs/timing.js';
 import { divButton } from './libs/utils.js';
@@ -58,8 +58,8 @@ async function fetchPeople() {
                     <input type="text" name="birthday" value="${newDate}">
                 </fieldset>
                 <div class="form-btn">
-                    <button type="button" class="cancel btn btn-warning">Cancel</button>
-                    <button type="submit" class="submit btn btn-warning">Save</button>
+                <button type="submit" class="submit btn saveButton">Save changes</button>
+                <button type="button" class="cancel btn cancelButton">Cancel</button>
                 </div>
             `);
             document.body.appendChild(popupForm);
@@ -242,12 +242,6 @@ async function fetchPeople() {
         article.innerHTML = myHTML;
     }
 
-    // Reset the list
-    const resteInputSearch = e => {
-        formSearch.reset();
-        displayList();
-    }
-
     // ******** Listeners ******* \\
     addListBtn.addEventListener('click', handleAddBtn);
     article.addEventListener('click', editPeson);
@@ -257,7 +251,6 @@ async function fetchPeople() {
     // Filter event
     searchByName.addEventListener('input', filterPersonByName);
     searchByMonth.addEventListener('input', filterPersonMonth);
-    resetSearch.addEventListener('click', resteInputSearch);
 
     initLocalStorage();
 }

@@ -8,16 +8,16 @@ tbody {
 	background-color: #fffffe;
 }
 
-
-body > header {
-	background-color: #c3f0ca;
-}
-
 button:hover {
 	-webkit-box-shadow: 0px 10px 13px -7px #020826, 5px 5px 15px 5px rgba(0,0,0,0); 
 	box-shadow: 0px 10px 13px -7px #020826, 5px 5px 15px 5px rgba(0,0,0,0);
 }
 
+h1 {
+	font-weight: bold;
+	padding-top: 63px;
+	padding-bottom: 42px;
+}
 
 h2 {
 	color: #ff8ba7;
@@ -32,14 +32,8 @@ main header p {
 	color: #594a4e;
 }
 
-h1 {
-	color: #ff8ba7;
-	text-shadow: 2px 2px 0 #bcbcbc, 4px 4px 0 #9c9c9c;
-}
-
-.article-app {
-	display: grid;
-	gap: 20px;
+p {
+	margin: 0;
 }
 
 section {
@@ -50,8 +44,36 @@ section {
 	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.wrapper-actions,
-.actions {
+label {
+	margin: 0;
+}
+.article-app {
+	display: grid;
+	gap: 20px;
+}
+
+.formSearch {
+	padding-bottom: 47px;
+}
+
+.labelSearch {
+	padding-bottom: 13px;
+}
+
+.addList {
+	background: #EF4565;
+	padding-top: 15px;
+	padding-bottom: 14px;
+	padding-left: 18px;
+	padding-right: 18px;
+	color: white;
+}
+
+.addList:hover {
+	color: white;
+}
+
+.wrapper-actions {
 	display: grid;
 	gap: 10px;
 }
@@ -97,15 +119,25 @@ footer a {
 }
 
 
+fieldset {
+	margin: 0;
+	padding: 0;
+	padding-bottom: 20px;
+}
+
 .person-list {
 	display: grid;
 	grid-template-columns: 1fr 2fr auto;
+	padding-top: 22px;
+	padding-bottom: 22px;
 }
 
-.persoName {
+.personName {
 	text-transform: capitalize;
 	font-weight: 500;
-	font-size: 24px;
+	font-size: 18px;
+	color: black;
+	padding-bottom: 10px;
 }
 
 .personAge {
@@ -125,9 +157,9 @@ footer a {
 .popupForm {
 	background: #fff;
     position: fixed;
-    height: 500px;
+    height: 100%;
 	max-height: 100%;
-	width: 90%;
+	width: 100%;
 	transition: all 0.25s;
 	top: 10%;
 	left: 0;
@@ -171,6 +203,13 @@ input {
 	border-radius: 5px;
 }
 
+.filteringSeacrh {
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 15px;
+	padding-bottom: 14px;
+}
+
 .popupForm input {
 	border: none;
 	background-color: #D8EEFE;
@@ -197,7 +236,28 @@ input {
 	border-radius: 5px;
 }
 
+.saveButton {
+	background: #EF4565;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	padding-left: 20px;
+	padding-bottom: 20px;
+	color: #fff;
+}
+
+.cancelButton {
+	border: 2px solid #5F6C7B;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	padding-left: 20px;
+	padding-bottom: 20px;
+	color: #000;
+}
+
 @media (min-width: 650px) {
+	h1 {
+		font-size: 64px;
+	}
 	.popupForm {
 		left: 5%;
 	}
@@ -217,15 +277,36 @@ input {
 	.date {
 		font-size: 24px;
 	}
+
+	.formSearch {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 10px;
+	}
+
+	.inputSearch {
+		width: 35%;
+	}
+
+	.inputSearch {
+		padding: 0;
+	}
+
+	.person-list {
+		padding-left: 43px;
+		padding-right: 25px;
+	}
+}
+
+@media (min-width: 1140px) {
+	.inputSearch {
+		width: 40%;
+	}
 }
 
 .wrapper.open {
 	--opacity: 1;
 	pointer-events: all;
-}
-
-.addList {
-	position: fixed;
-	top: 5%;
-	left: 80%;
 }
