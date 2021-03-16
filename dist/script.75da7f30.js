@@ -1031,19 +1031,14 @@ async function fetchPeople() {
   }; // ************* Add Person in the list ************* \\
 
 
-  const handleAddBtn = e => {
-    if (e.target.closest('button.addList')) {
-      handleAddListBtn();
-    }
-  };
-
   const handleAddListBtn = id => {
     return new Promise(async function (resolve) {
       // Create a popup form when clicking the add button
       const popupAddForm = document.createElement('form');
-      popupAddForm.classList.add('popupForm');
+      popupAddForm.classList.add('innerPopup');
+      popupAddForm.classList.add('modalForm');
       popupAddForm.insertAdjacentHTML('afterbegin', `
-                <form class="modalForm">
+                <div class="modal-wrapper">
                     <fieldset>
                         <label>What is your Avantar?</label>
                         <input type="url" name="pic" placeholder="Pictue url">
@@ -1060,16 +1055,16 @@ async function fetchPeople() {
                         <label>What is your Birthday date?</label>
                         <input type="date" name="birthDay" placeholder="Find your birth date">
                     </fieldset>
-                    <div class="form-btn">
-                        <button type="button" class="cancelCond cancelButton">Cancel</button>
-                        <button type="submit" class="submit call-to-action">Submit</button>
-                    </div>
-                </form>
+                </div>
+                <div class="form-btn">
+                    <button type="button" class="cancel cancelButton">Cancel</button>
+                    <button type="submit" class="submit call-to-action">Submit</button>
+                </div>
             `);
       document.body.appendChild(popupAddForm);
       popupAddForm.classList.add('open');
       window.addEventListener('click', e => {
-        if (e.target.closest('button.cancelCond')) {
+        if (e.target.closest('button.cancel')) {
           (0, _timing.destroyPopup)(popupAddForm);
         }
       }); // Listen to the submit event
@@ -1092,6 +1087,12 @@ async function fetchPeople() {
         _elements.article.dispatchEvent(new CustomEvent('updatePeopleLs'));
       });
     });
+  };
+
+  const handleAddBtn = e => {
+    if (e.target.closest('button.addList')) {
+      handleAddListBtn();
+    }
   }; // *********** Filter ********* \\
   // Filter the person from the list by searching their name
 
