@@ -37,53 +37,66 @@ async function fetchPeople() {
         // Do all the code about the edit function here
         const person = persons.find(person => person.id == idToEdit);
         return new Promise( async function(resolve) {
-            const popupForm = document.createElement('form');
-            popupForm.classList.add('popupForm');
+            const popupElement = document.createElement('form');
+            popupElement.classList.add('innerPopup');
             const newDate = new Date(person.birthday).toLocaleDateString();
-            popupForm.insertAdjacentHTML('afterbegin', `
-                <fieldset>
-                    <label>Avantar</label>
-                    <input type="url" name="picture" value="${person.picture}">
-                </fieldset>
-                <fieldset>
-                    <label>LastName</label>
-                    <input type="text" name="lastName" value="${person.lastName}">
-                </fieldset>
-                <fieldset>
-                    <label>FirstName</label>
-                    <input type="text" name="firstName" value="${person.firstName}">
-                </fieldset>
-                <fieldset>
-                    <label>Birth day</label>
-                    <input type="text" name="birthday" value="${newDate}">
-                </fieldset>
-                <div class="form-btn">
-                <button type="submit" class="submit btn saveButton">Save changes</button>
-                <button type="button" class="cancel btn cancelButton">Cancel</button>
-                </div>
+            popupElement.insertAdjacentHTML('afterbegin', `
+                <button type="button" class="cancel cancel-button">
+                    <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M43.5 14.5L14.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.5 14.5L43.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <section class="content-wrapper">
+                    <header>
+                        <h2>Edit ${person.firstName} ${person.lastName}<h2>
+                    </header>
+                    <div class="content">
+                        <fieldset>
+                            <label>Avantar</label>
+                            <input type="url" name="picture" value="${person.picture}">
+                        </fieldset>
+                        <fieldset>
+                            <label>LastName</label>
+                            <input type="text" name="lastName" value="${person.lastName}">
+                        </fieldset>
+                        <fieldset>
+                            <label>FirstName</label>
+                            <input type="text" name="firstName" value="${person.firstName}">
+                        </fieldset>
+                        <fieldset>
+                            <label>Birth day</label>
+                            <input type="text" name="birthday" value="${newDate}">
+                        </fieldset>
+                        </div>
+                        <div class="form-btn">
+                            <button type="submit" class="submit call-to-action saveButton">Save changes</button>
+                            <button type="button" class="cancel cancelButton">Cancel</button>
+                        </div>
+                </section>
             `);
-            document.body.appendChild(popupForm);
+            document.body.appendChild(popupElement);
             await wait(50);
-            popupForm.classList.add('open');
+            popupElement.classList.add('open');
 
             // Reject the Changes
             window.addEventListener('click', e => {
                 if (e.target.closest('button.cancel')) {
-                    destroyPopup(popupForm);
+                    destroyPopup(popupElement);
                 }
             });
 
             // Submit the change
-            popupForm.addEventListener('submit', e => {
+            popupElement.addEventListener('submit', e => {
                 e.preventDefault();
-                person.picture = popupForm.picture.value;
-                person.lastName = popupForm.lastName.value;
-                person.firstName = popupForm.firstName.value;
-                person.birthday = popupForm.birthday.value;
+                person.picture = popupElement.picture.value;
+                person.lastName = popupElement.lastName.value;
+                person.firstName = popupElement.firstName.value;
+                person.birthday = popupElement.birthday.value;
 
                 displayList(persons);
                 // resolve(e.currentTarget.remove());
-                destroyPopup(popupForm);
+                destroyPopup(popupElement);
                 article.dispatchEvent(new CustomEvent('updatePeopleLs'));
             }, { once: true });
 
@@ -110,7 +123,7 @@ async function fetchPeople() {
 
             // Reject it
             window.addEventListener('click', e => {
-                if (e.target.closest('button.cancelDel')) {
+                if (e.target.closest('button.cancel')) {
                     destroyPopup(divButton);
                 }
             });
@@ -174,8 +187,8 @@ async function fetchPeople() {
                         <input type="date" name="birthDay" placeholder="Find your birth date">
                     </fieldset>
                     <div class="form-btn">
-                        <button type="button" class="cancelCond btn btn-warning">Cancel</button>
-                        <button type="submit" class="submit btn btn-warning">Submit</button>
+                        <button type="button" class="cancelCond cancelButton">Cancel</button>
+                        <button type="submit" class="submit call-to-action">Submit</button>
                     </div>
                 </form>
             `);

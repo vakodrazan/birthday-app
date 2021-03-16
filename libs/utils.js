@@ -4,8 +4,8 @@ export const divButton = document.createElement('div');
 divButton.classList.add('wrapper');
 divButton.insertAdjacentHTML('afterbegin', `
     <p>Are you sure you want to delete this person</strong>?</p>
-    <div class="d-flex flex-row justify-content-around">
-        <button class="cancelDel btn btn-danger">Cancel</button>
-        <button class="remove btn btn-danger">Ok</button>
+    <div class="button-wraper">
+        <button class="cancel cancelButton">Cancel</button>
+        <button class="remove call-to-action">Delete</button>
     </div>
 `);
