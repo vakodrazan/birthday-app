@@ -32,6 +32,7 @@ export function generatePeopleList(people) {
                 let oneDay = 1000 * 60 * 60 * 24;
                 const getTheDate = birthDayDate.getTime() - today.getTime();
                 const dayLeft = Math.ceil(getTheDate / oneDay);
+                const birthdayInDate = dayLeft < 0 ? 365 + dayLeft : dayLeft;
 
                 return `
                     <section data-id="${person.id}" class="person-list"> 
@@ -41,7 +42,7 @@ export function generatePeopleList(people) {
                         <div>
                             <span class="personName">${person.lastName} ${person.firstName}</span>
                             <p class="personAge">
-                                ${dayLeft < 0 ? "Turned" : "Turns"} <span class="age">${futureAge}</span> on 
+                                Turns <span class="age">${dayLeft ? futureAge + 1 : futureAge }</span> on 
                                 ${new Date(person.birthday)
                                     .toLocaleString("en-US", 
                                 { month: "long" })}
@@ -54,9 +55,7 @@ export function generatePeopleList(people) {
                         </div>
                         <div class="wrapper-actions">
                             <time datetime="${fullDate}" class="date">
-                                ${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" :
-                                dayLeft <= 1 ? dayLeft + " " + "day" :
-                                dayLeft + 'days'}
+                                    ${birthdayInDate > 1 ? `${birthdayInDate} days` : `${birthdayInDate} days`}
                             </time>
                             <div class="actions">
                                 <button class="edit" data-id="${person.id}">

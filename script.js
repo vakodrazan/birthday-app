@@ -9,6 +9,17 @@ import { divButton } from './libs/utils.js';
 // Import the local file that contains the data
 import peopleData from './people.json';
 
+// avoid scrolling
+
+const body = document.body;
+
+function hideScrollBar() {
+    body.style.overflowY = "hidden"
+}
+
+function showScrollBar() {
+    body.style.overflowY = "unset"
+}
 
 // fetch data from the json file
 async function fetchPeople() {
@@ -38,44 +49,52 @@ async function fetchPeople() {
         const person = persons.find(person => person.id == idToEdit);
         return new Promise( async function(resolve) {
             const popupElement = document.createElement('form');
-            popupElement.classList.add('innerPopup');
-            const newDate = new Date(person.birthday).toLocaleDateString();
+            popupElement.classList.add('outerPopup');
+            popupElement.classList.add("open")
+            const newDate = new Date(person.birthday).toISOString().slice(0, 10);
+            const maxDate = new Date().toISOString().slice(0, 10);
+
+
             popupElement.insertAdjacentHTML('afterbegin', `
-                <button type="button" class="cancel cancel-button">
-                    <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M43.5 14.5L14.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M14.5 14.5L43.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-                <section class="content-wrapper">
-                    <header>
-                        <h2>Edit ${person.firstName} ${person.lastName}<h2>
-                    </header>
-                    <div class="content">
-                        <fieldset>
-                            <label>Avantar</label>
-                            <input type="url" name="picture" value="${person.picture}">
-                        </fieldset>
-                        <fieldset>
-                            <label>LastName</label>
-                            <input type="text" name="lastName" value="${person.lastName}">
-                        </fieldset>
-                        <fieldset>
-                            <label>FirstName</label>
-                            <input type="text" name="firstName" value="${person.firstName}">
-                        </fieldset>
-                        <fieldset>
-                            <label>Birth day</label>
-                            <input type="text" name="birthday" value="${newDate}">
-                        </fieldset>
+                <div class="innerPopup">
+                    <div class="wrapper-content">
+                        <button type="button" class="cancel cancel-button">
+                            <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M43.5 14.5L14.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14.5 14.5L43.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <header class="title">
+                            <h2>Edit ${person.firstName} ${person.lastName}<h2>
+                        </header>
+                        <div class="content">
+                            <fieldset>
+                                <label>Avantar</label>
+                                <input type="url" name="picture" value="${person.picture}">
+                            </fieldset>
+                            <fieldset>
+                                <label>LastName</label>
+                                <input type="text" name="lastName" value="${person.lastName}">
+                            </fieldset>
+                            <fieldset>
+                                <label>FirstName</label>
+                                <input type="text" name="firstName" value="${person.firstName}">
+                            </fieldset>
+                            <fieldset>
+                                <label>Birth day</label>
+                                <input type="date" name="birthday" max="${maxDate}" value="${newDate}">
+                            </fieldset>
+                            </div>
+                            <div class="form-btn">
+                                <button type="submit" class="submit call-to-action saveButton">Save changes</button>
+                                <button type="button" class="cancel cancelButton">Cancel</button>
+                            </div>
                         </div>
-                        <div class="form-btn">
-                            <button type="submit" class="submit call-to-action saveButton">Save changes</button>
-                            <button type="button" class="cancel cancelButton">Cancel</button>
-                        </div>
-                </section>
+                    </div>
+                </div>
             `);
-            document.body.appendChild(popupElement);
+            hideScrollBar();
+            document.body.appendChild(popupElement)
             await wait(50);
             popupElement.classList.add('open');
 
@@ -83,6 +102,7 @@ async function fetchPeople() {
             window.addEventListener('click', e => {
                 if (e.target.closest('button.cancel')) {
                     destroyPopup(popupElement);
+                    showScrollBar()
                 }
             });
 
@@ -98,6 +118,7 @@ async function fetchPeople() {
                 // resolve(e.currentTarget.remove());
                 destroyPopup(popupElement);
                 article.dispatchEvent(new CustomEvent('updatePeopleLs'));
+                showScrollBar();
             }, { once: true });
 
         });
@@ -111,6 +132,7 @@ async function fetchPeople() {
             const tableRow = e.target.closest('section');
             const id = tableRow.dataset.id;
             deletePersonPopup(id);
+            hideScrollBar();
         }
     }
 
@@ -125,6 +147,7 @@ async function fetchPeople() {
             window.addEventListener('click', e => {
                 if (e.target.closest('button.cancel')) {
                     destroyPopup(divButton);
+                    showScrollBar();
                 }
             });
 
@@ -136,6 +159,7 @@ async function fetchPeople() {
                     displayList(person);
                     destroyPopup(divButton);
                     article.dispatchEvent(new CustomEvent('updatePeopleLs'));
+                    showScrollBar();
                 }
             });
         });
@@ -161,30 +185,42 @@ async function fetchPeople() {
         return new Promise( async function(resolve) {
             // Create a popup form when clicking the add button
             const popupAddForm = document.createElement('form');
-            popupAddForm.classList.add('innerPopup');
-            popupAddForm.classList.add('modalForm');
+            popupAddForm.classList.add('outerPopup');
+            popupAddForm.classList.add("open")
+            const maxDate = new Date().toISOString().slice(0, 10);
             popupAddForm.insertAdjacentHTML('afterbegin',  `
-                <div class="modal-wrapper">
-                    <fieldset>
-                        <label>What is your Avantar?</label>
-                        <input type="url" name="pic" placeholder="Pictue url">
-                    </fieldset>
-                    <fieldset>
-                        <label>What is your LastName?</label>
-                        <input type="text" name="lastname" placeholder="Type your lastname here">
-                    </fieldset>
-                    <fieldset>
-                        <label>What is your FirstName?</label>
-                        <input type="text" name="firstname" placeholder="Type your firstname here">
-                    </fieldset>
-                    <fieldset>
-                        <label>What is your Birthday date?</label>
-                        <input type="date" name="birthDay" placeholder="Find your birth date">
-                    </fieldset>
-                </div>
-                <div class="form-btn">
-                    <button type="button" class="cancel cancelButton">Cancel</button>
-                    <button type="submit" class="submit call-to-action">Submit</button>
+                <div class="innerPopup">
+                    <div class="wrapper-content">
+                        <button type="button" class="cancel cancel-button">
+                            <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M43.5 14.5L14.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14.5 14.5L43.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <header class="title">
+                            <h2>Add person to the list<h2>
+                        </header>
+                        <fieldset>
+                            <label>What is your Avantar?</label>
+                            <input type="url" name="pic" placeholder="Pictue url">
+                        </fieldset>
+                        <fieldset>
+                            <label>What is your LastName?</label>
+                            <input type="text" name="lastname" placeholder="Type your lastname here">
+                        </fieldset>
+                        <fieldset>
+                            <label>What is your FirstName?</label>
+                            <input type="text" name="firstname" placeholder="Type your firstname here">
+                        </fieldset>
+                        <fieldset>
+                            <label>What is your Birthday date?</label>
+                            <input type="date" name="birthDay" max="${maxDate}" placeholder="Find your birth date">
+                        </fieldset>
+                        <div class="form-btn">
+                            <button type="submit" class="submit call-to-action">Submit</button>
+                            <button type="button" class="cancel cancelButton">Cancel</button>
+                        </div>
+                    </div>
                 </div>
             `);
 
@@ -195,6 +231,7 @@ async function fetchPeople() {
             window.addEventListener('click', e => {
                 if (e.target.closest('button.cancel')) {
                     destroyPopup(popupAddForm);
+                    showScrollBar();
                 }
             })
 
@@ -215,6 +252,7 @@ async function fetchPeople() {
                 displayList(persons);
                 destroyPopup(popupAddForm);
                 article.dispatchEvent(new CustomEvent('updatePeopleLs'));
+                showScrollBar();
             });
         });
     }
@@ -222,28 +260,34 @@ async function fetchPeople() {
     const handleAddBtn = e => {
         if (e.target.closest('button.addList')) {
             handleAddListBtn();
+            hideScrollBar();
         }
     }
 
     // *********** Filter ********* \\
 
+    function filteredByNameAndMonth() {
+        const filteredByName = filterPersonByName(persons);
+        const filteredByNameAndMonth = filterPersonMonth(filteredByName);
+        const myHTML = generatePeopleList(filteredByNameAndMonth);
+        article.innerHTML = myHTML;
+    }
+
     // Filter the person from the list by searching their name
-    const filterPersonByName = () => {
+    function filterPersonByName(people){
         // Get the value of the input
         const input = searchByName.value;
         const inputSearch = input.toLowerCase();
         // Filter the list by the firstname or lastname
-        const searchPerson = persons.filter(person => person.lastName.toLowerCase().includes(inputSearch) || 
+        return people.filter(person => person.lastName.toLowerCase().includes(inputSearch) || 
             person.firstName.toLowerCase().includes(inputSearch));
-        const myHTML = generatePeopleList(searchPerson);
-        article.innerHTML = myHTML;
     }
 
     // Filter by month
-    const filterPersonMonth = e => {
+    function filterPersonMonth(people) {
         // Get the value of the select input
         const select = searchByMonth.value;
-        const filterPerson = persons.filter(person => {
+        const filterPerson = people.filter(person => {
             // Change the month of birth into string
             const getMonthOfBirth = new Date(person.birthday)
             .toLocaleString("en-US", 
@@ -252,8 +296,13 @@ async function fetchPeople() {
             // Filter the list by the month of birth
             return getMonthOfBirth.toLowerCase().includes(select.toLowerCase());
         });
-        const myHTML = generatePeopleList(filterPerson);
-        article.innerHTML = myHTML;
+        return filterPerson;
+    }
+
+    // Reset search form
+    const resteInputSearch = e => {
+        formSearch.reset();
+        displayList();
     }
 
     // ******** Listeners ******* \\
@@ -263,8 +312,8 @@ async function fetchPeople() {
     // Custom event
     article.addEventListener('updatePeopleLs', updateLocalStorage);
     // Filter event
-    searchByName.addEventListener('input', filterPersonByName);
-    searchByMonth.addEventListener('input', filterPersonMonth);
+    searchByName.addEventListener('input', filteredByNameAndMonth);
+    searchByMonth.addEventListener('input', filteredByNameAndMonth);
 
     initLocalStorage();
 }

@@ -184,6 +184,7 @@ function generatePeopleList(people) {
     let oneDay = 1000 * 60 * 60 * 24;
     const getTheDate = birthDayDate.getTime() - today.getTime();
     const dayLeft = Math.ceil(getTheDate / oneDay);
+    const birthdayInDate = dayLeft < 0 ? 365 + dayLeft : dayLeft;
     return `
                     <section data-id="${person.id}" class="person-list"> 
                         <div>
@@ -192,7 +193,7 @@ function generatePeopleList(people) {
                         <div>
                             <span class="personName">${person.lastName} ${person.firstName}</span>
                             <p class="personAge">
-                                ${dayLeft < 0 ? "Turned" : "Turns"} <span class="age">${futureAge}</span> on 
+                                Turns <span class="age">${dayLeft ? futureAge + 1 : futureAge}</span> on 
                                 ${new Date(person.birthday).toLocaleString("en-US", {
       month: "long"
     })}
@@ -205,7 +206,7 @@ function generatePeopleList(people) {
                         </div>
                         <div class="wrapper-actions">
                             <time datetime="${fullDate}" class="date">
-                                ${dayLeft < 0 ? dayLeft * -1 + " " + "days ago" : dayLeft <= 1 ? dayLeft + " " + "day" : dayLeft + 'days'}
+                                    ${birthdayInDate > 1 ? `${birthdayInDate} days` : `${birthdayInDate} days`}
                             </time>
                             <div class="actions">
                                 <button class="edit" data-id="${person.id}">
@@ -258,12 +259,22 @@ exports.divButton = void 0;
 // Cancel the deletion or accept it 
 const divButton = document.createElement('div');
 exports.divButton = divButton;
-divButton.classList.add('wrapper');
+divButton.classList.add('outerPopup');
 divButton.insertAdjacentHTML('afterbegin', `
-    <p>Are you sure you want to delete this person</strong>?</p>
-    <div class="button-wraper">
-        <button class="cancel cancelButton">Cancel</button>
-        <button class="remove call-to-action">Delete</button>
+    <div class="innerPopup wrapper-content-button">
+        <div class="wrapper-content">
+            <button type="button" class="cancel cancel-button">
+                <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M43.5 14.5L14.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14.5 14.5L43.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <p class="information">Are you sure you want to delete this person</strong>?</p>
+            <div class="button-wraper">
+                <button class="remove call-to-action">Delete</button>
+                <button class="cancel cancelButton">Cancel</button>
+            </div>
+        </div>
     </div>
 `);
 },{}],"people.json":[function(require,module,exports) {
@@ -886,7 +897,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // ******* Importing ********* \\
 // Import all the export functions or elements that store in other files
 // Import the local file that contains the data
-// fetch data from the json file
+// avoid scrolling
+const body = document.body;
+
+function hideScrollBar() {
+  body.style.overflowY = "hidden";
+}
+
+function showScrollBar() {
+  body.style.overflowY = "unset";
+} // fetch data from the json file
+
+
 async function fetchPeople() {
   let persons = _people.default; // display the list of people
 
@@ -911,43 +933,49 @@ async function fetchPeople() {
     const person = persons.find(person => person.id == idToEdit);
     return new Promise(async function (resolve) {
       const popupElement = document.createElement('form');
-      popupElement.classList.add('innerPopup');
-      const newDate = new Date(person.birthday).toLocaleDateString();
+      popupElement.classList.add('outerPopup');
+      popupElement.classList.add("open");
+      const newDate = new Date(person.birthday).toISOString().slice(0, 10);
+      const maxDate = new Date().toISOString().slice(0, 10);
       popupElement.insertAdjacentHTML('afterbegin', `
-                <button type="button" class="cancel cancel-button">
-                    <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M43.5 14.5L14.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M14.5 14.5L43.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-                <section class="content-wrapper">
-                    <header>
-                        <h2>Edit ${person.firstName} ${person.lastName}<h2>
-                    </header>
-                    <div class="content">
-                        <fieldset>
-                            <label>Avantar</label>
-                            <input type="url" name="picture" value="${person.picture}">
-                        </fieldset>
-                        <fieldset>
-                            <label>LastName</label>
-                            <input type="text" name="lastName" value="${person.lastName}">
-                        </fieldset>
-                        <fieldset>
-                            <label>FirstName</label>
-                            <input type="text" name="firstName" value="${person.firstName}">
-                        </fieldset>
-                        <fieldset>
-                            <label>Birth day</label>
-                            <input type="text" name="birthday" value="${newDate}">
-                        </fieldset>
+                <div class="innerPopup">
+                    <div class="wrapper-content">
+                        <button type="button" class="cancel cancel-button">
+                            <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M43.5 14.5L14.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14.5 14.5L43.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <header class="title">
+                            <h2>Edit ${person.firstName} ${person.lastName}<h2>
+                        </header>
+                        <div class="content">
+                            <fieldset>
+                                <label>Avantar</label>
+                                <input type="url" name="picture" value="${person.picture}">
+                            </fieldset>
+                            <fieldset>
+                                <label>LastName</label>
+                                <input type="text" name="lastName" value="${person.lastName}">
+                            </fieldset>
+                            <fieldset>
+                                <label>FirstName</label>
+                                <input type="text" name="firstName" value="${person.firstName}">
+                            </fieldset>
+                            <fieldset>
+                                <label>Birth day</label>
+                                <input type="date" name="birthday" max="${maxDate}" value="${newDate}">
+                            </fieldset>
+                            </div>
+                            <div class="form-btn">
+                                <button type="submit" class="submit call-to-action saveButton">Save changes</button>
+                                <button type="button" class="cancel cancelButton">Cancel</button>
+                            </div>
                         </div>
-                        <div class="form-btn">
-                            <button type="submit" class="submit call-to-action saveButton">Save changes</button>
-                            <button type="button" class="cancel cancelButton">Cancel</button>
-                        </div>
-                </section>
+                    </div>
+                </div>
             `);
+      hideScrollBar();
       document.body.appendChild(popupElement);
       await (0, _timing.wait)(50);
       popupElement.classList.add('open'); // Reject the Changes
@@ -955,6 +983,7 @@ async function fetchPeople() {
       window.addEventListener('click', e => {
         if (e.target.closest('button.cancel')) {
           (0, _timing.destroyPopup)(popupElement);
+          showScrollBar();
         }
       }); // Submit the change
 
@@ -969,6 +998,8 @@ async function fetchPeople() {
         (0, _timing.destroyPopup)(popupElement);
 
         _elements.article.dispatchEvent(new CustomEvent('updatePeopleLs'));
+
+        showScrollBar();
       }, {
         once: true
       });
@@ -983,6 +1014,7 @@ async function fetchPeople() {
       const tableRow = e.target.closest('section');
       const id = tableRow.dataset.id;
       deletePersonPopup(id);
+      hideScrollBar();
     }
   };
 
@@ -998,6 +1030,7 @@ async function fetchPeople() {
       window.addEventListener('click', e => {
         if (e.target.closest('button.cancel')) {
           (0, _timing.destroyPopup)(_utils.divButton);
+          showScrollBar();
         }
       }); // Remove the person
 
@@ -1009,6 +1042,8 @@ async function fetchPeople() {
           (0, _timing.destroyPopup)(_utils.divButton);
 
           _elements.article.dispatchEvent(new CustomEvent('updatePeopleLs'));
+
+          showScrollBar();
         }
       });
     });
@@ -1035,30 +1070,42 @@ async function fetchPeople() {
     return new Promise(async function (resolve) {
       // Create a popup form when clicking the add button
       const popupAddForm = document.createElement('form');
-      popupAddForm.classList.add('innerPopup');
-      popupAddForm.classList.add('modalForm');
+      popupAddForm.classList.add('outerPopup');
+      popupAddForm.classList.add("open");
+      const maxDate = new Date().toISOString().slice(0, 10);
       popupAddForm.insertAdjacentHTML('afterbegin', `
-                <div class="modal-wrapper">
-                    <fieldset>
-                        <label>What is your Avantar?</label>
-                        <input type="url" name="pic" placeholder="Pictue url">
-                    </fieldset>
-                    <fieldset>
-                        <label>What is your LastName?</label>
-                        <input type="text" name="lastname" placeholder="Type your lastname here">
-                    </fieldset>
-                    <fieldset>
-                        <label>What is your FirstName?</label>
-                        <input type="text" name="firstname" placeholder="Type your firstname here">
-                    </fieldset>
-                    <fieldset>
-                        <label>What is your Birthday date?</label>
-                        <input type="date" name="birthDay" placeholder="Find your birth date">
-                    </fieldset>
-                </div>
-                <div class="form-btn">
-                    <button type="button" class="cancel cancelButton">Cancel</button>
-                    <button type="submit" class="submit call-to-action">Submit</button>
+                <div class="innerPopup">
+                    <div class="wrapper-content">
+                        <button type="button" class="cancel cancel-button">
+                            <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M43.5 14.5L14.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14.5 14.5L43.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <header class="title">
+                            <h2>Add person to the list<h2>
+                        </header>
+                        <fieldset>
+                            <label>What is your Avantar?</label>
+                            <input type="url" name="pic" placeholder="Pictue url">
+                        </fieldset>
+                        <fieldset>
+                            <label>What is your LastName?</label>
+                            <input type="text" name="lastname" placeholder="Type your lastname here">
+                        </fieldset>
+                        <fieldset>
+                            <label>What is your FirstName?</label>
+                            <input type="text" name="firstname" placeholder="Type your firstname here">
+                        </fieldset>
+                        <fieldset>
+                            <label>What is your Birthday date?</label>
+                            <input type="date" name="birthDay" max="${maxDate}" placeholder="Find your birth date">
+                        </fieldset>
+                        <div class="form-btn">
+                            <button type="submit" class="submit call-to-action">Submit</button>
+                            <button type="button" class="cancel cancelButton">Cancel</button>
+                        </div>
+                    </div>
                 </div>
             `);
       document.body.appendChild(popupAddForm);
@@ -1066,6 +1113,7 @@ async function fetchPeople() {
       window.addEventListener('click', e => {
         if (e.target.closest('button.cancel')) {
           (0, _timing.destroyPopup)(popupAddForm);
+          showScrollBar();
         }
       }); // Listen to the submit event
 
@@ -1085,6 +1133,8 @@ async function fetchPeople() {
         (0, _timing.destroyPopup)(popupAddForm);
 
         _elements.article.dispatchEvent(new CustomEvent('updatePeopleLs'));
+
+        showScrollBar();
       });
     });
   };
@@ -1092,26 +1142,32 @@ async function fetchPeople() {
   const handleAddBtn = e => {
     if (e.target.closest('button.addList')) {
       handleAddListBtn();
+      hideScrollBar();
     }
   }; // *********** Filter ********* \\
-  // Filter the person from the list by searching their name
 
 
-  const filterPersonByName = () => {
+  function filteredByNameAndMonth() {
+    const filteredByName = filterPersonByName(persons);
+    const filteredByNameAndMonth = filterPersonMonth(filteredByName);
+    const myHTML = (0, _generate.generatePeopleList)(filteredByNameAndMonth);
+    _elements.article.innerHTML = myHTML;
+  } // Filter the person from the list by searching their name
+
+
+  function filterPersonByName(people) {
     // Get the value of the input
     const input = _elements.searchByName.value;
     const inputSearch = input.toLowerCase(); // Filter the list by the firstname or lastname
 
-    const searchPerson = persons.filter(person => person.lastName.toLowerCase().includes(inputSearch) || person.firstName.toLowerCase().includes(inputSearch));
-    const myHTML = (0, _generate.generatePeopleList)(searchPerson);
-    _elements.article.innerHTML = myHTML;
-  }; // Filter by month
+    return people.filter(person => person.lastName.toLowerCase().includes(inputSearch) || person.firstName.toLowerCase().includes(inputSearch));
+  } // Filter by month
 
 
-  const filterPersonMonth = e => {
+  function filterPersonMonth(people) {
     // Get the value of the select input
     const select = _elements.searchByMonth.value;
-    const filterPerson = persons.filter(person => {
+    const filterPerson = people.filter(person => {
       // Change the month of birth into string
       const getMonthOfBirth = new Date(person.birthday).toLocaleString("en-US", {
         month: "long"
@@ -1119,8 +1175,13 @@ async function fetchPeople() {
 
       return getMonthOfBirth.toLowerCase().includes(select.toLowerCase());
     });
-    const myHTML = (0, _generate.generatePeopleList)(filterPerson);
-    _elements.article.innerHTML = myHTML;
+    return filterPerson;
+  } // Reset search form
+
+
+  const resteInputSearch = e => {
+    formSearch.reset();
+    displayList();
   }; // ******** Listeners ******* \\
 
 
@@ -1134,9 +1195,9 @@ async function fetchPeople() {
   _elements.article.addEventListener('updatePeopleLs', updateLocalStorage); // Filter event
 
 
-  _elements.searchByName.addEventListener('input', filterPersonByName);
+  _elements.searchByName.addEventListener('input', filteredByNameAndMonth);
 
-  _elements.searchByMonth.addEventListener('input', filterPersonMonth);
+  _elements.searchByMonth.addEventListener('input', filteredByNameAndMonth);
 
   initLocalStorage();
 }
@@ -1170,7 +1231,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62465" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50199" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
