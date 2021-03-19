@@ -1,10 +1,20 @@
 export function generatePeopleList(people) {
-    return people
-        .sort( function(a, b) {
-            // Sort it by Month
-            return new Date (a.birthday).getMonth() - new Date (b.birthday).getMonth();
-        })
-        .map(
+
+    const sortedPeople = people.sort(function(a, b) {
+        function peopleBirthday(month, day) {
+            let today = new Date(),
+            currentYear = today.getFullYear(),
+            next = new Date(currentYear, month - 1, day);
+            today.setHours(0, 0, 0, 0);
+            if (today > next) next.setFullYear(currentYear + 1);
+            return Math.round((next - today) / 8.64e7);
+        }
+        let birthdayA = peopleBirthday(new Date(a.birthday).getMonth()+1,new Date(a.birthday).getDate());
+        let birthdayB = peopleBirthday(new Date(b.birthday).getMonth()+1,new Date(b.birthday).getDate());
+        return birthdayA - birthdayB;
+    });
+
+    return sortedPeople.map(
             person => {
                 // Get the suffix for the date 
                 function nthDate(day) {
@@ -55,7 +65,7 @@ export function generatePeopleList(people) {
                         </div>
                         <div class="wrapper-actions">
                             <time datetime="${fullDate}" class="date">
-                                    ${birthdayInDate > 1 ? `${birthdayInDate} days` : `${birthdayInDate} days`}
+                                    ${birthdayInDate > 1 ? `${birthdayInDate} days` : birthdayInDate < 1 ? "Happy birthday" : `${birthdayInDate} day`}
                             </time>
                             <div class="actions">
                                 <button class="edit" data-id="${person.id}">
