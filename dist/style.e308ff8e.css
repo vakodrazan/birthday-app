@@ -86,8 +86,16 @@ input:focus {
 	padding-right: 18px;
 }
 
-.call-to-action:focus {
-	outline: none;
+.resetSearch {
+	background-color: blue;
+	color: #fff;
+	border: none;
+	padding-left: 14px;
+	padding-right: 14px;
+	padding-top: 14px;
+	padding-bottom: 14px;
+	border-radius: 5px;
+	margin-bottom: 20px;
 }
 
 .article-app {
@@ -378,15 +386,13 @@ select.filteringSeacrh {
 		flex-direction: row;
 		align-items: flex-end;
 		justify-content: space-between;
+		flex-wrap: wrap;
 		gap: 10px;
 	}
 
 	.inputSearch {
-		width: 35%;
-	}
-
-	.inputSearch {
 		padding: 0;
+		max-width: 35%;
 	}
 
 	.person-list {
@@ -405,6 +411,10 @@ select.filteringSeacrh {
 		margin-right: auto;
 	}
 
+	.resetSearch {
+		margin: 0;
+	}
+
 	.cancel-button {
 		margin: 0;
 	}
@@ -414,6 +424,10 @@ select.filteringSeacrh {
 	.container {
 		max-width: 1140px;
 		margin: 0 auto;
+	}
+
+	.formSearch {
+		flex-wrap: nowrap;
 	}
 
 	.inputSearch {

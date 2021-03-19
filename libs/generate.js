@@ -65,7 +65,12 @@ export function generatePeopleList(people) {
                         </div>
                         <div class="wrapper-actions">
                             <time datetime="${fullDate}" class="date">
-                                    ${birthdayInDate > 1 ? `${birthdayInDate} days` : birthdayInDate < 1 ? "Happy birthday" : `${birthdayInDate} day`}
+                                    ${birthdayInDate > 1 
+                                        ? `${birthdayInDate} days` 
+                                        : birthdayInDate < 1 
+                                        ? "Happy birthday" 
+                                        : `${birthdayInDate} day`
+                                    }
                             </time>
                             <div class="actions">
                                 <button class="edit" data-id="${person.id}">
