@@ -1,8 +1,16 @@
 // ******* Importing ********* \\
 
 // Import all the export functions or elements that store in other files
-import { article, addListBtn, searchByName, searchByMonth } from './libs/elements.js';
+import { 
+    article,
+    addListBtn,
+    searchByName,
+    searchByMonth,
+    resetSearch,
+    formSearch
+} from './libs/elements.js';
 import { generatePeopleList } from './libs/generate.js';
+import { filterPersonByMonth, filterPersonByName } from './libs/stroringFuctionalities.js';
 import { wait, destroyPopup } from './libs/timing.js';
 import { divButton } from './libs/utils.js';
 
@@ -268,35 +276,9 @@ async function fetchPeople() {
 
     function filteredByNameAndMonth() {
         const filteredByName = filterPersonByName(persons);
-        const filteredByNameAndMonth = filterPersonMonth(filteredByName);
+        const filteredByNameAndMonth = filterPersonByMonth(filteredByName);
         const myHTML = generatePeopleList(filteredByNameAndMonth);
         article.innerHTML = myHTML;
-    }
-
-    // Filter the person from the list by searching their name
-    function filterPersonByName(people){
-        // Get the value of the input
-        const input = searchByName.value;
-        const inputSearch = input.toLowerCase();
-        // Filter the list by the firstname or lastname
-        return people.filter(person => person.lastName.toLowerCase().includes(inputSearch) || 
-            person.firstName.toLowerCase().includes(inputSearch));
-    }
-
-    // Filter by month
-    function filterPersonMonth(people) {
-        // Get the value of the select input
-        const select = searchByMonth.value;
-        const filterPerson = people.filter(person => {
-            // Change the month of birth into string
-            const getMonthOfBirth = new Date(person.birthday)
-            .toLocaleString("en-US", 
-            { month: "long" }); 
-
-            // Filter the list by the month of birth
-            return getMonthOfBirth.toLowerCase().includes(select.toLowerCase());
-        });
-        return filterPerson;
     }
 
     // Reset search form
@@ -314,6 +296,7 @@ async function fetchPeople() {
     // Filter event
     searchByName.addEventListener('input', filteredByNameAndMonth);
     searchByMonth.addEventListener('input', filteredByNameAndMonth);
+    resetSearch.addEventListener('click', resteInputSearch);
 
     initLocalStorage();
 }

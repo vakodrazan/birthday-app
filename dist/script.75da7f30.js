@@ -123,7 +123,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.formSearch = exports.resetSearch = exports.searchByMonth = exports.searchByName = exports.addListBtn = exports.article = void 0;
+exports.resetSearch = exports.formSearch = exports.searchByMonth = exports.searchByName = exports.addListBtn = exports.article = void 0;
 // Call the existing element from html file
 const article = document.querySelector('article.article-app');
 exports.article = article;
@@ -133,10 +133,10 @@ const searchByName = document.querySelector('input.searchName');
 exports.searchByName = searchByName;
 const searchByMonth = document.querySelector('select.searchMonth');
 exports.searchByMonth = searchByMonth;
-const resetSearch = document.querySelector('button.resetField');
-exports.resetSearch = resetSearch;
 const formSearch = document.querySelector('form.formSearch');
 exports.formSearch = formSearch;
+const resetSearch = document.querySelector('button.resetSearch');
+exports.resetSearch = resetSearch;
 },{}],"libs/generate.js":[function(require,module,exports) {
 "use strict";
 
@@ -239,7 +239,41 @@ function generatePeopleList(people) {
                 `;
   }).join('');
 }
-},{}],"libs/timing.js":[function(require,module,exports) {
+},{}],"libs/stroringFuctionalities.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.filterPersonByName = filterPersonByName;
+exports.filterPersonByMonth = filterPersonByMonth;
+
+var _elements = require("./elements");
+
+// Filter the person from the list by searching their name
+function filterPersonByName(people) {
+  // Get the value of the input
+  const input = _elements.searchByName.value;
+  const inputSearch = input.toLowerCase(); // Filter the list by the firstname or lastname
+
+  return people.filter(person => person.lastName.toLowerCase().includes(inputSearch) || person.firstName.toLowerCase().includes(inputSearch));
+} // Filter by month
+
+
+function filterPersonByMonth(people) {
+  // Get the value of the select input
+  const select = _elements.searchByMonth.value;
+  const filterPerson = people.filter(person => {
+    // Change the month of birth into string
+    const getMonthOfBirth = new Date(person.birthday).toLocaleString("en-US", {
+      month: "long"
+    }); // Filter the list by the month of birth
+
+    return getMonthOfBirth.toLowerCase().includes(select.toLowerCase());
+  });
+  return filterPerson;
+}
+},{"./elements":"libs/elements.js"}],"libs/timing.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -897,6 +931,8 @@ var _elements = require("./libs/elements.js");
 
 var _generate = require("./libs/generate.js");
 
+var _stroringFuctionalities = require("./libs/stroringFuctionalities.js");
+
 var _timing = require("./libs/timing.js");
 
 var _utils = require("./libs/utils.js");
@@ -1159,39 +1195,16 @@ async function fetchPeople() {
 
 
   function filteredByNameAndMonth() {
-    const filteredByName = filterPersonByName(persons);
-    const filteredByNameAndMonth = filterPersonMonth(filteredByName);
+    const filteredByName = (0, _stroringFuctionalities.filterPersonByName)(persons);
+    const filteredByNameAndMonth = (0, _stroringFuctionalities.filterPersonByMonth)(filteredByName);
     const myHTML = (0, _generate.generatePeopleList)(filteredByNameAndMonth);
     _elements.article.innerHTML = myHTML;
-  } // Filter the person from the list by searching their name
-
-
-  function filterPersonByName(people) {
-    // Get the value of the input
-    const input = _elements.searchByName.value;
-    const inputSearch = input.toLowerCase(); // Filter the list by the firstname or lastname
-
-    return people.filter(person => person.lastName.toLowerCase().includes(inputSearch) || person.firstName.toLowerCase().includes(inputSearch));
-  } // Filter by month
-
-
-  function filterPersonMonth(people) {
-    // Get the value of the select input
-    const select = _elements.searchByMonth.value;
-    const filterPerson = people.filter(person => {
-      // Change the month of birth into string
-      const getMonthOfBirth = new Date(person.birthday).toLocaleString("en-US", {
-        month: "long"
-      }); // Filter the list by the month of birth
-
-      return getMonthOfBirth.toLowerCase().includes(select.toLowerCase());
-    });
-    return filterPerson;
   } // Reset search form
 
 
   const resteInputSearch = e => {
-    formSearch.reset();
+    _elements.formSearch.reset();
+
     displayList();
   }; // ******** Listeners ******* \\
 
@@ -1210,11 +1223,13 @@ async function fetchPeople() {
 
   _elements.searchByMonth.addEventListener('input', filteredByNameAndMonth);
 
+  _elements.resetSearch.addEventListener('click', resteInputSearch);
+
   initLocalStorage();
 }
 
 fetchPeople();
-},{"./libs/elements.js":"libs/elements.js","./libs/generate.js":"libs/generate.js","./libs/timing.js":"libs/timing.js","./libs/utils.js":"libs/utils.js","./people.json":"people.json"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./libs/elements.js":"libs/elements.js","./libs/generate.js":"libs/generate.js","./libs/stroringFuctionalities.js":"libs/stroringFuctionalities.js","./libs/timing.js":"libs/timing.js","./libs/utils.js":"libs/utils.js","./people.json":"people.json"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -1242,7 +1257,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50087" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51515" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
