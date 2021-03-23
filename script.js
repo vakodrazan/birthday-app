@@ -209,19 +209,19 @@ async function fetchPeople() {
                             <h2>Add person to the list<h2>
                         </header>
                         <fieldset>
-                            <label>What is your Avantar?</label>
+                            <label>What is your avantar?</label>
                             <input type="url" name="pic" placeholder="Pictue url">
                         </fieldset>
                         <fieldset>
-                            <label>What is your Lastname?</label>
+                            <label>What is your last name?</label>
                             <input type="text" name="lastname" placeholder="Type your lastname here">
                         </fieldset>
                         <fieldset>
-                            <label>What is your Firstname?</label>
+                            <label>What is your first name?</label>
                             <input type="text" name="firstname" placeholder="Type your firstname here">
                         </fieldset>
                         <fieldset>
-                            <label>What is your Birthday date?</label>
+                            <label>What is your birthday date?</label>
                             <input type="date" name="birthDay" max="${maxDate}" placeholder="Find your birth date">
                         </fieldset>
                         <div class="form-btn">

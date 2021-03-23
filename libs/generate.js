@@ -47,7 +47,7 @@ export function generatePeopleList(people) {
                 return `
                     <section data-id="${person.id}" class="person-list"> 
                         <div class="item-about">
-                            <img class="rounded" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
+                            <img class="person-avantar" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
                             <div>
                                 <span class="personName">${person.lastName} ${person.firstName}</span>
                                 <p class="personAge">

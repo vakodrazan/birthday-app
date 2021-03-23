@@ -47,13 +47,6 @@ p {
 	margin: 0;
 }
 
-section {
-	background-color: white;
-	padding: 10px;
-	gap: 5px;
-	border-radius: 10px;
-	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
-}
 
 label {
 	margin: 0;
@@ -100,7 +93,7 @@ input:focus {
 
 .article-app {
 	display: grid;
-	gap: 20px;
+	gap: 31px;
 }
 
 .formSearch {
@@ -142,7 +135,6 @@ input:focus {
 
 img {
 	max-width: 100%;
-	width: 100px;
 }
 svg {
 	width: 30px;
@@ -177,9 +169,15 @@ select {
 
 .person-list {
 	display: grid;
-	grid-template-columns: 2fr auto;
-	padding-top: 22px;
-	padding-bottom: 22px;
+	grid-template-rows: 1fr;
+    gap: 39px;
+    padding-top: 22px;
+    padding-bottom: 23px;
+	padding-left: 24px;
+	padding-right: 10px;
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .item-about {
@@ -193,7 +191,7 @@ select {
 .personName {
 	text-transform: capitalize;
 	font-weight: 500;
-	font-size: 18px;
+	font-size: 36px;
 	color: black;
 	padding-bottom: 10px;
 }
@@ -358,6 +356,11 @@ select.filteringSeacrh {
 	gap: 20px;
 }
 
+.person-avantar {
+	width: 99px;
+	border-radius: 5px;
+}
+
 @media (min-width: 650px) {
 	.container {
 		padding-left: 58px;
@@ -413,6 +416,7 @@ select.filteringSeacrh {
 	.person-list {
 		padding-left: 43px;
 		padding-right: 25px;
+		grid-template-columns: 2fr auto;
 	}
 
 	.form-btn {
