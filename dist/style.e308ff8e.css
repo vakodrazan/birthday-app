@@ -101,7 +101,7 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
 	padding-bottom: 14px;
 	border-radius: 5px;
 	margin-left: 10px;
-	margin-bottom: 20px;
+	margin-top: 20px;
 }
 
 .article-app {
