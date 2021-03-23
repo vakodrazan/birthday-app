@@ -276,6 +276,13 @@ select.filteringSeacrh {
 	font-weight: 500;
 	margin: 0;
 	border-radius: 5px;
+	background-image: url("./image/dropdown-icon.svg");
+	background-repeat: no-repeat;
+	background-position: 90%;
+	/* Hide the icon that sets by default */
+	-moz-appearance:none; /* Firefox */
+	-webkit-appearance:none; /* Safari and Chrome */
+	appearance:none;
 }
 
 .wrapper-content {
