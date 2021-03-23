@@ -93,6 +93,7 @@ input:focus {
 	padding-top: 14px;
 	padding-bottom: 14px;
 	border-radius: 5px;
+	margin-left: 10px;
 	margin-bottom: 20px;
 }
 
@@ -114,8 +115,10 @@ input:focus {
 }
 
 .wrapper-actions {
-	display: grid;
-	gap: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 36px;
+	text-align: left;
 }
 
 .actions button {
@@ -129,13 +132,6 @@ input:focus {
 
 .delete {
 	color: red;
-}
-
-@media (min-width: 750px) {
-	.actions {
-		grid-template-columns: 1fr 1fr;
-		gap: 10px;
-	}
 }
 
 img {
@@ -377,6 +373,15 @@ select.filteringSeacrh {
 		margin: 0 auto;
 	}
 
+	.wrapper-actions {
+		text-align: right;
+	}
+
+	.actions {
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
+
 	.item-about {
 		flex-direction: row;
 		align-items: center;
@@ -410,7 +415,7 @@ select.filteringSeacrh {
 
 	.inputSearch {
 		padding: 0;
-		max-width: 40%;
+		width: 35%;
 	}
 
 	.person-list {
@@ -442,10 +447,6 @@ select.filteringSeacrh {
 @media (min-width: 1140px) {
 	.container {
 		padding: 0;
-	}
-
-	.inputSearch {
-		width: 40%;
 	}
 }
 
