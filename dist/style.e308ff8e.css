@@ -70,6 +70,10 @@ input {
 	border-radius: 5px;
 }
 
+input::placeholder {
+	opacity: 1;
+}
+
 input:focus {
 	outline: none;
 }
