@@ -92,5 +92,6 @@ export function generatePeopleList(people) {
                 `
             }
         )
-        .join('');
+        .join('')
+    ;
 }
