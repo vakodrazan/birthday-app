@@ -177,10 +177,18 @@ select {
 
 .person-list {
 	display: grid;
-	grid-template-columns: 1fr 2fr auto;
+	grid-template-columns: 2fr auto;
 	padding-top: 22px;
 	padding-bottom: 22px;
 }
+
+.item-about {
+	display: flex;
+	flex-direction: column;
+	gap: 39px;
+	align-items: flex-start;
+}
+
 
 .personName {
 	text-transform: capitalize;
@@ -354,6 +362,13 @@ select.filteringSeacrh {
 	.container {
 		padding-left: 58px;
 		padding-right: 58px;
+		max-width: 779px;
+		margin: 0 auto;
+	}
+
+	.item-about {
+		flex-direction: row;
+		align-items: center;
 	}
 
 	h1 {
@@ -387,7 +402,7 @@ select.filteringSeacrh {
 		align-items: flex-end;
 		justify-content: space-between;
 		flex-wrap: wrap;
-		gap: 10px;
+		gap: 34px;
 	}
 
 	.inputSearch {
@@ -422,12 +437,7 @@ select.filteringSeacrh {
 
 @media (min-width: 1140px) {
 	.container {
-		max-width: 1140px;
-		margin: 0 auto;
-	}
-
-	.formSearch {
-		flex-wrap: nowrap;
+		padding: 0;
 	}
 
 	.inputSearch {

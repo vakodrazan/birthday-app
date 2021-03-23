@@ -46,26 +46,27 @@ export function generatePeopleList(people) {
 
                 return `
                     <section data-id="${person.id}" class="person-list"> 
-                        <div>
+                        <div class="item-about">
                             <img class="rounded" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
-                        </div>
-                        <div>
-                            <span class="personName">${person.lastName} ${person.firstName}</span>
-                            <p class="personAge">
-                                Turns <span class="age">${dayLeft < 0 ? futureAge + 1 : futureAge }</span> on 
-                                ${new Date(person.birthday)
-                                    .toLocaleString("en-US", 
-                                { month: "long" })}
-                                <time datetime="${fullDate}">
+                            <div>
+                                <span class="personName">${person.lastName} ${person.firstName}</span>
+                                <p class="personAge">
+                                    Turns <span class="age">${dayLeft < 0 ? futureAge + 1 : futureAge }</span> on 
                                     ${new Date(person.birthday)
                                         .toLocaleString("en-US", 
-                                        { day: "numeric" })}<sup>${nthDate(currentDay)}</sup>
-                                </time> 
-                            </p>
+                                    { month: "long" })}
+                                    <time datetime="${fullDate}">
+                                        ${new Date(person.birthday)
+                                            .toLocaleString("en-US", 
+                                            { day: "numeric" })}<sup>${nthDate(currentDay)}</sup>
+                                    </time> 
+                                </p>
+                            </div>
                         </div>
+                        
                         <div class="wrapper-actions">
                             <time datetime="${fullDate}" class="date">
-                                    ${birthdayInDate > 1 
+                                    In ${birthdayInDate > 1 
                                         ? `${birthdayInDate} days` 
                                         : birthdayInDate < 1 
                                         ? "Happy birthday" 
