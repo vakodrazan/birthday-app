@@ -52,7 +52,7 @@ export function generatePeopleList(people) {
                         <div>
                             <span class="personName">${person.lastName} ${person.firstName}</span>
                             <p class="personAge">
-                                Turns <span class="age">${dayLeft ? futureAge + 1 : futureAge }</span> on 
+                                Turns <span class="age">${dayLeft < 0 ? futureAge + 1 : futureAge }</span> on 
                                 ${new Date(person.birthday)
                                     .toLocaleString("en-US", 
                                 { month: "long" })}

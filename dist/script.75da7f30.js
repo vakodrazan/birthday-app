@@ -204,7 +204,7 @@ function generatePeopleList(people) {
                         <div>
                             <span class="personName">${person.lastName} ${person.firstName}</span>
                             <p class="personAge">
-                                Turns <span class="age">${dayLeft ? futureAge + 1 : futureAge}</span> on 
+                                Turns <span class="age">${dayLeft < 0 ? futureAge + 1 : futureAge}</span> on 
                                 ${new Date(person.birthday).toLocaleString("en-US", {
       month: "long"
     })}
@@ -1002,11 +1002,11 @@ async function fetchPeople() {
                                 <input type="url" name="picture" value="${person.picture}">
                             </fieldset>
                             <fieldset>
-                                <label>LastName</label>
+                                <label>Last name</label>
                                 <input type="text" name="lastName" value="${person.lastName}">
                             </fieldset>
                             <fieldset>
-                                <label>FirstName</label>
+                                <label>First name</label>
                                 <input type="text" name="firstName" value="${person.firstName}">
                             </fieldset>
                             <fieldset>
@@ -1137,11 +1137,11 @@ async function fetchPeople() {
                             <input type="url" name="pic" placeholder="Pictue url">
                         </fieldset>
                         <fieldset>
-                            <label>What is your LastName?</label>
+                            <label>What is your Lastname?</label>
                             <input type="text" name="lastname" placeholder="Type your lastname here">
                         </fieldset>
                         <fieldset>
-                            <label>What is your FirstName?</label>
+                            <label>What is your Firstname?</label>
                             <input type="text" name="firstname" placeholder="Type your firstname here">
                         </fieldset>
                         <fieldset>
@@ -1257,7 +1257,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51515" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60564" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
