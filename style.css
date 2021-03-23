@@ -3,6 +3,7 @@ body {
 	background-color: #D8EEFE;
 	color: #094067;
 	margin: 0;
+	font-size: 18px;
 }
 
 .container {
@@ -71,6 +72,12 @@ input {
 
 input:focus {
 	outline: none;
+}
+
+input[type="date" i]::-webkit-calendar-picker-indicator {
+	background-image: url("./image/dropdown-icon.svg");
+	background-size: 12px 6px;
+	background-position: 10%;
 }
 
 .call-to-action {
