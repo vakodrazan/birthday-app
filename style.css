@@ -132,9 +132,15 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
 	text-align: left;
 }
 
+.actions {
+	display: flex;
+	gap: 19px;
+}
+
 .actions button {
 	background-color: white;
 	border: none;
+	padding: 0;
 }
 
 .edit {
@@ -394,11 +400,6 @@ select.filteringSeacrh {
 
 	.wrapper-actions {
 		text-align: right;
-	}
-
-	.actions {
-		grid-template-columns: 1fr 1fr;
-		gap: 10px;
 	}
 
 	.item-about {
