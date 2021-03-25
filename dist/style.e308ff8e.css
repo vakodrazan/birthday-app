@@ -133,7 +133,7 @@ input[type="search" i]::-webkit-search-cancel-button {
 	display: flex;
 	flex-direction: column;
 	gap: 36px;
-	text-align: left;
+	align-items: flex-start;
 }
 
 .actions {
@@ -422,7 +422,7 @@ select.filteringSeacrh {
 	}
 
 	.wrapper-actions {
-		text-align: right;
+		align-items: flex-end;
 	}
 
 	.item-about {
@@ -442,10 +442,6 @@ select.filteringSeacrh {
 		max-width: 70%;
 		margin-left: auto;
 		padding-left: 0;
-	}
-
-	.persoName {
-		font-size: 36px;
 	}
 
 	.formSearch {
@@ -484,6 +480,12 @@ select.filteringSeacrh {
 
 	.cancel-button {
 		margin: 0;
+	}
+}
+
+@media (min-width: 750px) {
+	.personName {
+		word-break: unset;
 	}
 }
 
