@@ -4,7 +4,6 @@ body {
 	color: #094067;
 	margin: 0;
 	font-size: 18px;
-	word-break: break-all;
 }
 
 .container {
@@ -83,6 +82,10 @@ input[type="date" i]::-webkit-calendar-picker-indicator {
 	background-image: url("./image/dropdown-icon.svg");
 	background-size: 12px 6px;
 	background-position: 10%;
+}
+
+input[type="search" i]::-webkit-search-cancel-button {
+	cursor: pointer;
 }
 
 .call-to-action {
@@ -214,6 +217,7 @@ select {
 	font-size: 36px;
 	color: black;
 	padding-bottom: 10px;
+	word-break: break-all;
 }
 
 .personAge {
@@ -321,7 +325,6 @@ select.filteringSeacrh {
 
 .wrapper-content-button {
 	display: grid;
-	text-align: center;
 	height: 300px;
 }
 
