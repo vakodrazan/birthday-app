@@ -310,6 +310,10 @@ select.filteringSeacrh {
 	appearance:none;
 }
 
+.heading {
+	max-width: 85%;
+}
+
 .wrapper-content {
 	display: flex;
 	flex-direction: column;

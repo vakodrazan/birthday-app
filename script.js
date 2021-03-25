@@ -64,7 +64,7 @@ async function fetchPeople() {
                                 <path d="M14.5 14.5L43.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </button>
-                        <header class="title">
+                        <header class="title heading">
                             <h2>Edit ${person.firstName} ${person.lastName}<h2>
                         </header>
                         <div class="content">
@@ -155,7 +155,7 @@ async function fetchPeople() {
                                 <path d="M14.5 14.5L43.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </button>
-                        <p class="information">Are you sure you want to delete <strong>${selectPerson.firstName} ${selectPerson.lastName}</strong>?</p>
+                        <p class="information heading">Are you sure you want to delete <strong>${selectPerson.firstName} ${selectPerson.lastName}</strong>?</p>
                         <div class="button-wraper">
                             <button class="remove call-to-action">Delete</button>
                             <button class="cancel cancelButton">Cancel</button>
@@ -219,7 +219,7 @@ async function fetchPeople() {
                                 <path d="M14.5 14.5L43.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </button>
-                        <header class="title">
+                        <header class="title heading">
                             <h2>Add person to the list<h2>
                         </header>
                         <div class="content">
