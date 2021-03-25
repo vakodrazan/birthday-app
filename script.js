@@ -17,7 +17,6 @@ import {
     hideScrollBar
 } from './libs/stroringFuctionalities.js';
 import { wait, destroyPopup } from './libs/timing.js';
-import { divButton } from './libs/utils.js';
 
 // Import the local file that contains the data
 import peopleData from './people.json';
@@ -130,19 +129,40 @@ async function fetchPeople() {
     const deletePerson = e => {
         // call the function here
         if (e.target.closest('button.delete')) {
-            const tableRow = e.target.closest('section');
-            const id = tableRow.dataset.id;
+            const sectionElem = e.target.closest('section');
+            const id = sectionElem.dataset.id;
             deletePersonPopup(id);
             hideScrollBar();
         }
     }
 
     const deletePersonPopup = async idToDelete => {
+        let person = persons.filter(person => person.id !== idToDelete);
+        let selectPerson = persons.find(person => person.id === idToDelete);
+        console.log(person);
         // Code all thecondition about the delete list here
         return new Promise( async function(resolve) {
             await wait(50);
-            document.body.appendChild(divButton);
+            const divButton = document.createElement('div');
+            divButton.classList.add('outerPopup');
             divButton.classList.add("open");
+            divButton.insertAdjacentHTML('afterbegin', `
+                <div class="innerPopup wrapper-content-button">
+                    <div class="wrapper-content">
+                        <button type="button" class="cancel cancel-button">
+                            <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M43.5 14.5L14.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14.5 14.5L43.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <p class="information">Are you sure you want to delete <strong>${selectPerson.firstName} ${selectPerson.lastName}</strong>?</p>
+                        <div class="button-wraper">
+                            <button class="remove call-to-action">Delete</button>
+                            <button class="cancel cancelButton">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            `);
 
             // Reject it
             window.addEventListener('click', e => {
@@ -155,7 +175,6 @@ async function fetchPeople() {
             // Remove the person
             window.addEventListener('click', e => {
                 if (e.target.closest('button.remove')) {
-                    let person = persons.filter(person => person.id != idToDelete);
                     persons = person;
                     displayList(person);
                     destroyPopup(divButton);
@@ -163,6 +182,8 @@ async function fetchPeople() {
                     showScrollBar();
                 }
             });
+
+            document.body.appendChild(divButton);
         });
     }
 
@@ -201,25 +222,27 @@ async function fetchPeople() {
                         <header class="title">
                             <h2>Add person to the list<h2>
                         </header>
-                        <fieldset>
-                            <label>What is your avantar?</label>
-                            <input type="url" name="pic" placeholder="Pictue url">
-                        </fieldset>
-                        <fieldset>
-                            <label>What is your last name?</label>
-                            <input type="text" name="lastname" placeholder="Type your lastname here">
-                        </fieldset>
-                        <fieldset>
-                            <label>What is your first name?</label>
-                            <input type="text" name="firstname" placeholder="Type your firstname here">
-                        </fieldset>
-                        <fieldset>
-                            <label>What is your birthday date?</label>
-                            <input type="date" name="birthDay" max="${maxDate}" placeholder="Find your birth date">
-                        </fieldset>
-                        <div class="form-btn">
-                            <button type="submit" class="submit call-to-action">Submit</button>
-                            <button type="button" class="cancel cancelButton">Cancel</button>
+                        <div class="content">
+                            <fieldset>
+                                <label>What is your avantar?</label>
+                                <input type="url" name="pic" placeholder="Pictue url">
+                            </fieldset>
+                            <fieldset>
+                                <label>What is your last name?</label>
+                                <input type="text" name="lastname" placeholder="Type your lastname here">
+                            </fieldset>
+                            <fieldset>
+                                <label>What is your first name?</label>
+                                <input type="text" name="firstname" placeholder="Type your firstname here">
+                            </fieldset>
+                            <fieldset>
+                                <label>What is your birthday date?</label>
+                                <input type="date" name="birthDay" max="${maxDate}" placeholder="Find your birth date">
+                            </fieldset>
+                            <div class="form-btn">
+                                <button type="submit" class="submit call-to-action">Submit</button>
+                                <button type="button" class="cancel cancelButton">Cancel</button>
+                            </div>
                         </div>
                     </div>
                 </div>

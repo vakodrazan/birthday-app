@@ -201,7 +201,7 @@ function generatePeopleList(people) {
                         <div class="item-about">
                             <img class="person-avantar" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
                             <div>
-                                <span class="personName">${person.lastName} ${person.firstName}</span>
+                                <span class="personName">${person.firstName} ${person.lastName}</span>
                                 <p class="personAge">
                                     Turns <span class="age">${dayLeft < 0 ? futureAge + 1 : futureAge}</span> on 
                                     ${new Date(person.birthday).toLocaleString("en-US", {
@@ -306,35 +306,6 @@ async function destroyPopup(popup) {
   popup.remove();
   popup = null;
 }
-},{}],"libs/utils.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.divButton = void 0;
-// Create a div element that contains the two button for the delete,
-// Cancel the deletion or accept it 
-const divButton = document.createElement('div');
-exports.divButton = divButton;
-divButton.classList.add('outerPopup');
-divButton.insertAdjacentHTML('afterbegin', `
-    <div class="innerPopup wrapper-content-button">
-        <div class="wrapper-content">
-            <button type="button" class="cancel cancel-button">
-                <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M43.5 14.5L14.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M14.5 14.5L43.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
-            <p class="information">Are you sure you want to delete this person</strong>?</p>
-            <div class="button-wraper">
-                <button class="remove call-to-action">Delete</button>
-                <button class="cancel cancelButton">Cancel</button>
-            </div>
-        </div>
-    </div>
-`);
 },{}],"people.json":[function(require,module,exports) {
 module.exports = [{
   "id": "1fbef8c1-9823-4cb5-b138-259fed0fb2b1",
@@ -948,8 +919,6 @@ var _stroringFuctionalities = require("./libs/stroringFuctionalities.js");
 
 var _timing = require("./libs/timing.js");
 
-var _utils = require("./libs/utils.js");
-
 var _people = _interopRequireDefault(require("./people.json"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -1060,41 +1029,60 @@ async function fetchPeople() {
   const deletePerson = e => {
     // call the function here
     if (e.target.closest('button.delete')) {
-      const tableRow = e.target.closest('section');
-      const id = tableRow.dataset.id;
+      const sectionElem = e.target.closest('section');
+      const id = sectionElem.dataset.id;
       deletePersonPopup(id);
       (0, _stroringFuctionalities.hideScrollBar)();
     }
   };
 
   const deletePersonPopup = async idToDelete => {
-    // Code all thecondition about the delete list here
+    let person = persons.filter(person => person.id !== idToDelete);
+    let selectPerson = persons.find(person => person.id === idToDelete);
+    console.log(person); // Code all thecondition about the delete list here
+
     return new Promise(async function (resolve) {
       await (0, _timing.wait)(50);
-      document.body.appendChild(_utils.divButton);
-
-      _utils.divButton.classList.add("open"); // Reject it
-
+      const divButton = document.createElement('div');
+      divButton.classList.add('outerPopup');
+      divButton.classList.add("open");
+      divButton.insertAdjacentHTML('afterbegin', `
+                <div class="innerPopup wrapper-content-button">
+                    <div class="wrapper-content">
+                        <button type="button" class="cancel cancel-button">
+                            <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M43.5 14.5L14.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14.5 14.5L43.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <p class="information">Are you sure you want to delete <strong>${selectPerson.firstName} ${selectPerson.lastName}</strong>?</p>
+                        <div class="button-wraper">
+                            <button class="remove call-to-action">Delete</button>
+                            <button class="cancel cancelButton">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            `); // Reject it
 
       window.addEventListener('click', e => {
         if (e.target.closest('button.cancel')) {
-          (0, _timing.destroyPopup)(_utils.divButton);
+          (0, _timing.destroyPopup)(divButton);
           (0, _stroringFuctionalities.showScrollBar)();
         }
       }); // Remove the person
 
       window.addEventListener('click', e => {
         if (e.target.closest('button.remove')) {
-          let person = persons.filter(person => person.id != idToDelete);
           persons = person;
           displayList(person);
-          (0, _timing.destroyPopup)(_utils.divButton);
+          (0, _timing.destroyPopup)(divButton);
 
           _elements.article.dispatchEvent(new CustomEvent('updatePeopleLs'));
 
           (0, _stroringFuctionalities.showScrollBar)();
         }
       });
+      document.body.appendChild(divButton);
     });
   }; // ************ Local storage ************* \\
 
@@ -1134,25 +1122,27 @@ async function fetchPeople() {
                         <header class="title">
                             <h2>Add person to the list<h2>
                         </header>
-                        <fieldset>
-                            <label>What is your avantar?</label>
-                            <input type="url" name="pic" placeholder="Pictue url">
-                        </fieldset>
-                        <fieldset>
-                            <label>What is your last name?</label>
-                            <input type="text" name="lastname" placeholder="Type your lastname here">
-                        </fieldset>
-                        <fieldset>
-                            <label>What is your first name?</label>
-                            <input type="text" name="firstname" placeholder="Type your firstname here">
-                        </fieldset>
-                        <fieldset>
-                            <label>What is your birthday date?</label>
-                            <input type="date" name="birthDay" max="${maxDate}" placeholder="Find your birth date">
-                        </fieldset>
-                        <div class="form-btn">
-                            <button type="submit" class="submit call-to-action">Submit</button>
-                            <button type="button" class="cancel cancelButton">Cancel</button>
+                        <div class="content">
+                            <fieldset>
+                                <label>What is your avantar?</label>
+                                <input type="url" name="pic" placeholder="Pictue url">
+                            </fieldset>
+                            <fieldset>
+                                <label>What is your last name?</label>
+                                <input type="text" name="lastname" placeholder="Type your lastname here">
+                            </fieldset>
+                            <fieldset>
+                                <label>What is your first name?</label>
+                                <input type="text" name="firstname" placeholder="Type your firstname here">
+                            </fieldset>
+                            <fieldset>
+                                <label>What is your birthday date?</label>
+                                <input type="date" name="birthDay" max="${maxDate}" placeholder="Find your birth date">
+                            </fieldset>
+                            <div class="form-btn">
+                                <button type="submit" class="submit call-to-action">Submit</button>
+                                <button type="button" class="cancel cancelButton">Cancel</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1231,7 +1221,7 @@ async function fetchPeople() {
 }
 
 fetchPeople();
-},{"./libs/elements.js":"libs/elements.js","./libs/generate.js":"libs/generate.js","./libs/stroringFuctionalities.js":"libs/stroringFuctionalities.js","./libs/timing.js":"libs/timing.js","./libs/utils.js":"libs/utils.js","./people.json":"people.json"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./libs/elements.js":"libs/elements.js","./libs/generate.js":"libs/generate.js","./libs/stroringFuctionalities.js":"libs/stroringFuctionalities.js","./libs/timing.js":"libs/timing.js","./people.json":"people.json"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -1259,7 +1249,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59351" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50642" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

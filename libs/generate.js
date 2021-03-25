@@ -49,7 +49,7 @@ export function generatePeopleList(people) {
                         <div class="item-about">
                             <img class="person-avantar" src="${person.picture}" alt="This the picture for ${person.firstName} ${person.lastName}">
                             <div>
-                                <span class="personName">${person.lastName} ${person.firstName}</span>
+                                <span class="personName">${person.firstName} ${person.lastName}</span>
                                 <p class="personAge">
                                     Turns <span class="age">${dayLeft < 0 ? futureAge + 1 : futureAge }</span> on 
                                     ${new Date(person.birthday)
