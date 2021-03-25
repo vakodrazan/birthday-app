@@ -1,5 +1,5 @@
 import { searchByMonth, searchByName } from "./elements";
-
+const body = document.body;
 
 // Filter the person from the list by searching their name
 export function filterPersonByName(people){
@@ -25,4 +25,14 @@ export function filterPersonByMonth(people) {
         return getMonthOfBirth.toLowerCase().includes(select.toLowerCase());
     });
     return filterPerson;
+}
+
+// avoid scrolling
+
+export function hideScrollBar() {
+    body.style.overflowY = "hidden"
+}
+
+export function showScrollBar() {
+    body.style.overflowY = "unset"
 }

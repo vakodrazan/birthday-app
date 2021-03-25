@@ -10,24 +10,17 @@ import {
     formSearch
 } from './libs/elements.js';
 import { generatePeopleList } from './libs/generate.js';
-import { filterPersonByMonth, filterPersonByName } from './libs/stroringFuctionalities.js';
+import { 
+    filterPersonByMonth, 
+    filterPersonByName,
+    showScrollBar,
+    hideScrollBar
+} from './libs/stroringFuctionalities.js';
 import { wait, destroyPopup } from './libs/timing.js';
 import { divButton } from './libs/utils.js';
 
 // Import the local file that contains the data
 import peopleData from './people.json';
-
-// avoid scrolling
-
-const body = document.body;
-
-function hideScrollBar() {
-    body.style.overflowY = "hidden"
-}
-
-function showScrollBar() {
-    body.style.overflowY = "unset"
-}
 
 // fetch data from the json file
 async function fetchPeople() {

@@ -4,6 +4,7 @@ body {
 	color: #094067;
 	margin: 0;
 	font-size: 18px;
+	word-break: break-all;
 }
 
 .container {
@@ -256,6 +257,9 @@ select {
     border-radius: 5px;
     transition: all 0.5s;
     margin: auto;
+	overflow-y: auto;
+	height: 90vh;
+	margin-top: 30px;
 }
 
 label {
@@ -299,8 +303,14 @@ select.filteringSeacrh {
 .wrapper-content {
 	display: flex;
 	flex-direction: column;
-	padding: 30px;
-	padding-top: 10px;
+	padding-top: 39px;
+	padding-left: 20px;
+	padding-right: 30px;
+	padding-bottom: 189px;
+}
+
+.content {
+	max-width: 265px;
 }
 
 .wrapper-content-button {
@@ -417,7 +427,8 @@ select.filteringSeacrh {
 
 	.wrapper-content {
 		max-width: 70%;
-		margin: auto;
+		margin-left: auto;
+		padding-left: 0;
 	}
 
 	.persoName {
@@ -428,9 +439,8 @@ select.filteringSeacrh {
 		display: flex;
 		flex-direction: row;
 		align-items: flex-end;
-		justify-content: space-between;
 		flex-wrap: wrap;
-		row-gap: 34px;
+		gap: 34px;
 	}
 
 	.inputSearch {

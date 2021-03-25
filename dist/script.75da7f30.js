@@ -248,10 +248,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.filterPersonByName = filterPersonByName;
 exports.filterPersonByMonth = filterPersonByMonth;
+exports.hideScrollBar = hideScrollBar;
+exports.showScrollBar = showScrollBar;
 
 var _elements = require("./elements");
 
-// Filter the person from the list by searching their name
+const body = document.body; // Filter the person from the list by searching their name
+
 function filterPersonByName(people) {
   // Get the value of the input
   const input = _elements.searchByName.value;
@@ -273,6 +276,15 @@ function filterPersonByMonth(people) {
     return getMonthOfBirth.toLowerCase().includes(select.toLowerCase());
   });
   return filterPerson;
+} // avoid scrolling
+
+
+function hideScrollBar() {
+  body.style.overflowY = "hidden";
+}
+
+function showScrollBar() {
+  body.style.overflowY = "unset";
 }
 },{"./elements":"libs/elements.js"}],"libs/timing.js":[function(require,module,exports) {
 "use strict";
@@ -945,18 +957,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // ******* Importing ********* \\
 // Import all the export functions or elements that store in other files
 // Import the local file that contains the data
-// avoid scrolling
-const body = document.body;
-
-function hideScrollBar() {
-  body.style.overflowY = "hidden";
-}
-
-function showScrollBar() {
-  body.style.overflowY = "unset";
-} // fetch data from the json file
-
-
+// fetch data from the json file
 async function fetchPeople() {
   let persons = _people.default; // display the list of people
 
@@ -1023,7 +1024,7 @@ async function fetchPeople() {
                     </div>
                 </div>
             `);
-      hideScrollBar();
+      (0, _stroringFuctionalities.hideScrollBar)();
       document.body.appendChild(popupElement);
       await (0, _timing.wait)(50);
       popupElement.classList.add('open'); // Reject the Changes
@@ -1031,7 +1032,7 @@ async function fetchPeople() {
       window.addEventListener('click', e => {
         if (e.target.closest('button.cancel')) {
           (0, _timing.destroyPopup)(popupElement);
-          showScrollBar();
+          (0, _stroringFuctionalities.showScrollBar)();
         }
       }); // Submit the change
 
@@ -1047,7 +1048,7 @@ async function fetchPeople() {
 
         _elements.article.dispatchEvent(new CustomEvent('updatePeopleLs'));
 
-        showScrollBar();
+        (0, _stroringFuctionalities.showScrollBar)();
       }, {
         once: true
       });
@@ -1062,7 +1063,7 @@ async function fetchPeople() {
       const tableRow = e.target.closest('section');
       const id = tableRow.dataset.id;
       deletePersonPopup(id);
-      hideScrollBar();
+      (0, _stroringFuctionalities.hideScrollBar)();
     }
   };
 
@@ -1078,7 +1079,7 @@ async function fetchPeople() {
       window.addEventListener('click', e => {
         if (e.target.closest('button.cancel')) {
           (0, _timing.destroyPopup)(_utils.divButton);
-          showScrollBar();
+          (0, _stroringFuctionalities.showScrollBar)();
         }
       }); // Remove the person
 
@@ -1091,7 +1092,7 @@ async function fetchPeople() {
 
           _elements.article.dispatchEvent(new CustomEvent('updatePeopleLs'));
 
-          showScrollBar();
+          (0, _stroringFuctionalities.showScrollBar)();
         }
       });
     });
@@ -1161,7 +1162,7 @@ async function fetchPeople() {
       window.addEventListener('click', e => {
         if (e.target.closest('button.cancel')) {
           (0, _timing.destroyPopup)(popupAddForm);
-          showScrollBar();
+          (0, _stroringFuctionalities.showScrollBar)();
         }
       }); // Listen to the submit event
 
@@ -1182,7 +1183,7 @@ async function fetchPeople() {
 
         _elements.article.dispatchEvent(new CustomEvent('updatePeopleLs'));
 
-        showScrollBar();
+        (0, _stroringFuctionalities.showScrollBar)();
       });
     });
   };
@@ -1190,7 +1191,7 @@ async function fetchPeople() {
   const handleAddBtn = e => {
     if (e.target.closest('button.addList')) {
       handleAddListBtn();
-      hideScrollBar();
+      (0, _stroringFuctionalities.hideScrollBar)();
     }
   }; // *********** Filter ********* \\
 
@@ -1258,7 +1259,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64161" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59351" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
