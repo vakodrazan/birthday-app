@@ -965,7 +965,7 @@ async function fetchPeople() {
                             </svg>
                         </button>
                         <header class="title heading">
-                            <h2>Edit ${person.firstName} ${person.lastName}<h2>
+                            <h2 class="masthead">Edit ${person.firstName} ${person.lastName}</h2>
                         </header>
                         <div class="content">
                             <fieldset>
@@ -1120,7 +1120,7 @@ async function fetchPeople() {
                             </svg>
                         </button>
                         <header class="title heading">
-                            <h2>Add person to the list<h2>
+                            <h2 class="masthead">Add person to the list</h2>
                         </header>
                         <div class="content">
                             <fieldset>
@@ -1249,7 +1249,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50642" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49950" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

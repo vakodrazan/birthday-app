@@ -119,6 +119,7 @@ input[type="search" i]::-webkit-search-cancel-button {
 
 .formSearch {
 	padding-bottom: 47px;
+	max-width: 774px;
 }
 
 .labelSearch {
@@ -215,15 +216,16 @@ select {
 	text-transform: capitalize;
 	font-weight: 500;
 	font-size: 36px;
-	color: black;
-	padding-bottom: 10px;
+	color: black;	
 	word-break: break-all;
+	line-height: 43px;
 }
 
 .personAge {
 	color: #5F6C7B;
 	font-weight: 500;
 	font-size: 24px;
+	line-height: 28px;
 }
 
 .age {
@@ -248,6 +250,7 @@ select {
     opacity: 0;
     transition: all .5s;
     left: 0;
+	line-height: 28px;
 }
 
 .outerPopup.open {
@@ -265,7 +268,6 @@ select {
 	overflow-y: auto;
 	-ms-overflow-style: none;  /* IE and Edge */
 	scrollbar-width: none;  /* Firefox */
-	margin-top: 30px;
 }
 
 .innerPopup::-webkit-scrollbar {
@@ -286,6 +288,10 @@ label {
 	background-color: #ffff;
 }
 
+.masthead {
+	font-size: 48px;
+	line-height: 57px;
+}
 
 .filteringSeacrh:focus {
 	outline: none;
@@ -492,6 +498,13 @@ select.filteringSeacrh {
 @media (min-width: 1140px) {
 	.container {
 		padding: 0;
+	}
+}
+
+@media (min-width: 1440px) {
+	.innerPopup {
+		width: 1079px;
+		height: 728px;
 	}
 }
 
