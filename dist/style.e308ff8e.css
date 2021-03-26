@@ -493,6 +493,10 @@ select.filteringSeacrh {
 	.personName {
 		word-break: unset;
 	}
+
+	.filteringSeacrh {
+		width: 265px;
+	}
 }
 
 @media (min-width: 1140px) {
