@@ -389,6 +389,7 @@ select.filteringSeacrh {
 	color: #000;
 	border-radius: 5px;
 	border: 2px solid #5F6C7B;
+	max-width: 158px;
 }
 
 .cancel-button {
@@ -409,7 +410,6 @@ select.filteringSeacrh {
 
 .form-btn {
 	display: flex;
-	max-width: 50%;
 	gap: 20px;
 }
 
@@ -486,6 +486,9 @@ select.filteringSeacrh {
 
 	.cancel-button {
 		margin: 0;
+	}
+	.cancelButton {
+		width: 158px;
 	}
 }
 
