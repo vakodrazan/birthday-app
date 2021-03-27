@@ -259,6 +259,7 @@ select {
 
 .innerPopup {
 	height: 90vh;
+	max-height: 728px;
 	padding: 0;
 	background-color: white;
 	border-radius: 5px;
@@ -518,7 +519,6 @@ select.filteringSeacrh {
 @media (min-width: 1440px) {
 	.innerPopup {
 		width: 1079px;
-		height: 728px;
 	}
 }
 
