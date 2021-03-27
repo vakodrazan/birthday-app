@@ -480,12 +480,17 @@ select.filteringSeacrh {
 
 	.resetSearch {
 		margin: 0;
+		width: 158px;
 	}
 
 	.cancel-button {
 		margin: 0;
 	}
 	.cancelButton {
+		width: 158px;
+	}
+
+	.remove {
 		width: 158px;
 	}
 }
