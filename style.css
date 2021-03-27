@@ -96,7 +96,7 @@ input[type="search" i]::-webkit-search-cancel-button {
 	padding-top: 15px;
 	padding-bottom: 14px;
 	padding-left: 18px;
-	padding-right: 18px;
+	padding-right: 11px;
 }
 
 .resetSearch {
@@ -108,7 +108,6 @@ input[type="search" i]::-webkit-search-cancel-button {
 	padding-top: 14px;
 	padding-bottom: 14px;
 	border-radius: 5px;
-	margin-left: 10px;
 	margin-top: 20px;
 }
 
@@ -460,7 +459,6 @@ select.filteringSeacrh {
 
 	.inputSearch {
 		padding: 0;
-		width: 35%;
 	}
 
 	.person-list {
@@ -499,6 +497,10 @@ select.filteringSeacrh {
 
 	.filteringSeacrh {
 		width: 265px;
+	}
+
+	.searchMonth {
+		width: 282px;
 	}
 }
 
