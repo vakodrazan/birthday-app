@@ -73,11 +73,11 @@ async function fetchPeople() {
                                 <input type="url" name="picture" value="${person.picture}">
                             </fieldset>
                             <fieldset>
-                                <label>Last name</label>
+                                <label>Lastname</label>
                                 <input type="text" name="lastName" value="${person.lastName}">
                             </fieldset>
                             <fieldset>
-                                <label>First name</label>
+                                <label>Firstname</label>
                                 <input type="text" name="firstName" value="${person.firstName}">
                             </fieldset>
                             <fieldset>
@@ -228,11 +228,11 @@ async function fetchPeople() {
                                 <input type="url" name="pic" placeholder="Pictue url">
                             </fieldset>
                             <fieldset>
-                                <label>Last name</label>
+                                <label>Lastname</label>
                                 <input type="text" name="lastname" placeholder="Type your lastname here">
                             </fieldset>
                             <fieldset>
-                                <label>First name</label>
+                                <label>Firstname</label>
                                 <input type="text" name="firstname" placeholder="Type your firstname here">
                             </fieldset>
                             <fieldset>
