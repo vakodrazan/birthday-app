@@ -1048,7 +1048,7 @@ async function fetchPeople() {
       divButton.classList.add("open");
       divButton.insertAdjacentHTML('afterbegin', `
                 <div class="innerPopup wrapper-content-button">
-                    <div class="wrapper-content">
+                    <div class="wrapper-content delete-content">
                         <button type="button" class="cancel cancel-button">
                             <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M43.5 14.5L14.5 43.5" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

@@ -148,7 +148,7 @@ input[type="search" i]::-webkit-search-cancel-button {
 }
 
 .edit {
-	color: blue;
+	color: #094067;
 }
 
 .delete {
@@ -328,6 +328,11 @@ select.filteringSeacrh {
 	padding-left: 20px;
 	padding-right: 30px;
 	padding-bottom: 189px;
+}
+
+.delete-content {
+	max-width: 265px;
+	margin-right: auto;
 }
 
 .content {
