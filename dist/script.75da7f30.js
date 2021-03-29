@@ -981,7 +981,7 @@ async function fetchPeople() {
                                 <input type="text" name="firstName" value="${person.firstName}">
                             </fieldset>
                             <fieldset>
-                                <label>Birth day</label>
+                                <label>Birthday</label>
                                 <input type="date" name="birthday" max="${maxDate}" value="${newDate}">
                             </fieldset>
                             </div>
@@ -1124,19 +1124,19 @@ async function fetchPeople() {
                         </header>
                         <div class="content">
                             <fieldset>
-                                <label>What is your avantar?</label>
+                                <label>Avantar</label>
                                 <input type="url" name="pic" placeholder="Pictue url">
                             </fieldset>
                             <fieldset>
-                                <label>What is your last name?</label>
+                                <label>Last name</label>
                                 <input type="text" name="lastname" placeholder="Type your lastname here">
                             </fieldset>
                             <fieldset>
-                                <label>What is your first name?</label>
+                                <label>First name</label>
                                 <input type="text" name="firstname" placeholder="Type your firstname here">
                             </fieldset>
                             <fieldset>
-                                <label>What is your birthday date?</label>
+                                <label>Birthday</label>
                                 <input type="date" name="birthDay" max="${maxDate}" placeholder="Find your birth date">
                             </fieldset>
                             <div class="form-btn">
@@ -1249,7 +1249,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54463" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54398" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
