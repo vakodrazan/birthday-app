@@ -1,29 +1,35 @@
 # Birthday App
 
 In this project, all I need is that showing a list of people sorted by the soonest birthday.
- - You have a file in the project called `person.json`. It contains a list of persons, which I want to add all those persons to our birthday list app.
- - I just import because the data lives in the local json.
- 
- ### Deployment 
- Deploy it with netlify once you are done. If you already have an account that's great. But here are some tips if you don't have an account yet.
- - Click [here](https://app.netlify.com/signup). And follow the steps to get started.
-
- ## Structure: 
- I built it with ***vanilla javascript***, ***bootstrap*** and just a normal css.
-
- - You can delete item from the list. You can edit also you can add new one. Once you make change they will be saved there for you because it is saved in the local storage.
- - All the list is sorted by the soonest birthday date.
+ - I have a file in the project called `person.json`. Which contains lists of peole. That's what I need to use.
+- Users can make changes to the design such as editing an item from the list.
+- All the changes will be saved on the local storage.
+- All the list is sorted by the soonest birthday date.
  -  Also, you can search for people by typing their name (Firstname or lastname) and month of birth. But you can reset that search.
 
- - ***You can find the live app***: https://list-of-birthday-app.netlify.app/
- - Design ![ScreenShoot](https://iili.io/KxZnwB.png)
+## Technology
+- I built it with ***Vanilla JavaScript***, ***HTML5***, and ***CSS***.
 
- ## Author: 
- It is build by **Noeline Marie** front end developer At [Onja.org](https://onja.org)
+## Design
+- You can find the design: 
+ - ![ScreenShoot](./assets/homepage.png)
+ - ![ScreenShoot](./assets/edit-page.png)
+ - ![ScreenShoot](./assets/delete-page.png)
+ - Online at [figma.com/birthday-app](https://www.figma.com/file/bb1Mie5R3mUhR77PtGG8bJ/Birthday-App?node-id=0%3A1)
 
  ## Prerequisites:
 
- If you want to use this code. Clone it to your local computer. You need to run parcel to show it the browser.
+ If you want to use this code. Fork then clone it to your local computer. If you haven't installed parcel globally, then you need to install it otherwise change some logic in the `package.json`.
 
- - `npm install`
- - `parcel index.html` or `npm start`.
+These are the steps if you have to follow: 
+
+```bash
+# Clone this repository to your local computer
+$ git clone https://github.com/vakodrazan/birthday-app
+
+# Install dependencies
+$ npm install
+
+# Run the app
+$ npm start or $ parcel index.html
+```
