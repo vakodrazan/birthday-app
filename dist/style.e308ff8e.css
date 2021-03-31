@@ -493,6 +493,11 @@ select.filteringSeacrh {
 	.cancel-button {
 		margin: 0;
 	}
+
+	.call-to-action {
+		width: 158px;
+	}
+
 	.cancelButton {
 		width: 158px;
 	}
