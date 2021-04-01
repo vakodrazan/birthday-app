@@ -1,6 +1,6 @@
 # Birthday App
 
-In this project, all I need to do is showing a list of people that are sorted by the soonest birthday.
+In this project, all I need to do is displaying the list of people that are sorted by the soonest birthday.
 - It allows user to filter list.
 - It also allows user to edit, remove an item from the list.
 - The users are also able to add an item to the list
