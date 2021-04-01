@@ -1,21 +1,23 @@
 # Birthday App
 
-In this project, all I need is that showing a list of people sorted by the soonest birthday.
- - I have a file in the project called `person.json`. Which contains lists of peole. That's what I need to use.
-- Users can make changes to the design such as editing an item from the list.
-- All the changes will be saved on the local storage.
-- All the list is sorted by the soonest birthday date.
- -  Also, you can search for people by typing their name (Firstname or lastname) and month of birth. But you can reset that search.
+In this project, all I need to do is showing a list of people that are sorted by the soonest birthday.
+- It allows user to filter list.
+- It also allows user to edit, remove an item from the list.
+- The users are also able to add an item to the list
 
 ## Technology
-- I built it with ***Vanilla JavaScript***, ***HTML5***, and ***CSS***.
+- ***Vanilla JavaScript***
+- ***HTML5***
+- ***CSS***.
 
 ## Design
 - You can find the design: 
  - ![ScreenShoot](./assets/homepage.png)
  - ![ScreenShoot](./assets/edit-page.png)
  - ![ScreenShoot](./assets/delete-page.png)
+
  - Online at [figma.com/birthday-app](https://www.figma.com/file/bb1Mie5R3mUhR77PtGG8bJ/Birthday-App?node-id=0%3A1)
+ - Here is my [Demo](https://github.com/vakodrazan/birthday-app) link
 
  ## Prerequisites:
 
