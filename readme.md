@@ -12,9 +12,9 @@ In this project, all I need to do is displaying the list of people that are sort
 
 ## Design
 - You can find the design: 
- - ![ScreenShoot](./assets/homepage.png)
- - ![ScreenShoot](./assets/edit-page.png)
- - ![ScreenShoot](./assets/delete-page.png)
+![ScreenShoot](./assets/homepage.png)
+![ScreenShoot](./assets/edit-page.png)
+![ScreenShoot](./assets/delete-page.png)
 
  - Online at [figma.com/birthday-app](https://www.figma.com/file/bb1Mie5R3mUhR77PtGG8bJ/Birthday-App?node-id=0%3A1)
  - Here is my [Demo](https://github.com/vakodrazan/birthday-app) link
