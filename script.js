@@ -1,61 +1,61 @@
 // ******* Importing ********* \\
 
 // Import all the export functions or elements that store in other files
-import { 
-    article,
-    addListBtn,
-    searchByName,
-    searchByMonth,
-    resetSearch,
-    formSearch
-} from './libs/elements.js';
-import { generatePeopleList } from './libs/generate.js';
-import { 
-    filterPersonByMonth, 
-    filterPersonByName,
-    showScrollBar,
-    hideScrollBar
-} from './libs/stroringFuctionalities.js';
-import { wait, destroyPopup } from './libs/timing.js';
+import {
+  article,
+  addListBtn,
+  searchByName,
+  searchByMonth,
+  resetSearch,
+  formSearch,
+} from './libs/elements.js'
+import { generatePeopleList } from './libs/generate.js'
+import {
+  filterPersonByMonth,
+  filterPersonByName,
+  showScrollBar,
+  hideScrollBar,
+} from './libs/stroringFuctionalities.js'
+import { wait, destroyPopup } from './libs/timing.js'
 
 // Import the local file that contains the data
-import peopleData from './people.json';
+import peopleData from './people.json'
 
 // fetch data from the json file
 async function fetchPeople() {
+  let persons = peopleData
 
-    let persons = peopleData;
+  // display the list of people
+  const displayList = () => {
+    const html = generatePeopleList(persons)
+    article.innerHTML = html
+  }
 
-    // display the list of people
-    const displayList = () => {
-        const html = generatePeopleList(persons);
-        article.innerHTML = html;
+  displayList()
+
+  // ****** Edit ******* \\
+  const editPeson = (e) => {
+    // Set all the result of the edit here
+    if (e.target.closest('button.edit')) {
+      const tableRowEdit = e.target.closest('section')
+      const id = tableRowEdit.dataset.id
+      editPersonPopup(id)
     }
+  }
 
-    displayList();
+  const editPersonPopup = async (idToEdit) => {
+    // Do all the code about the edit function here
+    const person = persons.find((person) => person.id == idToEdit)
+    return new Promise(async function (resolve) {
+      const popupElement = document.createElement('form')
+      popupElement.classList.add('outerPopup')
+      popupElement.classList.add('open')
+      const newDate = new Date(person.birthday).toISOString().slice(0, 10)
+      const maxDate = new Date().toISOString().slice(0, 10)
 
-    // ****** Edit ******* \\
-    const editPeson = e => {
-        // Set all the result of the edit here
-        if (e.target.closest('button.edit')) {
-            const tableRowEdit = e.target.closest('section');
-            const id = tableRowEdit.dataset.id;
-            editPersonPopup(id);
-        }
-    }
-
-    const editPersonPopup = async idToEdit => {
-        // Do all the code about the edit function here
-        const person = persons.find(person => person.id == idToEdit);
-        return new Promise( async function(resolve) {
-            const popupElement = document.createElement('form');
-            popupElement.classList.add('outerPopup');
-            popupElement.classList.add("open")
-            const newDate = new Date(person.birthday).toISOString().slice(0, 10);
-            const maxDate = new Date().toISOString().slice(0, 10);
-
-
-            popupElement.insertAdjacentHTML('afterbegin', `
+      popupElement.insertAdjacentHTML(
+        'afterbegin',
+        `
                 <div class="innerPopup">
                     <div class="wrapper-content">
                         <button type="button" class="cancel cancel-button">
@@ -92,61 +92,67 @@ async function fetchPeople() {
                         </div>
                     </div>
                 </div>
-            `);
-            hideScrollBar();
-            document.body.appendChild(popupElement)
-            await wait(50);
-            popupElement.classList.add('open');
+            `
+      )
+      hideScrollBar()
+      document.body.appendChild(popupElement)
+      await wait(50)
+      popupElement.classList.add('open')
 
-            // Reject the Changes
-            window.addEventListener('click', e => {
-                if (e.target.closest('button.cancel')) {
-                    destroyPopup(popupElement);
-                    showScrollBar()
-                }
-            });
-
-            // Submit the change
-            popupElement.addEventListener('submit', e => {
-                e.preventDefault();
-                person.picture = popupElement.picture.value;
-                person.lastName = popupElement.lastName.value;
-                person.firstName = popupElement.firstName.value;
-                person.birthday = popupElement.birthday.value;
-
-                displayList(persons);
-                // resolve(e.currentTarget.remove());
-                destroyPopup(popupElement);
-                article.dispatchEvent(new CustomEvent('updatePeopleLs'));
-                showScrollBar();
-            }, { once: true });
-
-        });
-    }
-
-    // ****** Delete ****** \\
-    // Remove the person from the list
-    const deletePerson = e => {
-        // call the function here
-        if (e.target.closest('button.delete')) {
-            const sectionElem = e.target.closest('section');
-            const id = sectionElem.dataset.id;
-            deletePersonPopup(id);
-            hideScrollBar();
+      // Reject the Changes
+      window.addEventListener('click', (e) => {
+        if (e.target.closest('button.cancel')) {
+          destroyPopup(popupElement)
+          showScrollBar()
         }
-    }
+      })
 
-    const deletePersonPopup = async idToDelete => {
-        let person = persons.filter(person => person.id !== idToDelete);
-        let selectPerson = persons.find(person => person.id === idToDelete);
-        console.log(person);
-        // Code all thecondition about the delete list here
-        return new Promise( async function(resolve) {
-            await wait(50);
-            const divButton = document.createElement('div');
-            divButton.classList.add('outerPopup');
-            divButton.classList.add("open");
-            divButton.insertAdjacentHTML('afterbegin', `
+      // Submit the change
+      popupElement.addEventListener(
+        'submit',
+        (e) => {
+          e.preventDefault()
+          person.picture = popupElement.picture.value
+          person.lastName = popupElement.lastName.value
+          person.firstName = popupElement.firstName.value
+          person.birthday = popupElement.birthday.value
+
+          displayList(persons)
+          // resolve(e.currentTarget.remove());
+          destroyPopup(popupElement)
+          article.dispatchEvent(new CustomEvent('updatePeopleLs'))
+          showScrollBar()
+        },
+        { once: true }
+      )
+    })
+  }
+
+  // ****** Delete ****** \\
+  // Remove the person from the list
+  const deletePerson = (e) => {
+    // call the function here
+    if (e.target.closest('button.delete')) {
+      const sectionElem = e.target.closest('section')
+      const id = sectionElem.dataset.id
+      deletePersonPopup(id)
+      hideScrollBar()
+    }
+  }
+
+  const deletePersonPopup = async (idToDelete) => {
+    let person = persons.filter((person) => person.id !== idToDelete)
+    let selectPerson = persons.find((person) => person.id === idToDelete)
+    console.log(person)
+    // Code all thecondition about the delete list here
+    return new Promise(async function (resolve) {
+      await wait(50)
+      const divButton = document.createElement('div')
+      divButton.classList.add('outerPopup')
+      divButton.classList.add('open')
+      divButton.insertAdjacentHTML(
+        'afterbegin',
+        `
                 <div class="innerPopup wrapper-content-button">
                     <div class="wrapper-content delete-content">
                         <button type="button" class="cancel cancel-button">
@@ -162,55 +168,58 @@ async function fetchPeople() {
                         </div>
                     </div>
                 </div>
-            `);
+            `
+      )
 
-            // Reject it
-            window.addEventListener('click', e => {
-                if (e.target.closest('button.cancel')) {
-                    destroyPopup(divButton);
-                    showScrollBar();
-                }
-            });
-
-            // Remove the person
-            window.addEventListener('click', e => {
-                if (e.target.closest('button.remove')) {
-                    persons = person;
-                    displayList(person);
-                    destroyPopup(divButton);
-                    article.dispatchEvent(new CustomEvent('updatePeopleLs'));
-                    showScrollBar();
-                }
-            });
-
-            document.body.appendChild(divButton);
-        });
-    }
-
-    // ************ Local storage ************* \\
-    const initLocalStorage = () => {
-        const personLs = JSON.parse(localStorage.getItem('persons'));
-        if (personLs) {
-            persons = personLs;
-            displayList();
+      // Reject it
+      window.addEventListener('click', (e) => {
+        if (e.target.closest('button.cancel')) {
+          destroyPopup(divButton)
+          showScrollBar()
         }
-        article.dispatchEvent(new CustomEvent('updatePeopleLs'));
-    };
-    
-    const updateLocalStorage = () => {
-        localStorage.setItem('persons', JSON.stringify(persons));
-    };
+      })
 
-    // ************* Add Person in the list ************* \\
+      // Remove the person
+      window.addEventListener('click', (e) => {
+        if (e.target.closest('button.remove')) {
+          persons = person
+          displayList(person)
+          destroyPopup(divButton)
+          article.dispatchEvent(new CustomEvent('updatePeopleLs'))
+          showScrollBar()
+        }
+      })
 
-    const handleAddListBtn = id => {
-        return new Promise( async function(resolve) {
-            // Create a popup form when clicking the add button
-            const popupAddForm = document.createElement('form');
-            popupAddForm.classList.add('outerPopup');
-            popupAddForm.classList.add("open")
-            const maxDate = new Date().toISOString().slice(0, 10);
-            popupAddForm.insertAdjacentHTML('afterbegin',  `
+      document.body.appendChild(divButton)
+    })
+  }
+
+  // ************ Local storage ************* \\
+  const initLocalStorage = () => {
+    const personLs = JSON.parse(localStorage.getItem('persons'))
+    if (personLs) {
+      persons = personLs
+      displayList()
+    }
+    article.dispatchEvent(new CustomEvent('updatePeopleLs'))
+  }
+
+  const updateLocalStorage = () => {
+    localStorage.setItem('persons', JSON.stringify(persons))
+  }
+
+  // ************* Add Person in the list ************* \\
+
+  const handleAddListBtn = (id) => {
+    return new Promise(async function (resolve) {
+      // Create a popup form when clicking the add button
+      const popupAddForm = document.createElement('form')
+      popupAddForm.classList.add('outerPopup')
+      popupAddForm.classList.add('open')
+      const maxDate = new Date().toISOString().slice(0, 10)
+      popupAddForm.insertAdjacentHTML(
+        'afterbegin',
+        `
                 <div class="innerPopup">
                     <div class="wrapper-content">
                         <button type="button" class="cancel cancel-button">
@@ -246,74 +255,74 @@ async function fetchPeople() {
                         </div>
                     </div>
                 </div>
-            `);
+            `
+      )
 
-            document.body.appendChild(popupAddForm);
-            popupAddForm.classList.add('open');
-            
+      document.body.appendChild(popupAddForm)
+      popupAddForm.classList.add('open')
 
-            window.addEventListener('click', e => {
-                if (e.target.closest('button.cancel')) {
-                    destroyPopup(popupAddForm);
-                    showScrollBar();
-                }
-            })
-
-            // Listen to the submit event
-            popupAddForm.addEventListener('submit', e => {
-                e.preventDefault();
-                const form = e.currentTarget;
-
-                // Create a new object for the new 
-                const newPerso = {
-                    picture: form.pic.value,
-                    lastName: form.lastname.value,
-                    firstName: form.firstname.value,
-                    birthday: form.birthDay.value,
-                    id: Date.now()
-                }
-                persons.push(newPerso);
-                displayList(persons);
-                destroyPopup(popupAddForm);
-                article.dispatchEvent(new CustomEvent('updatePeopleLs'));
-                showScrollBar();
-            });
-        });
-    }
-
-    const handleAddBtn = e => {
-        if (e.target.closest('button.addList')) {
-            handleAddListBtn();
-            hideScrollBar();
+      window.addEventListener('click', (e) => {
+        if (e.target.closest('button.cancel')) {
+          destroyPopup(popupAddForm)
+          showScrollBar()
         }
+      })
+
+      // Listen to the submit event
+      popupAddForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const form = e.currentTarget
+
+        // Create a new object for the new
+        const newPerso = {
+          picture: form.pic.value,
+          lastName: form.lastname.value,
+          firstName: form.firstname.value,
+          birthday: form.birthDay.value,
+          id: Date.now(),
+        }
+        persons.push(newPerso)
+        displayList(persons)
+        destroyPopup(popupAddForm)
+        article.dispatchEvent(new CustomEvent('updatePeopleLs'))
+        showScrollBar()
+      })
+    })
+  }
+
+  const handleAddBtn = (e) => {
+    if (e.target.closest('button.addList')) {
+      handleAddListBtn()
+      hideScrollBar()
     }
+  }
 
-    // *********** Filter ********* \\
+  // *********** Filter ********* \\
 
-    function filteredByNameAndMonth() {
-        const filteredByName = filterPersonByName(persons);
-        const filteredByNameAndMonth = filterPersonByMonth(filteredByName);
-        const myHTML = generatePeopleList(filteredByNameAndMonth);
-        article.innerHTML = myHTML;
-    }
+  function filteredByNameAndMonth() {
+    const filteredByName = filterPersonByName(persons)
+    const filteredByNameAndMonth = filterPersonByMonth(filteredByName)
+    const myHTML = generatePeopleList(filteredByNameAndMonth)
+    article.innerHTML = myHTML
+  }
 
-    // Reset search form
-    const resteInputSearch = e => {
-        formSearch.reset();
-        displayList();
-    }
+  // Reset search form
+  const resteInputSearch = (e) => {
+    formSearch.reset()
+    displayList()
+  }
 
-    // ******** Listeners ******* \\
-    addListBtn.addEventListener('click', handleAddBtn);
-    article.addEventListener('click', editPeson);
-    article.addEventListener('click', deletePerson);
-    // Custom event
-    article.addEventListener('updatePeopleLs', updateLocalStorage);
-    // Filter event
-    searchByName.addEventListener('input', filteredByNameAndMonth);
-    searchByMonth.addEventListener('input', filteredByNameAndMonth);
-    resetSearch.addEventListener('click', resteInputSearch);
+  // ******** Listeners ******* \\
+  addListBtn.addEventListener('click', handleAddBtn)
+  article.addEventListener('click', editPeson)
+  article.addEventListener('click', deletePerson)
+  // Custom event
+  article.addEventListener('updatePeopleLs', updateLocalStorage)
+  // Filter event
+  searchByName.addEventListener('input', filteredByNameAndMonth)
+  searchByMonth.addEventListener('input', filteredByNameAndMonth)
+  resetSearch.addEventListener('click', resteInputSearch)
 
-    initLocalStorage();
+  initLocalStorage()
 }
-fetchPeople();
+fetchPeople()

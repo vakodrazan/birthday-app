@@ -952,7 +952,7 @@ async function fetchPeople() {
     return new Promise(async function (resolve) {
       const popupElement = document.createElement('form');
       popupElement.classList.add('outerPopup');
-      popupElement.classList.add("open");
+      popupElement.classList.add('open');
       const newDate = new Date(person.birthday).toISOString().slice(0, 10);
       const maxDate = new Date().toISOString().slice(0, 10);
       popupElement.insertAdjacentHTML('afterbegin', `
@@ -1045,7 +1045,7 @@ async function fetchPeople() {
       await (0, _timing.wait)(50);
       const divButton = document.createElement('div');
       divButton.classList.add('outerPopup');
-      divButton.classList.add("open");
+      divButton.classList.add('open');
       divButton.insertAdjacentHTML('afterbegin', `
                 <div class="innerPopup wrapper-content-button">
                     <div class="wrapper-content delete-content">
@@ -1108,7 +1108,7 @@ async function fetchPeople() {
       // Create a popup form when clicking the add button
       const popupAddForm = document.createElement('form');
       popupAddForm.classList.add('outerPopup');
-      popupAddForm.classList.add("open");
+      popupAddForm.classList.add('open');
       const maxDate = new Date().toISOString().slice(0, 10);
       popupAddForm.insertAdjacentHTML('afterbegin', `
                 <div class="innerPopup">
@@ -1158,7 +1158,7 @@ async function fetchPeople() {
 
       popupAddForm.addEventListener('submit', e => {
         e.preventDefault();
-        const form = e.currentTarget; // Create a new object for the new 
+        const form = e.currentTarget; // Create a new object for the new
 
         const newPerso = {
           picture: form.pic.value,
@@ -1221,7 +1221,7 @@ async function fetchPeople() {
 }
 
 fetchPeople();
-},{"./libs/elements.js":"libs/elements.js","./libs/generate.js":"libs/generate.js","./libs/stroringFuctionalities.js":"libs/stroringFuctionalities.js","./libs/timing.js":"libs/timing.js","./people.json":"people.json"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./libs/elements.js":"libs/elements.js","./libs/generate.js":"libs/generate.js","./libs/stroringFuctionalities.js":"libs/stroringFuctionalities.js","./libs/timing.js":"libs/timing.js","./people.json":"people.json"}],"../../../../../../usr/local/share/.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -1249,7 +1249,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51257" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44207" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -1425,5 +1425,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","script.js"], null)
+},{}]},{},["../../../../../../usr/local/share/.config/yarn/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","script.js"], null)
 //# sourceMappingURL=/script.75da7f30.js.map
